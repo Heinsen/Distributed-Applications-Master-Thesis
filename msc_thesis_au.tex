@@ -2,55 +2,22 @@
 \input{setup/macros.tex}
 
 \setcounter{tocdepth}{1}
-\def\mytitle{Title}
-\def\mytitledk{Titel}
-\def\handindate{January 1, 2020}
-\def\handindatedk{1. januar 2020}
+\def\mytitle{Distributed enterprise applications}
+\def\mytitledk{Distribuerede virksomheds applicationer}
+\def\handindate{June 6, 2017}
+\def\handindatedk{6. juni 2017}
 
 \begin{document}
 
-\pagestyle{empty}
-\pagenumbering{roman}
+\input{sections/preface/preface.tex}
+
 \input{sections/introduction/introduction.tex}
-
-\cleardoublepage
-\pdfbookmark[0]{Contents}{label:contents}
-\pagestyle{fancy}
-\tableofcontents
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter*{Preface\markboth{Preface}{Preface}}
-\addcontentsline{toc}{chapter}{Preface}
-\label{ch:preface}
-
-You should put your signatures at the end of the preface.
-
-\vfill
-\noindent\rule{0.64\textwidth}{0.5pt}\\
-Aarhus, \handindate, Student's name\\
-
-\cleardoublepage
-\pagenumbering{arabic}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Introduction}
-\label{ch:introduction}
-\section{Problem formulation}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusion}
-\label{ch:conclusion}
-\section{Perspectives}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bibliography{bib/mybib}
-\label{bib:mybiblio}
+\input{sections/domain/domain.tex}
+\input{sections/case/case.tex}
+\input{sections/conclusion/conclusion.tex}
+\input{sections/bibliography/bibliography}
 
 \appendix
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{My very first appendix}
-\label{app:myveryfirstappendix}
-Here is the first appendix
+\input{sections/appendix/appendix.tex}
 
 \end{document}
