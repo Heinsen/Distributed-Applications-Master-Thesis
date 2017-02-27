@@ -3,12 +3,17 @@
 
 \url{https://en.wikipedia.org/wiki/Cloud_computing#Infrastructure_as_a_service_.28IaaS.29}
 
-Infrastructure as a service  (IaaS) 
+Infrastructure as a service  (IaaS)
 
 Platform as a service (Paas) \url{https://en.wikipedia.org/wiki/Platform_as_a_service}
 
+Software as a service (SaaS)
+
+Mobile backend as a service MBaaS \url{https://en.wikipedia.org/wiki/Mobile_backend_as_a_service}
 
 DevOps
+
+\includegraphics[scale=0.12]{cloudnativelandscape}
 
 \input{sections/domain/cluster_management.tex}
 \input{sections/domain/containerization.tex}
@@ -17,6 +22,42 @@ DevOps
 Service Oriented Architectures \url{https://en.wikipedia.org/wiki/Service-oriented_architecture}
 
 
+\subsection{Microservices: Theory and Application}
+\url{https://www.youtube.com/watch?v=bHqRxMwfrng}
+
+Monolith:
+Typically kind of bad, as they grow and get more and more unmaintainable the cost of maintenance outpases the outweighs the benefits. Implementing a new feature takes a long time.
+
+Mircroservices:
+Domain driven design, understand what you are building. Break apart your business functions around bounded context, a bounded context per service.
+
+
+Principals
+
+\begin{itemize}
+\item Encapsulation
+\item Automation
+\item Domain centric
+\item Decentralized
+\item Independent
+\item Fail-safe
+\item Observable
+\end{itemize}
+
+Scalability 
+
+Shift to maintainability. Writing fine grained very focused micro services. It is modular, easier readable, understandable.
+
+'Sea change' - Time is ripe. Automation, containers, Dev-Ops, higher level abstraction.
+
+Team structure should usually be a holistic end to end team QA, product management, developers, release engineers, working together front to end. They own the product, service and so on. Ties the team together.
+
+Partioning strategy Verb or use-case, noun or resource, grouping things that change together. Single responsibility principle.
+
+Benefits. Faster deployment. Easier to test. Scalability.
+
+Challenges.
+More complexity. System testing. Distributed transactions, (eventual consistency). Management of system.
 
 
 
