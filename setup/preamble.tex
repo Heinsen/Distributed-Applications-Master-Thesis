@@ -123,9 +123,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Add the \citep{key} command which display a
 % reference as [author, year]
-\usepackage[square]{natbib}
+\usepackage{cite}
+%\usepackage[square]{natbib} % Old usepackage command
+%\usepackage[numbers]{natbib}
 % Appearance of the bibliography
-\bibliographystyle{apalike}
+\bibliographystyle{plain}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Misc
@@ -165,3 +167,14 @@
 	pdfstartview=FitH%
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Quotations
+% https://www.sharelatex.com/learn/Typesetting_quotations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{dirtytalk}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Remove indentation at new section
+% http://tex.stackexchange.com/questions/74170/have-new-line-between-paragraphs-no-indentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[parfill]{parskip}

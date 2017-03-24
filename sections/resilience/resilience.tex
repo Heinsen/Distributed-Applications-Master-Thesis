@@ -1,0 +1,44 @@
+\chapter{The fundamentals of resilience in cloud computing}
+\label{ch:resillience}
+
+Describe resilience now, close some possible routes to take, through writing period
+
+
+Get a concrete idea what resilience means, underlying concepts
+
+
+Identify where the strengths of micro services lie compared to monolith.
+
+
+\textbf{Resilience} \cite[p. 5]{newman2015microservices} 
+A key concept in resilience engineering is the bulkhead. If one component of a system fails, but that failure doesn’t cascade, you can isolate the problem and the rest of the system can carry on working. Service boundaries become your obvious bulkheads. In a monolithic service, if the service fails, everything stops working. With a monolithic system, we can run on multiple machines to reduce our chance of failure, but with microservices, we can build systems that handle the total failure of services and degrade functionality accordingly.
+We do need to be careful, however. To ensure our microservice systems can properly embrace this improved resilience, we need to understand the new sources of failure that distributed systems have to deal with. Networks can and will fail, as will machines. We need to know how to handle this, and what impact (if any) it should have on the end user of our software.
+We’ll talk more about better handling resilience, and how to handle failure modes, in Chapter 11.
+
+Knowing how much failure you can tolerate, or how fast your system needs to be, is driven by the users of your system. That in turn will help you understand which techniques will make the most sense for you. That said, your users won’t always be able to articulate what the exact requirements are. So you need to ask questions to help extract the right information, and help them understand the relative costs of providing different levels of service.\cite{newman2015microservices}[p. 206]
+
+
+\textbf{Cross-functional requirements}\cite{newman2015microservices}[p. 207]
+Response time/latency
+	How long should various operations take?
+	“We expect the website to have a 90th-percentile response time of 2 seconds when handling 200 concurrent connections per second.”
+
+
+Availability
+	Can you expect a service to be down? Is this considered a 24/7 service?
+
+
+Durability of data
+	How much data loss is acceptable? How long should data be kept for? This is highly likely to change on a case-by-case basis. For example, you might choose to keep user session logs for a year or less to save space, but your financial transaction records might need to be kept for many year s.
+	
+	
+Once you have these requirements in place, you’ll want a way to systematically measure them on an ongoing basis. You may decide to make use of performance tests, for example, to ensure your system meets acceptable performance targets, but you’ll want to make sure you are monitoring these stats in production as well!
+
+
+\textbf{Architectural safety measures}\cite{newman2015microservices}[p. 209]
+There are a few patterns, which collectively I refer to as architectural safety measures, that we can make use of to ensure that if something does go wrong, it doesn’t cause nasty ripple-out effects. These are points it is essential you understand, and should strongly consider standardizing in your system to ensure that one bad citizen doesn’t bring the whole world crashing down around your ears.
+
+
+But whatever the cause of the failure, we had created a system that was vulnerable to a cascading failure. A downstream service, over which we had little control, was able to take down our whole system.
+
+
