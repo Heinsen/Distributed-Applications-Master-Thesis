@@ -8,7 +8,6 @@ The requirements for enterprise application availability, performance and mainta
 
 
 \subsection*{Noter}
-
 These requirements has started big scale initiatives in cloud computing, has generated new tools and databases available for development of distributed big scale enterprise applications. 
 
 Creating a need for developers to explore and evaluate which of the many platforms to choose, 
@@ -18,3 +17,41 @@ has generated new tools and databases available for development of distributed b
 platform for automating deployment, scaling, and operations of application containers across clusters of hosts
 
 Which level are we on? High level: Google app engine, or low level abstraction: EC2.
+
+
+"The Antifragile Organization" - \url{http://queue.acm.org/detail.cfm?id=2499552}
+"Failure is inevitable. Disks fail. Software bugs lie dormant waiting for just the right conditions to bite. People make mistakes. Data centers are built on farms of unreliable commodity hardware. If you're running in a cloud environment, then many of these factors are outside of your control. To compound the problem, failure is not predictable and doesn't occur with uniform probability and frequency. The lack of a uniform frequency increases uncertainty and risk in the system. In the face of such inevitable and unpredictable failure, how can you build a reliable service that provides the high level of availability your users can depend on?"
+
+Why is it worth it to take on this monster of instability?
+
+
+"Weathering the Unexpected" - \url{http://queue.acm.org/detail.cfm?id=2371516}
+
+"Whether it is a hurricane blowing down power lines, a volcanic-ash cloud grounding all flights for a continent, or a humble rodent gnawing through underground fibers—the unexpected happens. We cannot do much to prevent it, but there is a lot we can do to be prepared for it. To this end, Google runs an annual, company-wide, multi-day Disaster Recovery Testing event—DiRT—the objective of which is to ensure that Google's services and internal business operations continue to run following a disaster."
+
+
+Disasters happen for all kinds of systems. So lets prepare for it already in implementation.
+
+
+"Site Reliability Engineering" - (page 17 in downloaded pdf)
+
+"Software engineering has this in common with having children: the labor before the birth is painful and difficult, but the labor a er the birth is where you actually spend most of your effort. Yet software engineering as a discipline spends much more time talking about the first period as opposed to the second, despite estimates that 40–90% of the total costs of a system are incurred after birth.1"
+
+
+Software systems incur a lot of work even after deployment, so lets spend some time here.
+
+
+
+"Toward Antifragile Cloud Computing Infrastructures"\cite{abid2014toward}
+"Cloud computing systems are rapidly growing in scale and complexity. They are also changing dynamically as a result of dynamic addition and removal of system components, different execution environments, common updates and upgrades, runtime repairs, mobility of devices and more. Such large-scale, complex and dynamic cloud environments are prone to failures and performance anomalies"
+
+
+"Resilience and Survivability in Communication Networks: Strategies, Principles, and Survey of Disciplines"\cite{sterbenz2010resilience}
+"The Internet has become essential to all aspects of modern life, and thus the consequences of network disruption have become increasingly severe. It is widely recognised that the Internet is not su ciently resilient, survivable, and dependable, and that significant research, development, and engineering is necessary to improve the situation."
+
+"Networks in general, and the Global Internet in particular, have become essential for the routine operation of businesses and to the global economy. Consumers use the Internet to access information, obtain products and services, manage finances, and communicate with one another. Businesses use the Internet to transact commerce with consumers and other businesses."
+
+
+
+"Toward Antifragile Cloud Computing Infrastructures" "Amal Abida,b, Mouna Torjmen Khemakhema, Soumaya Marzouka, Maher Ben Jemaaa, Thierry Monteilb,c, Khalil Drirab,c"
+"Cloud computing is earning an increasing popularity over traditional information processing systems for storing and processing huge volumes of data. This concept consists in offering services and resources on-demand over the Internet in the pay-as-you-go model. The Cloud infrastructure is built on modern data centers covering thousands of interconnected servers with capability of hosting a large number of applications. These data centers are often virtual- ized and computing resources are provisioned to the user in the form of configurable Virtual Machines (VMs)."
