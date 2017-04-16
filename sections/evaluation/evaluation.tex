@@ -2,9 +2,27 @@
 
 This chapter evaluates the two cases answer to the problem statements.
 
+\section{Consistency}
+Client-centric Benchmarking of Eventual Consistency for Cloud Storage Systems: "client-centric consistency, which captures what client applications observe directly, or system-centric consistency, which captures the convergence of the storage system’s replication protocol"
+
+'Toward a Principled Framework for Benchmarking Consistency'
+He total order extends the “happens before” partial order (i.e., if operation A ended before op- eration B began during the execution, then A precedes B in the total order);
+
+\section{Availability}
+'Benchmarking Cloud Serving Systems with YCSB'
+
+"Replication is used to improve system availability (by directing traffic to a replica after a failure), avoid data loss (by recovering lost data from a replica), and improve performance (by spreading load across multiple replicas and by making low-latency access available to users around the world)."
+
+\subsection{Measurement points}
+How does the amount of data stored affect the performance?
+How is consistency managed?
 
 \subsection*{Notes}
 
 The STREAM benchmark is a simple synthetic benchmark program that measures sustainable memory bandwidth (in MB/s) and the corresponding computation rate for simple vector kernels. 
 
 \url{http://www.cs.virginia.edu/stream/ref.html}
+
+
+'Benchmarking Cloud Serving Systems with YCSB' : 'Classification of Systems and Tradeoffs'
+Read performance versus write performance, Latency versus durability, Synchronous versus asynchronous replication, Data partitioning

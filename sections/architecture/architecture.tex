@@ -1,0 +1,60 @@
+\chapter{Architecture}
+\label{ch:architecture}
+
+\section{Monolith}
+
+
+
+
+\section{Service-Oriented}
+
+
+
+
+\section{Microservices: Theory and Application}
+The thought of microservies is not new. But the accessibility and knowledge sharing is.
+
+\url{https://www.youtube.com/watch?v=bHqRxMwfrng}
+
+Monolith:
+Typically kind of bad, as they grow and get more and more unmaintainable the cost of maintenance outpases the outweighs the benefits. Implementing a new feature takes a long time.
+
+Mircroservices:
+Domain driven design, understand what you are building. Break apart your business functions around bounded context, a bounded context per service.
+
+Principals
+
+\begin{itemize}
+\item Encapsulation
+\item Automation
+\item Domain centric
+\item Decentralized
+\item Independent
+\item Fail-safe
+\item Observable
+\end{itemize}
+
+Scalability 
+
+Shift to maintainability. Writing fine grained very focused micro services. It is modular, easier readable, understandable.
+
+'Sea change' - Time is ripe. Automation, containers, Dev-Ops, higher level abstraction.
+
+Team structure should usually be a holistic end to end team QA, product management, developers, release engineers, working together front to end. They own the product, service and so on. Ties the team together.
+
+Partitioning strategy Verb or use-case, noun or resource, grouping things that change together. Single responsibility principle.
+
+Benefits. Faster deployment. Easier to test. Scalability.
+
+Challenges.
+More complexity. System testing. Distributed transactions, (eventual consistency). Management of system.
+Organization and culture, maturity.
+
+Netflix
+\url{https://www.youtube.com/watch?v=57UK46qfBLY}
+Microservice failure
+\begin{itemize}
+\item Hystrix
+\item Chaos monkey
+\item Fault-injection test framework
+\end{itemize}

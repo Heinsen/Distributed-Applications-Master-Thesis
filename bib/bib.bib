@@ -1,30 +1,58 @@
 %% Created by Jørgen Heinsen at 2017-02-08 13:31:06 +0100 
 
-@article{BigDataChallenges,
-	author = {a},
-	date-Added = {2017-02-08 12:26:42 +0000},
-	date-Modified = {2017-02-08 12:30:54 +0000},
-	journal = {a},
-	title = {Solving Big Data Challenges for Enterprise Application Performance Management},
-	year = {2017}
+
+################# Introduciton ####################
+
+
+################# Cloud Computing ###############
+%Definition of Cloud Computing
+@inproceedings{youseff2008toward,
+  title={Toward a unified ontology of cloud computing},
+  author={Youseff, Lamia and Butrico, Maria and Da Silva, Dilma},
+  booktitle={Grid Computing Environments Workshop, 2008. GCE'08},
+  pages={1--10},
+  year={2008},
+  organization={IEEE}
 }
 
-@misc{danske_bank_setting_up_in_denmark,
-    author = "Danske bank",
-    title = "Setting up in Denmark",
-    howpublished = {\url{https://www.danskebank.se/sv-se/Foretag/Stora-foretag/Internationell-verksamhet/Internationell-etablering/Documents/Business\_Guide-Setting\_up\_in\_Denmark.pdf}},
-    year = 2009,
-    keywords  = "danske bank, denmark",
-    note = {Online; accessed 20 March 2017}
+%Definition of Cloud Computing, CloudArch article
+@article{armbrust2010view,
+  title={A view of cloud computing},
+  author={Armbrust, Michael and Fox, Armando and Griffith, Rean and Joseph, Anthony D and Katz, Randy and Konwinski, Andy and Lee, Gunho and Patterson, David and Rabkin, Ariel and Stoica, Ion and others},
+  journal={Communications of the ACM},
+  volume={53},
+  number={4},
+  pages={50--58},
+  year={2010},
+  publisher={ACM}
 }
 
-@misc{danske_bank_our_essence,
-    author = "Danske bank",
-    title = "About us",
-    howpublished = {\url{https://danskebank.com/about-us}},
-    year = 2017,
-    keywords  = "danske bank, available solutions",
-    note = {Online; accessed 20 March 2016}
+%Definition of Cloud Computing, virtulization
+@book{sosinsky2010cloud,
+  title={Cloud computing bible},
+  author={Sosinsky, Barrie},
+  volume={762},
+  year={2010},
+  publisher={John Wiley \& Sons}
+}
+
+%Definition of Cloud Computing, Nist definition
+@article{mell2011nist,
+  title={The NIST definition of cloud computing},
+  author={Mell, Peter and Grance, Tim and others},
+  year={2011},
+  publisher={Computer Security Division, Information Technology Laboratory, National Institute of Standards and Technology Gaithersburg}
+}
+
+
+
+
+################# Architecture and Patterns ####################
+@book{nygard2007release,
+  title={Release it!: design and deploy production-ready software},
+  author={Nygard, Michael},
+  year={2007},
+  publisher={Pragmatic Bookshelf}
 }
 
 @book{newman2015microservices,
@@ -33,12 +61,32 @@
   year={2015},
   publisher={" O'Reilly Media, Inc."}
 }
+################# Resilience ####################
+@book{beyer2016siteReliabilityEngineering,
+  title={Site Reliability Engineering: How Google Runs Production Systems},
+  author={Beyer, Betsy and Jones, Chris and Petoff, Jennifer and Murphy, Niall Richard},
+  year={2016},
+  publisher={" O'Reilly Media, Inc."}
+}
 
-@book{nygard2007release,
-  title={Release it!: design and deploy production-ready software},
-  author={Nygard, Michael},
-  year={2007},
-  publisher={Pragmatic Bookshelf}
+%Used in reliability definition
+@book{o2012practical,
+  title={Practical reliability engineering},
+  author={O'connor, Patrick DT and O'Connor, Patrick and Kleyner, Andre},
+  year={2012},
+  publisher={John Wiley \& Sons}
+}
+
+%Used in robustness definition
+@article{sterbenz2010resilience,
+  title={Resilience and survivability in communication networks: Strategies, principles, and survey of disciplines},
+  author={Sterbenz, James PG and Hutchison, David and {\c{C}}etinkaya, Egemen K and Jabbar, Abdul and Rohrer, Justin P and Sch{\"o}ller, Marcus and Smith, Paul},
+  journal={Computer Networks},
+  volume={54},
+  number={8},
+  pages={1245--1265},
+  year={2010},
+  publisher={Elsevier}
 }
 
 @book{omer2013resilience,
@@ -68,16 +116,15 @@
   publisher={Elsevier}
 }
 
-@article{sterbenz2010resilience,
-  title={Resilience and survivability in communication networks: Strategies, principles, and survey of disciplines},
-  author={Sterbenz, James PG and Hutchison, David and {\c{C}}etinkaya, Egemen K and Jabbar, Abdul and Rohrer, Justin P and Sch{\"o}ller, Marcus and Smith, Paul},
-  journal={Computer Networks},
-  volume={54},
-  number={8},
-  pages={1245--1265},
-  year={2010},
-  publisher={Elsevier}
+%Used for defining dependability
+@article{laprie1985dependable,
+  title={Dependable computing and fault-tolerance},
+  author={Laprie, Jean-Claude},
+  journal={Digest of Papers FTCS-15},
+  pages={2--11},
+  year={1985}
 }
+
 %% Briefly used for resilience definition, used on resilience keyword thingy
 @article{folke2002resilience,
   title={Resilience and sustainable development: building adaptive capacity in a world of transformations},
@@ -143,6 +190,7 @@
   year={2003}
 }
 
+%% Used in definition of adaptivity/adaptive capacity
 %% Briefly used for resilience definition, used on resilience keyword thingy
 @article{reed2009methodology,
   title={Methodology for assessing the resilience of networked infrastructure},
@@ -161,4 +209,23 @@
   author={Pavard, Bernard and Dugdale, Julie and Saoud, N Bellamine-Ben and Darcy, Sandrine and Salembier, Pascal},
   journal={Resilience engineering, Juan les Pins, France},
   year={2006}
+}
+
+################# Danske bank Case ####################
+@misc{danske_bank_setting_up_in_denmark,
+    author = "Danske bank",
+    title = "Setting up in Denmark",
+    howpublished = {\url{https://www.danskebank.se/sv-se/Foretag/Stora-foretag/Internationell-verksamhet/Internationell-etablering/Documents/Business\_Guide-Setting\_up\_in\_Denmark.pdf}},
+    year = 2009,
+    keywords  = "danske bank, denmark",
+    note = {Online; accessed 20 March 2017}
+}
+
+@misc{danske_bank_our_essence,
+    author = "Danske bank",
+    title = "About us",
+    howpublished = {\url{https://danskebank.com/about-us}},
+    year = 2017,
+    keywords  = "danske bank, available solutions",
+    note = {Online; accessed 20 March 2016}
 }
