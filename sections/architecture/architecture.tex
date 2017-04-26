@@ -1,17 +1,74 @@
 \chapter{Architecture}
 \label{ch:architecture}
 
-\section{Monolith}
+“ This chapter is about architectural styles, application architectures, and architecture patterns. A style describes how to implement a specific architecture, while an architecture pattern explains how to address a specific concern within an architecture but is broader than a design pattern. I suggest you not get too hung up on the differences, but just understand that DDD can reside at the heart of a lot of surrounding architectural influences.”
+Excerpt From: Vernon, Vaughn. “Implementing Domain-Driven Design.”
+
+\comment{We need to emphasize that there are many ways of doing architecture and many reason for doing particular architectures. Functional and non-functional requirements}
+
+\section{Monolithic}
+The word monolith describes a application that exists as a single unit. According to \citeauthor{fowler2014microservices} enterprise applications often consist of three main parts: client-side user interfaces, shared common database management systems and monolith server-side applications. The client-side user interface consists of HTML pages, with some underlying javascript files. The database is a shared among all applications in the enterprise, implemented as a relational database, containing tables for the entire business domain. The server-side application is a monolith, binding interface and database together, executing domain logic based on user input and retrieving and updating data as needed. The server-side application is a single executable.
+
+"To start explaining the microservice style it's useful to compare it to the monolithic style: a monolithic application built as a single unit. Enterprise Applications are often built in three main parts: a client-side user interface (consisting of HTML pages and javascript running in a browser on the user's machine) a database (consisting of many tables inserted into a common, and usually relational, database management system), and a server-side application. The server-side application will handle HTTP requests, execute domain logic, retrieve and update data from the database, and select and populate HTML views to be sent to the browser. This server-side application is a monolith - a single logical executable[2]. Any changes to the system involve building and deploying a new version of the server-side application." \cite{fowler2014microservices}
+
+\section{Service-Oriented architecture}
 
 
+\section{Microservices}
+Microservice architecture stems from a mix of SOA and UNIX philosophy, giving a system composed of many small intercommunicating services. Each individual service should have well defined and limited functionality and a well defined interface for external communication. Services communicate with each other through their interfaces and together they achieve a overarching business goal. \citeauthor{morgantini2013whatAreMicroServices} defines microservices as the following:
+
+\begin{quote_highlight}
+A system built using micro-services is a system that is built up of small, lightweight services, where each performs a single function. The services are arranged in independently deployable groups and communicate with each other via a well defined interface and work together to provide business value.\cite{morgantini2013whatAreMicroServices}
+\end{quote_highlight}
+
+\begin{figure}[!htb]
+  \includegraphics[scale=0.4]{architecture_microservice_definition}  
+  \caption{Monoliths and Microservice comparison(lend from Fowler)}
+  \label{fig:architecture_microservice_definition}
+\end{figure}
+
+\subsection{Defining characteristics}
+\textbf{Componentization via Services}\\
+Componentization is used to decouple parts of an application, so that a service is only responsible for limited amount of highly related functionality\cite{morgantini2013whatAreMicroServices}. The componentization can initially be created by analyzing the domain and identifying bounded contexts\cite{newman2015microservices}, the idea is that each bounded context contains information important internally in the context and some other information relevant externally. The external important information is therefore made available through a interface, while internally important information is hidden from outsiders, simplifying boundaries.
+By using services for componentization, a explicit interface is created, hindering tight coupling between components. Explicit remote call mechanisms are often used to facilitate communication between components. Communication through remote calls incur some overhead, forcing communication interfaces to be on high abstraction levels, making them more awkward to use than in process calls.
+
+\textbf{Splitting around Business capabilities / Functional requirements}\\
+Services are organized around business capabilities, by analysing the domain carefully, each service can be limited in size and functional requirements. Each service implements all functionality to fulfil the identified requirements for that part of the business area, potentially consisting of multiple processes, developed and deployed together. A service could implement a application process having a underlying database exclusively used for that application process.
+
+"DDD divides a complex domain up into multiple bounded contexts and maps out the relationships between them. This process is useful for both monolithic and microservice architectures, but there is a natural correlation between service and context boundaries that helps clarify, and as we describe in the section on business capabilities, reinforce the separations." \cite{fowler2014microservices}
+
+\textbf{Well defined and simple/stupid communication channel}\\
+Keeping logic out of the communication method is important when developing microservices. Inspired by UNIX implementation, microservice architecture tries to delegate the entire concern of applying logic to the service implementations. When a service receives a request it applies its logic as appropriate and produces a response. The communication is often done with HTTP request-responses, defining the communication interfaces with a REST protocol.
+
+\textbf{Decentralized Governance / Choosing technology}\\
+By decentralizing governance and organising around business capabilities, each service can be build with technology that fits well with solving the problem.
+\comment{Kunne potentielt tilføje hvordan team skills også kan splittes ud, samt hvordan det gør teams i stand til at sidde forskellige steder og arbejde med det samme}
+
+\textbf{Decentralized data management}\\
+Services often have their own data store, decentralizing data management. Each service has the data that is relevant for that service, and not more. 
+
+\comment{This infers a lot of challenges, we cannot guarantee consistency}
+\comment{Potentielt gør brug af Martin Fowler artikel "PolyglotPersistence", der snakker om brug af NoSQL teknologier}
+
+\textbf{Automation of deploymen / Independently deployable servicest}\\
+Microservices infer a lot of operational complexity, as there are many services to deploy and monitor. The use of infrastructure automation techniques is necessary, improving insight into the quality of newly developed software, and reduce the time it takes to move new features from development to production\cite{newman2015microservices}. This is often achieved with build pipelines know from Continous delivery (CD), a build pipeline is seen on figure \ref{fig:architecture_microservice_build_pipeline}.
+
+\begin{figure}[!htb]
+  \includegraphics[scale=0.8]{architecture_microservice_build_pipeline}  
+  \caption{Build pipeline(lend from Sam Newmann)}
+  \label{fig:architecture_microservice_build_pipeline}
+\end{figure}
+
+\comment{Notes*}
+Making sure that newly developed software is working is crucial. 
+Being able to release microservices independently is one of the major advantages with the architecture. 
+Automatic test and release of newly developed code is
+
+\textbf{Design for failure}\\
+As a consequence of partitioning the application into several service, the application needs to be designed so it can tolerate failure of entire services.
 
 
-\section{Service-Oriented}
-
-
-
-
-\section{Microservices: Theory and Application}
+\subsection{Notes}
 The thought of microservies is not new. But the accessibility and knowledge sharing is.
 
 \url{https://www.youtube.com/watch?v=bHqRxMwfrng}

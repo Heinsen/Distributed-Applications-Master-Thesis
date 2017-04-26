@@ -31,7 +31,7 @@ Capabilities are heterogeneous accessible over the network.
 
 \textbf{Resource pooling}\\
 The providers computing resources are pooled, serving multiple consumers simultaneously. Different physical and virtual resources are dynamically assigning and reassigning based on consumer demand.
-
+\comment{Expand with a concrete explanation of how servers are split up}
 
 \textbf{Rapid elasticity}\\
 Capabilities are elastic, supporting rapid outward and inward scaling. 
@@ -42,8 +42,6 @@ Resources are measured, providing transparency for both the provider and consume
 
 
 \comment{Maybe include this in the definition?}
-
-
 Three aspects introduced with Cloud Computing: \cite{armbrust2010view}
 1. Infinite computing resources available on demand. Can help dealing with load surges, nullifying the need for provisioning planning.
 2. Only increasing hardware resources when needed.
@@ -53,6 +51,12 @@ Three defining aspects\cite{sosinsky2010cloud}.
 1. Abstraction
 2. Massively scalable
 3. Utility, service provided
+
+The benefits of resource pooling are so compelling that technologies that makes this possible are a priority.
+
+\comment{Kunne bruges til indledning.}
+"The dictionary includes many definitions for the word “cloud.” A cloud can be a mass of water droplets, gloom, an obscure area, or a mass of similar particles such as dust or smoke. When it comes to cloud computing, the definition that best fits the context is “a collection of objects that are grouped together.” It is that act of grouping or creating a resource pool that is what succinctly differentiates cloud computing from all other types of networked systems."\cite{sosinsky2010cloud}
+
 
 \begin{figure}[!htb]
   \includegraphics[scale=0.5]{cloud_computing_definition_cloud_infrastructure}  
@@ -66,11 +70,11 @@ Service models are distinguished by the provided systems software abstraction an
 The three service models are depicted on figure \ref{fig:cloud_computing_definition_service_models}, where the different abstraction levels are visible.
 
 \textbf{Software as a Service (SaaS)}\\
-Provider make complete applications availbe on the cloud infrastructure, for consumers to start up. The applications are accessible through thin client interfaces (eg. web browsers), or program interfaces. The consumer does not manage or control underlying infrastructure and is therefore alleviated the burden of maintenance, operation and support costs \cite{youseff2008toward}.
+The provider makes the complete application availbe on the cloud infrastructure, for consumers to start up. The applications are accessible through thin client interfaces (eg. web browsers), or program interfaces. The consumer does not manage or control the underlying infrastructure and is therefore alleviated the burden of maintenance, operation and support costs\cite{youseff2008toward}.
 
 
 \textbf{Platform as a Service (PaaS)}\\
-The consumer can deploy consumer-created or acquired applications, controlling the deployment and potentially configuration settings for the hosting environment. Underlying cloud infrastructure network, servers storage, virtualization, operating system and runtime is provider managed.
+The consumer can deploy consumer-created or acquired applications, controlling the deployment and potentially configuration settings for the hosting environment. Underlying cloud infrastructure network, servers storage, virtualization, operating system (OS) and runtime is provider managed.
 
 \textbf{Infrastructure as a Service (IaaS)}\\
 The consumer can provision processing, storage and network resources, but does not manage them. The consumer can run arbitrary software.
@@ -83,16 +87,7 @@ The consumer can provision processing, storage and network resources, but does n
 
 \comment{Notes}
 utility computing - the computer resources being sold
-
-Virtualization makes management and automatic allocation of resources possible, giving the possibility to create very adaptable applications where capacity can be infinitely increased on demand\cite{armbrust2010view}.
-
-Utility computing, 
-
-Any application needs a model computation, storage and communication. 
-
-
 "Service models describe the type of service that the service provider is offering. The best-known service models are Software as a Service, Platform as a Service, and Infrastructure as a Service—the SPI model. The service models build on one another and define what a vendor must manage and what the client’s responsibility is."
-
 
 \subsection{Deployment models}
 Cloud infrastructures are made available through four different deployment models, with distinct differences. The deployment model describes  location and ownership of the infrastructure, and determines who is responsible for the infrastructure. The deployment model affects the expected data confidentiality and security, the specified availability, and the available deployment size.
@@ -101,10 +96,8 @@ Cloud infrastructures are made available through four different deployment model
 \textbf{Private cloud}\\
 Internal data center, provisioned for exclusive use to the owning organization.
 
-
 \textbf{Community cloud}\\
 The infrastructure is provisioned exclusively to a community of organizations with shared concerns to mission, security and policy among others.
-
 
 \textbf{Public cloud}\\
 The cloud infrastructure is provisioned to the general public, in a "Pay-as-you-go" manner.
@@ -117,29 +110,95 @@ A composition of several distinct cloud infrastructures.
 \comment{Should this be here or somewhere else? Should it be expanded?}
 
 
-\section{Virtualization}
-"Cloud computing bible"
-"Given a computer system with a certain set of resources, you can set aside portions of those resources to create a virtual machine. From the standpoint of applications or users, a virtual machine has all the attributes and characteristics of a physical system but is strictly software that emulates a physical machine."\cite[p. 100]{sosinsky2010cloud}
+\section{Virtualization, hypervisors and containers}
+Resource pooling enables the remaining four essential characteristics of Cloud Computing: On-demand self-service, broad network access, rapid elasticity and measured service\cite{bittman2009server}. Resource pools are split  between consumers through a multitenancy layer, that enables the cloud infrastructure to distribute one service between several consumers\cite{krebs2012architectural}. This multitenancy layer is created with hypervisor and container technologies that both provide virtualization, these technologies are fundamental for Cloud Computing. Virtualization makes it possible to create several emulations on one server, that has the same attributes and characteristics as the physical system. This emulation has a memory address space, processor resources and device I/O, and is isolated from the rest of the system, utilizing its reserved amount of resources. This section will explain both technologies, their differences and why container technology has gain on VMs in the past few years.
+
+\subsection{Hypervisors}
+Hypervisors provide virtual machines (VM) access to system resources. According to \citeauthor{sosinsky2010cloud} two types of hypervisors exist, differentiated by whether the hypervisor is on top of a host OS or not.
+
+\begin{itemize}
+	\item \textbf{Type 1 Native:} The hypervisor has no host OS.
+	\item \textbf{Type 2 Hosted:} The hypervisor is installed on top of a host OS. (seen on figure \ref{fig:cloud_computing_definition_virtualization})
+\end{itemize}
+
+Type 1 virtual machines have no host operating system below them and are running directly on a bare system, completely simulating the hardware that it is running on. Type 1 virtualization is therefore called full virtualization. Type 2 virtual machines has a underlying host operating system, with a software interface mapping guest OSs system calls to the host OS. Hypervisor virtualization is machine-level virtualization, because it attempts to emulate a complete computing environment\cite{fink2014docker}. This makes this type of virtualization very resource intensive. A hypervisor approach is ideal when applications running on a single server require different OSs, and need access to a complete computing environment.
+
+\subsection{Containers}
+Containers always share OS with the host, making container deployments very small and enables hundreds of simultaneous containers running on a single server. Containers try to share resources among running instances, by sharing RAM, disk space and kernel. Containers start up in seconds, while VMs take minutes to boot\cite{dockerFAQ}. Container virtualization is categorized as system-level virtualization, due to the the containers operating at the process level. Container virtualization is know from the Linux kernel library Linux Container(LXC). LXC gives the possibility to create processes that are sand boxed from one another, controlling their available resources. Docker is the most popular container technology, utilizing LXC adding high-level tools on top. These tools further enhance container technology by improving usability and accessibility. Docker is more thoroughly explained in the coming section. 
+
+Due to containers natural small size, each service can be packed in its own container, providing excellent separation and isolation from other service executables, configurations, libraries and lifecycles. Each service can be packed separately, preventing services from affecting or conflicting with each other. Because each service doesn't need to be composed with the remaining services and is almost independent of the production environment (besides being the correct platform), immutable containers can be created\cite{kubernetes_what_is}. This gives a consistent environment from development into production, removing possible surprise challenges in the production environment.
+\comment{Overvej om vi skal have hele application oriented vs. machine oriented med. Det er jo mere en afledt fordel, som påvirker desing og "time to market"}
 
 
+\subsection{Comparison}
+Figure \ref{fig:cloud_computing_definition_virtualization} compares a hypervisor and container approach. The hypervisor approach is ideal when different OSs or versions are needed, requiring a VM level abstraction\cite{bernstein2014containers}. Containers on the other hand reduce deployment size drastically, by utilizing a singular OS on each server. Even though the applications are limited to same platform as the server they are running on, containers have emerged as a very attractive virtualization method, due to very low overhead and ease of deployment\cite{fink2014docker}.
 
-\input{sections/cloud_computing/cluster_management.tex}
-\input{sections/cloud_computing/containerization.tex}
+\begin{figure}[!htb]
+	\centering 
+		 \includegraphics[scale=0.2]{cloud_computing_definition_virtualization}  
+	  \caption{Hypervisor and container based deployment models, model lend from \citeauthor{bernstein2014containers}}
+  \label{fig:cloud_computing_definition_virtualization}
+\end{figure}
+
+
+\comment{Notes}
+Resource pooling is in turn often enabled by the use of hypervisors or containers\cite{bernstein2014containers}. Common for both technologies is that they provide isolation and a multitenancy layer that enables the cloud infrastructure to serve different customers with one server instance\cite{krebs2012architectural}. By abstracting physical resources into virtual, management and automatic allocation of computing resource is made possible\cite{sosinsky2010cloud, armbrust2010view}, giving the possibility to subdivide physical resources, and present smaller and separate virtual resource partitions\cite{barham2003xen}. 
+
+Supporting mordern development flow, where small pieces of code is written and tested in constant iteration\cite{fink2014docker}.
+
+Modern applications often depend on many existing components, relying on other services and applications. These dependencies can easily conflict with other component dependencies\cite{merkel2014docker}. Using virtualization applications can be packaged along with dependencies and run in disparate environments, making distribution between development, test and production environments easy.
+
+\subsection{Docker}
+Docker is a open source project that provide developers with a high-level tool to manage container virtualization. Besides the earlier explained advantages with container virtualization itself, docker provides several benefits, making container virtualization even more usable. Docker introduces many indispensable features for big-scale application projects\cite{dockerFAQ}. The core features of docker are explained below:
+
+\textbf{Portable deployment across machines}\\
+By bundling the application with all its dependencies, and creating a machine-specific abstraction, docker makes it easy to run the exact same container on different machines, with different configurations.
+
+\textbf{Application-centric}\\
+Docker centralizes the application, in the deployment phase. Reducing friction when deploying the application. According to \citeauthor{burns2016borg} this has several benefits, improving application deployment and introspection.
+
+\textbf{Automatic build}\\
+Docker provides the dockerfile abstraction, making it possible to automatically assemble containers. A key feature for enabling many of the cloud infrastructure advantages. The dockerfile is a simple file that contains instructions on which libraries that are needed and actions should be taken for successfully starting the container.
+
+\textbf{Versioning}\\
+By introducing versioning of containers, docker makes it possible to track changes, introducing the many advantages known from git. Being able to see changes done to the container, control push of changes, introducing traceability all the way from development to production servers.
+
+\textbf{Component re-use}\\
+The docker images support component re-use, a dockerfile can be used as "base image" for other dockerfiles, providing a base for more specialized components.
+
+\textbf{Sharing}\\
+Docker images are accessible on the Docker Hub, that makes it possible to share useful images, that other developers can take advantage of. The docker hub also makes it possible to store images privately, still gaining the accessibility but hindering outsiders from utilizing the image.
+
+\textbf{Tool ecosystem}\\
+Docker makes it possible to automate and customize the creation and deployment of containers, through an simple API.
+
+\section{Cluster management}
+Kubernetes is a container-management tool, that watches for changes in the cluster, keeping it in a steady state.\cite{burns2016borg}. Kubernetes is open source but has mainly been developed by Google, that has extensive experience with running their infrastructure based on containers. Kubernetes has been developed with outset in two predecessor container-management tools developed internally at Google. Kubernetes main design goal is to ease deployment and management of complex distributed systems\cite{kubernetes_frontpage}. Kubernetes key features are described below:
+
+\textbf{Automatic binpacking}\\
+Kubernetes places containers on servers according to the amount of resources needed by the container, maximizing utilization of server resources, with focus on availability.
+
+\textbf{Self-healing}\\
+Containers are checked with user-defined health checks, making sure they are operating correctly. If not containers are killed and restarted, newly started containers are only advertised to users when ready to serve.
+
+\textbf{Horizontal scale}\\
+Kubernets can scale service horizontally automatically and manually.
+
+\textbf{Service discovery and load balancing}\\
+Containers are given a unique up address and a single DNS name, making them discoverable across the network.
+
+\textbf{Automated rollouts and backups}\\
+Rollouts of new configurations are done progressively while monitoring the application, making sure that there are some working instances at all times. Kubernetes can rollback configurations if working incorrectly.
+
+\textbf{Storage orchestration}\\
+Kubernetes can automatically orchestrate storage, supporting local and remote storage options.
+
 
 \subsection*{Noter}
-\url{https://en.wikipedia.org/wiki/Cloud_computing#Infrastructure_as_a_service_.28IaaS.29}
-
-Infrastructure as a service  (IaaS)
-
-Platform as a service (Paas) \url{https://en.wikipedia.org/wiki/Platform_as_a_service}
-
-Software as a service (SaaS)
-
-Mobile backend as a service MBaaS \url{https://en.wikipedia.org/wiki/Mobile_backend_as_a_service}
-
+\comment{Jeg tror det er vigtigt, gennemgående, at få lagt mere vægt på hvorfor vi snakker om det her i forhold til opgavens fokus.}
 DevOps
 
 \includegraphics[scale=0.12]{cloud_computing_cloud_native_landscape}
 
-\subsection*{Notes}
-Service Oriented Architectures \url{https://en.wikipedia.org/wiki/Service-oriented_architecture}
+%\input{sections/cloud_computing/cluster_management.tex}
+%\input{sections/cloud_computing/containerization.tex}
