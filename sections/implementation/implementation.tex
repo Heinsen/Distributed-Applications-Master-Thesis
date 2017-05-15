@@ -1,3 +1,92 @@
 \chapter{Implementation}
 
 This chapter describes the implementation
+
+
+\url{https://www.tutorialspoint.com/cassandra/cassandra_introduction.htm}
+
+
+
+\subsection{Distributed databases}
+
+
+Notes for:
+"GOTO 2012 • Introduction to NoSQL • Martin Fowler" \url{https://www.youtube.com/watch?v=qI_g07C_Q5I}:
+
+Column family:\\
+You want to store things that are retreived together should be stored together. 
+
+If are gonna distribute data, what you wanna do is you wanna distribute data that tends to be accessed together
+
+Aggregate tells you what data can be accessed together. Different aggregates on different nodes in the cluster. Aggregate orientation naturally fits very nicely with storing data on clusters.
+
+
+Changing aggregate structure is very costly. Usually hash maps is used
+
+Aggregate is an advantage if data is pushed back and forth using the same aggregate. Otherwise it is vary ineffective.
+
+Two types of databases:\\
+Aggregate-oriented:\\
+Document
+Column.family
+Key-value
+
+ACID:\\
+Graph
+\\
+
+Consistency is twofold:
+\textbf{Logical}
+
+
+\textbf{Replication}
+
+
+
+Distributing data, broadly you can talk about it in two ways:
+\textbf{Sharding}: data only lives in one place, spread out on several machines
+\textbf{Replicate data}: Same data in a lot of places. 
+Advantages for performance, several machines can handle same pool of requests.
+Resilience, if one node goes down, others have the same data and can handle requests.
+New class of consistency problems come in:
+
+Choice between consistency and availability.\\
+Consistency - my service is not always available, but always consistent.\\
+Availability- my service is always available, but might introduce inconsistency.\\
+It is always a domain/business choice, what is more important, availability or consistency.
+
+CAP theorem: - As soon as you have a distributed system
+If you get a network partition, do you want to be available, or consistent.
+It is a spectrum, it can vary between transactions.
+
+most of the time you are not trading of availability for consistency, not even network partitioning.\\
+A lot of the time it is consistency vs. response time, nodes needs to communicate, which takes times.\\
+more broadly it is safely and liveness.<- look into this? \\
+
+Have to think about consistency issues differently, essentially because you have a different data model and the possibility of replicated data. In particular you have to think about the availability consistency tradeoff, and the decisions should be based on domain/business.\\
+
+Too drivers towards noSQL:
+\textbf{Large amount of data}
+If you have more data, than fits on one server. Running relational database across clusters, is not good.\\
+There is tons of data coming, large scale data problem is only gonna grow. 
+
+\textbf{Easier development} - Most common reason why people change to noSQL right now (2012)
+Most people are actually not interested in big data.
+Most wants easier development, many works with aggregates of data, the 'impedance mismatch problem' can be reduced. Relational database model does not necessarily fit the domain.
+
+\textbf{Other drivers:}
+Integration issues goes away, because integration database is not a good thing. This gives a lot of freedom to choose new databases.
+
+Data warehouse projects, a lot of stakeholders, a lot of different data from different subsystems. noSQL databases can help in different ways, not all are equally good to solve these problems, but graph especially is very good.
+
+\textbf{Future brings:}
+Polyglot persistence. Many different databases, SQL still play a big role.Different natures of problems, different databases.
+
+A lot of problems. Which database is the best for this problem. 
+
+Tools and knowledge is not good enough for noSQL yet. Consistency issues can still cause a lot of problems.
+
+Rapid time to market, easy development is very important. Data intensity is very high. Is you project really important, strategic important, "Strategic project", it is worth taking on the extra risks the unknowns of dealing with immature technology. Utility project: Not vital to the business, choose a familiar for a few years.
+
+
+

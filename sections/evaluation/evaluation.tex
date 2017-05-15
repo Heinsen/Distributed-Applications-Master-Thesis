@@ -2,16 +2,62 @@
 
 This chapter evaluates the two cases answer to the problem statements.
 
+\section{Performance on api}
+"Once you have found that maximum, you can start thinking about shaping the traffic you generate to be more realistic. Using real traffic is an ideal scenario, although one that is not always feasible. It might be too hard or simply take too long to set it up, so we suggest an intermediate step: studying your traffic analytics and doing a simple probabilistic simulation. For instance, if you have an API with 100 endpoints, you can examine the usage for the last month to find that 80\% of the traffic goes to 20 endpoints, and that the top 3 endpoints take 50\% of all traffic. You could then create a list of requests that follows that probability and feed it to your load testing tool. That would be relatively quick to do, and most of the time, it will be close enough to show any problems that you might have with real traffic.
+Finally, if you have access to the production logs of the API you are testing, you can replay them to get the most realistic possible test. Most of the load testing tools we’ll talk about in a moment accept a file with a list of requests as an input. You can use your production logs by doing some minimal formatting changes to adapt to the format each tool expects. Once you have it, you are ready to replay production traffic as many times as you want, at the rate you want."
+\url{https://www.3scale.net/2015/04/how-to-load-test-and-tune-performance-on-your-api-part-i/}
+
+
+\section{Dependability}
+
+Kan ikke rigtig måles, de er mere metrics for hvilken resilience vi gerne vil opnå.
+
+\subsection{Availability}
+\comment{Taget fra resilience afsnit, slet det igen}
+\textbf{Availability} describes the accessibility to data, and is generally determined by calculating the time a service was unavailable, over a given period. The availability level can then be determined, by stating how much downtime is allowed, within a given period\cite[p. 477]{beyer2016siteReliabilityEngineering}. Is the data available to users or dependent service boundaries? If data is not available to our users, it does not exist from their perspective\cite[p. 345]{beyer2016siteReliabilityEngineering}.
+
+\subsection{Reliability}
+\comment{Taget fra resilience afsnit, slet det igen}
+\textbf{Reliability} is the probability that a system will fulfil set requirements in stated conditions for a given period of time\cite{o2012practical}. The resilience of the system therefore determines the reliability, by analysing the amount of external disruption a system can handle. Google states that reliability is the fundamental feature of a system, and autonomous and resilient system behaviour is a good way to achieve reliability\cite[p. 84]{beyer2016siteReliabilityEngineering}.
+
+
+\section{Adaptivity}
+Kan bedre måles, kvantificeres vha. dependability
+
+\comment{Taget fra resilience afsnit, slet det igen}
+Adaptivity can be defined as the systems ability to adapt to a disruptive situation and reconfigure themselves, without loss in the intended level of service. Including the ability to adjust to changing internal demands\cite{reed2009methodology}. Adaptivity contains, \textit{Robustness}, \textit{Fault tolerance and avoidance}, \textit{Recovery time} and \textit{Capacity and redundancy}.
+
+\subsection{Robustness}
+
+
+
+\comment{Taget fra resilience afsnit, slet det igen}
+\textit{Robustness} covers how quantifiable the system behaviour is in the face of disruption challenging system behaviour\cite[p. 10]{sterbenz2010resilience}. These disruptions are both internal and external\cite{omer2013resilience}. Robustness includes the systems ability to withstands disruptions rather than adapt to them, a robust system has been designed to withstand known uncertainties, maintain intended level of service and same form of functionality.
+
+\subsection{Fault tolerance and avoidance}
+\comment{Taget fra resilience afsnit, slet det igen}
+\textit{Fault tolerance and avoidance} is used to describe dependability of a system, from internal and external harm. Tolerance is making the system tolerable to the effects of faults. Avoidance meaning guarding a system against potential defects, that could cause system failure\cite{strigini2012fault}.
+
+\subsection{Recovery time}
+
+\comment{Taget fra resilience afsnit, slet det igen}
+\textit{Recovery time} is a measure for how long time period a system needs to resume fulfilling the stated requirements.
+
+\subsection{Capacity and redundancy}
+'Benchmarking Cloud Serving Systems with YCSB'
+
+"Replication is used to improve system availability (by directing traffic to a replica after a failure), avoid data loss (by recovering lost data from a replica), and improve performance (by spreading load across multiple replicas and by making low-latency access available to users around the world)."
+
+\comment{Taget fra resilience afsnit, slet det igen}
+\textit{Capacity and redundancy} is two different aspects that inherently are very linked. Capacity is the highest throughput a system can deliver, with and acceptable response time for each request\cite[p. 136]{nygard2007release}. Redundancy meaning how much extra capacity a system has, that can be applied in case of failure to uphold stated system requirements.
+
+\note{
 \section{Consistency}
 Client-centric Benchmarking of Eventual Consistency for Cloud Storage Systems: "client-centric consistency, which captures what client applications observe directly, or system-centric consistency, which captures the convergence of the storage system’s replication protocol"
 
 'Toward a Principled Framework for Benchmarking Consistency'
-He total order extends the “happens before” partial order (i.e., if operation A ended before op- eration B began during the execution, then A precedes B in the total order);
+He total order extends the “happens before” partial order (i.e., if operation A ended before operation B began during the execution, then A precedes B in the total order);
 
-\section{Availability}
-'Benchmarking Cloud Serving Systems with YCSB'
-
-"Replication is used to improve system availability (by directing traffic to a replica after a failure), avoid data loss (by recovering lost data from a replica), and improve performance (by spreading load across multiple replicas and by making low-latency access available to users around the world)."
 
 \subsection{Measurement points}
 How does the amount of data stored affect the performance?
@@ -26,3 +72,44 @@ The STREAM benchmark is a simple synthetic benchmark program that measures susta
 
 'Benchmarking Cloud Serving Systems with YCSB' : 'Classification of Systems and Tradeoffs'
 Read performance versus write performance, Latency versus durability, Synchronous versus asynchronous replication, Data partitioning
+
+
+
+\url{https://www.youtube.com/watch?v=BiTPWxzunc0}
+
+
+
+
+What are you trying to achieve, performance characteristics and expectations for the api
+
+What is a normal load, average requests pr. second, more importantly is what are the type of peeks that we expect.
+
+Profile of traffic, sceewed: by endpoints accessed or type of users: apps or inhouse users.
+
+Spectrum of things for loadtesting:
+
+We want to achieve Nirvana in load testing, but we do not want to do it in production, wanna do it in a safe controlled environment.
+
+Steps:
+1: Homogeneous load, same amount of request pr. second
+2: Taking real log load traffic, pushing it through at a very high rate. - Can be hard, especially with post request.
+	At least get some simulated traffic.
+	
+Different tools:
+JMeter: Functional testing of web application. Hard to generate stable high rate of throughput.
+wrk:
+Vegeta: 
+Loader.io, Blazemeter: 
+
+
+Typical bottleneck - Maximize the number of available Simultaneous Connections
+
+No silver bullet, refine and iterate process. Tweeking, experimenting and testing. With improvements you can achieve wished results.
+
+Best results, use real traffic. 
+
+Horizontal vs vertical scaling:
+one thing is to figure out what is the limiting factor. In this example it is CPU, so AWS servers were compute machines. The idea is to experiment and find out whether you can scale up or out, in order to be able to boost the performance best.
+
+The biggest challenges is to think through edge cases. It is important the typical profile. Test the standard, but also edge cases. One rouge application can possible bring down all good traffic. Try to create new traffic patterns
+}

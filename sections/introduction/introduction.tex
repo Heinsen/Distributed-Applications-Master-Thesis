@@ -1,13 +1,18 @@
 \chapter{Introduction}
 \label{ch:introduction}
+\comment{Skal tilpases ny problemformulering}
 The requirements for enterprise application availability, performance and maintainability is constantly rising. Stemming from high amounts of information with unpredictable and varying load, together with a demand for failure free and feature rich platforms. These requirements has opened a new market for big scale cloud-computing services, providing server infrastructure and tools which help resolve these new challenges. A lot of new possibilities has opened with many open source initiatives, giving new possibilities when deploying, scaling and updating applications, with containerization as the enabling technology. The cloud-computing services are constantly expanding and reiterating tools, trying to capture the market.
 
 
 
 \input{sections/introduction/problem_formulation.tex}
 
+\note{
 
-\subsection*{Noter}
+Kig i kapitel 2 s. 59 - cloud-native-java-designing-resilient-systems-with-spring-boot-spring-cloud-and-cloud-foundry
+"The patterns for how we develop software, both in teams and as individuals, are always evolving. The open source software movement has provided the software industry with somewhat of a Cambrian explosion of tools, frameworks, platforms, and operating systems—all with an increasing focus on flexibility and automation. A majority of today’s most popular open source tools focus on features that give soft‐ ware teams the ability to continuously deliver software faster than ever before possi‐ ble, at every level, from development to operations."
+
+%\subsection*{Noter}
 These requirements has started big scale initiatives in cloud computing, has generated new tools and databases available for development of distributed big scale enterprise applications. 
 
 Creating a need for developers to explore and evaluate which of the many platforms to choose, 
@@ -17,7 +22,6 @@ has generated new tools and databases available for development of distributed b
 platform for automating deployment, scaling, and operations of application containers across clusters of hosts
 
 Which level are we on? High level: Google app engine, or low level abstraction: EC2.
-
 
 "The Antifragile Organization" - \url{http://queue.acm.org/detail.cfm?id=2499552}
 "Failure is inevitable. Disks fail. Software bugs lie dormant waiting for just the right conditions to bite. People make mistakes. Data centers are built on farms of unreliable commodity hardware. If you're running in a cloud environment, then many of these factors are outside of your control. To compound the problem, failure is not predictable and doesn't occur with uniform probability and frequency. The lack of a uniform frequency increases uncertainty and risk in the system. In the face of such inevitable and unpredictable failure, how can you build a reliable service that provides the high level of availability your users can depend on?"
@@ -67,3 +71,15 @@ Stability summary chapter 6 \cite[p. 117]{nygard2007release}
 "A View of Cloud Computing"
 "While the cost of over provisioning is easily measured, the cost of under provisioning is more difficult to measure yet potentially equally serious: not only do rejected users generate zero revenue, they may never come back"
 "In fact, this example underestimates the benefits of elasticity, because in ad- dition to simple diurnal patterns, most services also experience seasonal or other periodic demand variation (for example, e-commerce in December and photo sharing sites after holidays) as well as some unexpected demand bursts due to external events "
+}
+
+\note{
+“1.4. Attack of the Clusters
+At the beginning of the new millennium the technology world was hit by the busting of the 1990s dot-com bubble. While this saw many people questioning the economic future of the Internet, the 2000s did see several large web properties dramatically increase in scale.”
+Excerpt From: “NoSQL Distilled: A Brief Guide to the Emerging World of Polyglot Persistence.” 
+
+
+“One is to handle data access with sizes and performance that demand a cluster; the other is to improve the productivity of application development by using a more convenient data interaction style”
+Excerpt From: pramod j. sadalage. “NoSQL Distilled: A Brief Guide to the Emerging World of Polyglot Persistence.” iBooks. 
+
+}
