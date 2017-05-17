@@ -4,6 +4,185 @@
 The requirements for enterprise application availability, performance and maintainability is constantly rising. Stemming from high amounts of information with unpredictable and varying load, together with a demand for failure free and feature rich platforms. These requirements has opened a new market for big scale cloud-computing services, providing server infrastructure and tools which help resolve these new challenges. A lot of new possibilities has opened with many open source initiatives, giving new possibilities when deploying, scaling and updating applications, with containerization as the enabling technology. The cloud-computing services are constantly expanding and reiterating tools, trying to capture the market.
 
 
+\section{It not just microservices}
+
+Several movements have started based on working processes, software architectures and technology. There are entire conferences based on these particular topics, there among microservices, agile, NoSQL, Cassandra and and more. These George calls these \textit{industry "Hot" topics}. These topics are all based around going faster, as a company, when creating, updating and expanding applications. 
+
+The problem domain has changed, problems today are very complex. When starting to solve a problem, you start in a state of disorder, where the problem has to be defined. Todays application work on these problems, because that is where the value is according to George.
+
+Competition is very fast, new technology enables start up companies to move fast. Cloud computing gives the possibility to reserve resource, immediately, easy and cheaper than ever before. These cloud solutions also drive down barriers for entering global markets, a infrastructure is easily created on the other side of the world. Many programming languages are available, and supported by frameworks that makes it possible to create something functional very quickly. These things are open source and easily available to start up companies.
+
+\textbf{Scrum and Delivery cycles}
+Scrum iteration time has been cut drastically in time. A iteration time of 2 or 3 weeks is too long according to George. Delivery cycles has been reduced from 5 or 3 years in the 1980's, to 1 week or a single day in 2015. This has been achieved by optimizing the work process.
+
+There are three type of inhibitors, technology, process and organisational explained below.
+
+\subsection{technology inhibitors}
+\textbf{Cloud exploitation}
+Cloud computing and containerization has made it possible to order hardware very quickly. Docker has made it possible to start a new container in 5 seconds. Capacity planning, estimating the needed capacity before beginning developing an application is now useless. With virtualization it has become a operational expense. This is hard to change in big companies, has a lot to do with the organisation.
+
+Services can now be developed very small, instead of having a single big service, containing more than a million lines of code, services can now consist of only 50 lines of code. This is possible because of virtualization. Several very successful big scale companies, has moved in this direction independently.
+
+
+\textbf{Programming languages}
+Event busses is a key factor in making microservices a thing. Traditionally you would have a SQL database, with operational data in it, there would be scripts build around updating and testing it.
+Event buses substitute this by introducing a stream that can publish events pushed to it. By implementing services that subscribe to this event bus and filters the messages, a publish/subscribe pattern can be achieved. Services can subscribe to events in the cluster that are interesting to them, and react accordingly. Services publish their events on to the event bus, when they have results that are interesting for other parts of the cluster.
+LinkedIn uses Kafka, and has opensourced it.
+
+By building systems as microservices, the system architecture changes drastically. When systems need help from other services, it is published to the event bus, subscribing 'helper' services then react on the incoming event, if they are needed. This isolates the services, they are only responding to events, further several service version can be run in parallel, updating a service without stopping the old version before dependent services have migrated to the new one. If one type of service fails, the dependent service can degrade functionality gracefully.
+
+Incremental applications are made available through this event bus. Services can be added as they are developed. As services are added, functionality rises. Developed code earns money immediately. Improving development speed.
+
+Big database is dead. The eventbus holds anything interesting. If you need persistence, hold your own copy of the information. We prefer to cache the data locally than query the remotely. Database poly-glot, each service can hold the data it needs. This makes us faster, we can choose the database we need.
+
+You want to put everything on the eventbus. Not only communication between services but also user stories, logging, server status and so on. You therefore need the rivers of the main river.
+
+\textbf{Open source frameworks}
+Netflix has opensourced a lot of their libraries. Docker is open source. Do not be afraid of using it.
+
+Disruptive languages are comming in. A lot of different languages are being used now. Some of them are really good at a specific job we solved in forexmaple java before. Now can be solved in 4000 instead of 130.000 lines of code. Scala, Erlang, Clojure are functional languages being used now.
+
+
+\subsection{Process inhibitors}
+\textbf{Problem}
+You have to figure out which problem you are trying to solve. If you are solving a complex problem microservices are good. If you are solving a straightforward problem, traditional architecture may be better.
+
+\textbf{Requirements}
+It is hard to solve complex problems. We cannot set requirements for that, no one know how to achieve it. We want to know what we want to accomplish with the application. How do you make money, how do you get ore clicks. We want to experiment different implementations. Experimentation drives innovation, we want to fail and learn from it. 
+
+\textbf{Interaction with customers}
+Customers come and tell us what features need to be. Teach the developer their domain. Raise up to the feature level, figure out how to solve the problems presented by the customers.
+
+\textbf{Measure what matters}
+Business success metrics. Measure programmers against that. 
+
+\subsection{Organisational inhibitors}
+\textbf{Over specialization}
+Too many titles. 
+
+Project managers, team leads were removed. 
+
+Made simple model, you can be a graduate, developer or senior developer and System developer(Full stack developer) at the same level. System developers was the wanted goal. They can be handed feature requests and figure out how it should be implemented.
+
+\textbf{Fix the furniture}
+You sit at the same table as the rest of the feature team.
+
+\textbf{Dedicated leadership was killed}
+Leadership was removed from each team. There is no need for a dedicated leader to lead 10 people team.
+Leaders would do the same as the other workers, if the leader was needed, you go talk to him.
+
+\textbf{Bringing work to the team}
+There is a tendandncy to reform projects and put programmers together and that defines the new team.
+It takes 4-7 weeks before the team is productive, agree on technology and communication tools. Teams are therefore not reformed.
+Come with project and money to our team, and we will implement it, until you do not have more money.
+
+\subsection{Take away}
+You need to do all of these things to be successful with microservices. You can deliver very fast if you are able to make it.
+
+
+
+\section{Time is ripe}
+Eric Evans talked about domain driven design (DDD) at the 'Domain Driven Design Europe' conference\cite{evans2016tackling}, focusing on the role of DDD in state of the art development. Evans explains how available development technologies have diversified, and developer insight and knowledge in available technologies is high. Evans describes the status of the software development community from his point of view, in 2003 when he wrote his well known book: \textit{Domain Driven Design Tackling Complexity in the Heart of Software}\cite{evans2004domain}. According to Evans software developers were not necessarily ready to put focus on DDD in 2003. The amount of broadly used languages, was limited to Java, J2EE and SQL as the only available database technology. Developers were forced to create applications only utilizing these technologies. Evans emphasise how software developers were focused on learning to utilize programming languages, where as today's developers have a deep understanding languages and tools, and are ready to utilize them. Developers today can afford to put emphasis on understanding the underlying challenges in the particular domain, and finding the optimal architecture to solve them. DDD is too hard to accomplish with previous limitations, but a new level of seasoned development languages, frameworks and tools together with a higher skill level amongst programmers now makes DDD attainable for the masses. According to Evans It is a good time to take DDD to the next level, different technology movements are pushing developers towards more thoughtful design of applications. Developers cannot get away with the same amount of sloppiness, because modern applications cannot be compiled into a single server side monolith. Evans further states that there are big rewards for small loosely coupled modules, having clear cut and limited functionality, and that these rewards are necessary for successful development of modern applications.
+
+
+\note {
+Object oriented programming was the only modelling paradigm beforehand. Event sourcing is another and newer paradigm. Relational is a modelling paradigm, that makes it possible compare and manipulate big sets of data. Relational schemas has been used as generalised places to put all data in an application. 
+We want to create a schema that takes just the data we need.
+
+"A feature common to the successes was a rich domain model that evolved through iterations of design and became part of the fabric of the project." \cite[Preface]{evans2004domain}
+“model represents some aspect of reality or an idea that is of interest. A model is a simplification. It is an interpretation of reality that abstracts the aspects relevant to solving the problem at hand and ignores extraneous detail." \cite[p.~2]{evans2004domain}
+
+“It excluded hundreds of facts that the engineers understood but that were not directly relevant, such as the actual digital features of the components.” \cite[p.~12]{evans2004domain}
+
+“He or she would have a framework to organize new information and learn faster, to make better guesses about what was important and what was not, and to communicate better with the PCB engineers.”\cite[p.~12]{evans2004domain}
+
+“Effective domain modelers are knowledge crunchers. They take a torrent of information and probe for the relevant trickle.”\cite[p.~13]{evans2004domain}
+
+“This distillation is a rigorous expression of the particular knowledge that has been found most relevant.”\cite[p.~13]{evans2004domain}
+}
+
+
+\section{Nygaard Stability Patterns and Antipatterns}
+
+\url{https://www.youtube.com/watch?v=VZePNGQojfA}
+Worked as devops, identified some recurring problems, 'luckily'
+
+
+\textbf{Definition of availability:}
+Probability that system is operating at time t.
+When I do something, is the system successfully going to complete that thing? Complete the mission that it is given.
+Has nothing to do with servers running, hardware being alive.
+Not something that is directly controllable. You ability to introduce stability in your software.
+
+\textbf{Stability}
+Architectural characteristic, allow to maintain availability. In the face of outrageous fortune.  
+Slings and errors of faults and errors.
+
+\textbf{Fault}
+Incorrect internal state. Initiated internally, or something introduced from the outside, through network for example.
+Fault-tolerance - You recover internal incorrect state, you use exception handlers f.example.
+Fault-intolerance - As soon as i detect incorrect internal state, terminate.
+
+We want to stop the system from producing an error.
+
+\textbf{Error}
+If the system produces incorrect output, or the behaviour of the system is different than usual. If the system starts hammering another system, with exessive request, thats an error in behaviour.
+On account of a undiscovered fault in the system.
+
+\textbf{Failure}
+Some errors lead to failures.
+Loss of availability. The system is unresponsive. The system can no longer accomplish its mission.
+We want to avoid failure.
+
+\textbf{Wicked database hang}
+A lot of variables in the particular problem, the situation was very unique. 
+It is impossible to engineer every problem away from every integration point. Therefore you need to put in things in place that prevent a failure at a integration point, to propagate to the entire system, and take it down.
+
+\textbf{in spec vs out of spec "wicked error"}
+Unless you force them in QA, you only get the wicked error in production, unless you design QA with them included.
+Use a test harness to find the problems in development.
+
+\textbf{Patterns to help with integration points}
+Use circuit break, use timeouts, use decoupling middleware, handshaking.
+
+\textbf{Chain reactions}
+It is common but wrong to treat horizontal scaled farm of servers, machines or containers, as independent devices. They are highly correlated, through for example software.
+Failure in one of a correlated set of applications means that the risk of failure in the remaining applications is higher.
+
+\textbf{Cascading failure}
+Let the 'error jump the gap'. Amplifying a failure in a down stream system.
+
+
+\textbf{Spectrum of calling}
+Which implementation of communication do we choose 
+Nygaard talks about the spectrum of calling, how in-process method calls are easy and cannot fail. If the library with the function in it, is there, then it works. It is the same time, same host and same process.
+Same time, different host and different process, is harder. The call is blocking, but we are not sure to receive a answer any time soon.
+
+The longer we can wait with taking a definitive decision the better. A mix of the communication styles my be preferable.
+
+
+\textbf{Error will occur}
+Errors will occur, the big question is whether we amplify them or do something to dampen or nullify them in our organization. 
+If a system is fatigue, failure can occur, it sets cracks in the structure, that crack can propagate if it is not stopped. We get a catastrophic failure.
+If we have crack stoppers in place, dampering the failure, prevent it from propagating and accelerating. 
+We cannot prevent the system from getting damaged. But we can preserve some feature for some users, and prevent catastrophic failures.
+
+
+Nygaard likes the idea of simmian army, it is hard if not impossible to test the system at the same scale as in production. Forcing yourself to be anti-fragile, by creating problems.
+
+Monitoring system design. It is good if it can register heartbeats from the application. A lot of systems only register when something goes wrong. Not getting a heartbeat is something going wrong.
+
+
+
+
+\section{Abstraction}
+Here we want to discuss how we see a modern cloud native application.
+We want some kind of diagram that shows our perspective. Which layers and how will we distinguish here on out.
+
+We want the cloud native diagram one, with all technologies in it.
+
+“Most SERVICES discussed in the literature are purely technical and belong in the infrastructure layer. Domain and application SERVICES collaborate with these infrastructure SERVICES. For example, a bank might have an application that sends an e-mail to a customer when an account balance falls below a specific threshold. The interface that encapsulates the e-mail system, and perhaps alternate means of notification, is a SERVICE in the infrastructure layer."\cite[p.~103]{evans2004domain}
+
 
 \input{sections/introduction/problem_formulation.tex}
 
@@ -83,3 +262,9 @@ Excerpt From: “NoSQL Distilled: A Brief Guide to the Emerging World of Polyglo
 Excerpt From: pramod j. sadalage. “NoSQL Distilled: A Brief Guide to the Emerging World of Polyglot Persistence.” iBooks. 
 
 }
+
+
+
+
+
+

@@ -173,7 +173,7 @@ Docker images are accessible on the Docker Hub, that makes it possible to share 
 Docker makes it possible to automate and customize the creation and deployment of containers, through an simple API.
 
 \section{Cluster management}
-Kubernetes is a container-management tool, that watches for changes in the cluster, keeping it in a steady state.\cite{burns2016borg}. Kubernetes is open source but has mainly been developed by Google, that has extensive experience with running their infrastructure based on containers. Kubernetes has been developed with outset in two predecessor container-management tools developed internally at Google. Kubernetes main design goal is to ease deployment and management of complex distributed systems\cite{kubernetes_frontpage}. Kubernetes key features are described below:
+Kubernetes is a container-management tool, that watches for changes in the cluster, keeping it in a steady state\cite{2016borg}. Kubernetes is open source but has mainly been developed by Google, that has extensive experience with running their infrastructure based on containers. Kubernetes has been developed with outset in two predecessor container-management tools developed internally at Google. Kubernetes main design goal is to ease deployment and management of complex distributed systems\cite{kubernetes_frontpage}. Kubernetes key features are described below:
 
 \textbf{Automatic binpacking}\\
 Kubernetes places containers on servers according to the amount of resources needed by the container, maximizing utilization of server resources, with focus on availability.
@@ -194,9 +194,34 @@ Rollouts of new configurations are done progressively while monitoring the appli
 Kubernetes can automatically orchestrate storage, supporting local and remote storage options.
 
 
+\url{https://github.com/kubernetes/kubernetes/tree/master/examples/storage/cassandra}  
+This example also uses some of the core components of Kubernetes:\\
+Pods\\
+Services\\
+Replication Controllers\\
+Stateful Sets\\
+Daemon Sets\\
+
+\begin{figure}[!htb]
+	\centering 
+		 \includegraphics[scale=0.4]{cloud_computing_kubernetes_architecture}
+	  \caption{From docker documentation \url{https://kubernetes.io/docs/tutorials/kubernetes-basics/cluster-intro/}}
+  \label{fig:cloud_computing_kubernetes_architecture}
+\end{figure}
+
 \subsection*{Noter}
+\comment{Kig på den her, for input til kubernetes afsnit}
+\url{https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture.md}
+
 \comment{Jeg tror det er vigtigt, gennemgående, at få lagt mere vægt på hvorfor vi snakker om det her i forhold til opgavens fokus.}
 DevOps
+
+\comment{Kig noget mere på hvad de mener med de her ting, og hvad der er indforstået med cloud native}
+\url{https://www.cncf.io/about/charter/}
+
+\comment{Kig på cloud native, brug gerne "The cloud-native future - O'Reilly Media" downloadet som pdf i Cloud litterature mappen}
+
+
 
 \includegraphics[scale=0.12]{cloud_computing_cloud_native_landscape}
 

@@ -121,6 +121,7 @@ Unbalanced capacity refers to the service capacities of dependent services, and 
 
 \subsection{Slow Response}
 Quick responses lets the calling service proceed rapidly, a slow responses on the other hand, ties the resources that the calling service is using for a longer period. Slow responses can trigger cascading failures, due to slow upstream responses from a calling service that is tied up in a slow response. Slow responses causes increased amounts of traffic due to users frequently reloading pages loading slowly. Slow responses can be solved by failing fast if response times exceeds upper timing limits, and ensuring that there is not a shared resource contention.
+A slow response ties up the resource on the calling end, the longer a call is on a service provider, the larger the caller needs to scale, to handle the same amount of traffic.
 
 \subsection{SLA Inversion}
 Service-level agreement inversion is when a service promises a specific service level without taking into account the service-level agreement of the services it relies on. Service-level is determined by the dependencies service-levels and the probability for failure internally. It is therefore important to decouple from dependent services and degrade functionality gracefully as dependant services fail. If decoupling is not possible, circuit breaks can be put into place. 
