@@ -1,12 +1,79 @@
 \chapter{Introduction}
 \label{ch:introduction}
-\comment{Skal tilpases ny problemformulering}
-The requirements for enterprise application availability, performance and maintainability is constantly rising. Stemming from high amounts of information with unpredictable and varying load, together with a demand for failure free and feature rich platforms. These requirements has opened a new market for big scale cloud-computing services, providing server infrastructure and tools which help resolve these new challenges. A lot of new possibilities has opened with many open source initiatives, giving new possibilities when deploying, scaling and updating applications, with containerization as the enabling technology. The cloud-computing services are constantly expanding and reiterating tools, trying to capture the market.
+\note {
+The requirements for enterprise application availability, resilience, performance and maintainability are constantly rising. Stemming from high amounts of information with unpredictable and varying load, together with a demand for failure free and feature rich platforms. These requirements has opened a new market for big scale cloud-computing services, providing server infrastructure and tools which help resolve these challenges. A lot of new possibilities has opened with many open source initiatives, giving new possibilities when deploying, scaling and updating applications, with virtualization as the enabling technology.
+}
+
+\note{
+General about the space
+
+We have some new challenges, not present before, this forces us to work in new ways
+
+Competition, requires us to move faster when developing
+New platforms, does not necessarily allow us to work as we have done before.
+We need smaller iterations, quicker and independent releases, updates and additions to our projects.
+The problems we are trying to solve are harder than previously, we need to understand them more thoroughly
+}
+
+Software development is getting increasingly more focused towards having short and independent release cycles. Conferences and open source communities have focus on new technology, system architecture, working process and organisational structure, all with a common goal: speeding up software development and the ability to solve increasingly difficult problems. Conferences are either entirely committed to or has tracks about topics like: Cloud, Agile, Domain Driven Design, Microservices, NoSQL, Docker, Cassandra among many others. Increased competition and complexity of the problems companies are solving today directly impact the entire software development industry. This is Fred George's outset in his talk at \textit{GOTO Stockholm 2016}\cite{george2016it}. According to George there are two reasons for this focus shift: increased competition and increased complexity of the problems needing a solution.
+
+George states that small startup companies in the software industry have gained several technological advantages and increased business insight. Cloud computing enables buying computing resources as they need them, cheap and easy. New languages and open source frameworks makes it possible to create nice and feature rich applications very quickly. At the same time, business models from successful Silicon Valley startups are becoming well know. These advantages are removing former existing barriers for startups, creating a competitive environment, where time to market and daily innovation is extremely important for any company, big or small.
+
+George further explains the rise in complexity of the problems solved in today's era of software development. According to him, the valuable problems to solve, are inherently very complex, creating their value in the first place. He states that the best solution is found through many small iterations, with focus on individual features and a high amount of iterations.
+
+George emphasizes the need for speeding up development iterations showing the decreasing length of iterations from the early 2000 to today. The chat is depicted in Figure \ref{fig:introduction_iteration_agile_age}. 
+George utilized scrum in the teams he was colaborating with in the early 2000, but shifted to extreme programming, cutting down on iteration length. According to George today's agile development iteration length should be less than one week, personally preferring a iteration length on a single day. Stating that a very shot iteration length improves productivity immensely.
+
+\begin{figure}[!htb]
+  \includegraphics[scale=0.2]{introduction_iteration_agile_age}  
+  \caption{Iteration length in the agile age}
+  \label{fig:introduction_iteration_agile_age}
+\end{figure}
 
 
+
+\note{
+There is material in his speech to go on here. Talk more about the pyramid of 'interaction level' with customers that he shows.
+}
+
+Eric Evans talked about domain driven design (DDD) at the \textit{Domain Driven Design Europe} conference\cite{evans2016tackling} in 2016, focusing on the role of DDD in state of the art development. Evans explains how available development technologies have diversified, and developer insight and knowledge is very good. Monolith applications were a result of technological boundaries, and prohibited good design of big applications. According to Evans these boundaries have disappeared, pushing developers towards more thoughtful design of applications. By creating monolith applications, development of a clearly separated applications is really hard. Developers today need to put emphasis on understanding the underlying challenges in the particular domain, identifying the optimal architecture that supports the context.
+
+
+
+\comment{Kunne man snakke om at der er kommet en meget større mediator? Mange flere resourcer for moderne developers.}
+
+\note{
+We need need another architecture
+
+How do we break down the problems
+How do we create and architecture that gives us the possibility to work fast, in independently teams
+Where did we come from, where do we want to go
+
+\begin{figure}[!htb]
+  \includegraphics[scale=1]{introduction_microservice_premium}  
+  \caption{The microservice premium}
+  \label{fig:introduction_microservice_premium}
+\end{figure}
+
+}
+
+\note{
+Technology makes us able to achieve more things
+
+Cloud computing has introduced virtualization, makes it possible to do new cool things
+
+Knowledge sharing has increased exponentially. Open source frameworks, and tools.
+A defining characteristic of NoSQL is open source. - Is taken from the fowler book
+Kubernetes, Kafka, Cassandra
+}
+
+\note{
+Challenges in this new space
+
+}
+\note {
 \section{It not just microservices}
-
-Several movements have started based on working processes, software architectures and technology. There are entire conferences based on these particular topics, there among microservices, agile, NoSQL, Cassandra and and more. These George calls these \textit{industry "Hot" topics}. These topics are all based around going faster, as a company, when creating, updating and expanding applications. 
+Several movements have started based on working processes, software architectures and technology. There are entire conferences based on these particular topics, there among microservices, agile, NoSQL, Cassandra and more. These George calls these \textit{industry "Hot" topics}. These topics are all based around going faster, as a company, when creating, updating and expanding applications. 
 
 The problem domain has changed, problems today are very complex. When starting to solve a problem, you start in a state of disorder, where the problem has to be defined. Todays application work on these problems, because that is where the value is according to George.
 
@@ -23,7 +90,6 @@ Cloud computing and containerization has made it possible to order hardware very
 
 Services can now be developed very small, instead of having a single big service, containing more than a million lines of code, services can now consist of only 50 lines of code. This is possible because of virtualization. Several very successful big scale companies, has moved in this direction independently.
 
-
 \textbf{Programming languages}
 Event busses is a key factor in making microservices a thing. Traditionally you would have a SQL database, with operational data in it, there would be scripts build around updating and testing it.
 Event buses substitute this by introducing a stream that can publish events pushed to it. By implementing services that subscribe to this event bus and filters the messages, a publish/subscribe pattern can be achieved. Services can subscribe to events in the cluster that are interesting to them, and react accordingly. Services publish their events on to the event bus, when they have results that are interesting for other parts of the cluster.
@@ -38,9 +104,9 @@ Big database is dead. The eventbus holds anything interesting. If you need persi
 You want to put everything on the eventbus. Not only communication between services but also user stories, logging, server status and so on. You therefore need the rivers of the main river.
 
 \textbf{Open source frameworks}
-Netflix has opensourced a lot of their libraries. Docker is open source. Do not be afraid of using it.
+Netflix has open sourced a lot of their libraries. Docker is open source. Do not be afraid of using it.
 
-Disruptive languages are comming in. A lot of different languages are being used now. Some of them are really good at a specific job we solved in forexmaple java before. Now can be solved in 4000 instead of 130.000 lines of code. Scala, Erlang, Clojure are functional languages being used now.
+Disruptive languages are coming in. A lot of different languages are being used now. Some of them are really good at a specific job we solved in forexmaple java before. Now can be solved in 4000 instead of 130.000 lines of code. Scala, Erlang, Clojure are functional languages being used now.
 
 
 \subsection{Process inhibitors}
@@ -78,12 +144,14 @@ Come with project and money to our team, and we will implement it, until you do 
 
 \subsection{Take away}
 You need to do all of these things to be successful with microservices. You can deliver very fast if you are able to make it.
+}
 
-
+\note{
 
 \section{Time is ripe}
-Eric Evans talked about domain driven design (DDD) at the 'Domain Driven Design Europe' conference\cite{evans2016tackling}, focusing on the role of DDD in state of the art development. Evans explains how available development technologies have diversified, and developer insight and knowledge in available technologies is high. Evans describes the status of the software development community from his point of view, in 2003 when he wrote his well known book: \textit{Domain Driven Design Tackling Complexity in the Heart of Software}\cite{evans2004domain}. According to Evans software developers were not necessarily ready to put focus on DDD in 2003. The amount of broadly used languages, was limited to Java, J2EE and SQL as the only available database technology. Developers were forced to create applications only utilizing these technologies. Evans emphasise how software developers were focused on learning to utilize programming languages, where as today's developers have a deep understanding languages and tools, and are ready to utilize them. Developers today can afford to put emphasis on understanding the underlying challenges in the particular domain, and finding the optimal architecture to solve them. DDD is too hard to accomplish with previous limitations, but a new level of seasoned development languages, frameworks and tools together with a higher skill level amongst programmers now makes DDD attainable for the masses. According to Evans It is a good time to take DDD to the next level, different technology movements are pushing developers towards more thoughtful design of applications. Developers cannot get away with the same amount of sloppiness, because modern applications cannot be compiled into a single server side monolith. Evans further states that there are big rewards for small loosely coupled modules, having clear cut and limited functionality, and that these rewards are necessary for successful development of modern applications.
+Eric Evans talked about domain driven design (DDD) at the 'Domain Driven Design Europe' conference\cite{evans2016tackling}, focusing on the role of DDD in state of the art development. Evans explains how available development technologies have diversified, and developer insight and knowledge in available technologies is high. Evans describes the status of the software development community in 2003 when he wrote his well known book: \textit{Domain Driven Design Tackling Complexity in the Heart of Software}\cite{evans2004domain}. According to Evans software developers were not necessarily ready to put focus on DDD in 2003. The amount of broadly used languages, was limited to Java and J2EE, with SQL as the only available database technology. Applications at that time always utilizing these languages. Evans emphasise how software developers were focused on learning to utilize programming languages, where as today's developers have a deep understanding languages and tools, and are ready to utilize them. Developers today can afford to put emphasis on understanding the underlying challenges in the particular domain, and finding the optimal architecture to solve them. DDD is too hard to accomplish with previous limitations, but a new level of seasoned development languages, frameworks and tools together with a higher skill level amongst programmers now makes DDD viable for everyone. According to Evans It is a good time to take DDD to the next level, different technology movements are pushing developers towards more thoughtful design of applications. Developers cannot get away with the same amount of sloppiness, because modern applications cannot be compiled into a single server side monolith. Evans further states that there are big rewards for small loosely coupled modules, having clear cut and limited functionality, and that these rewards are necessary for successful development of modern applications.
 
+}
 
 \note {
 Object oriented programming was the only modelling paradigm beforehand. Event sourcing is another and newer paradigm. Relational is a modelling paradigm, that makes it possible compare and manipulate big sets of data. Relational schemas has been used as generalised places to put all data in an application. 
@@ -101,79 +169,150 @@ We want to create a schema that takes just the data we need.
 “This distillation is a rigorous expression of the particular knowledge that has been found most relevant.”\cite[p.~13]{evans2004domain}
 }
 
+\note {
 
-\section{Nygaard Stability Patterns and Antipatterns}
-
-\url{https://www.youtube.com/watch?v=VZePNGQojfA}
-Worked as devops, identified some recurring problems, 'luckily'
-
-
-\textbf{Definition of availability:}
-Probability that system is operating at time t.
-When I do something, is the system successfully going to complete that thing? Complete the mission that it is given.
-Has nothing to do with servers running, hardware being alive.
-Not something that is directly controllable. You ability to introduce stability in your software.
-
-\textbf{Stability}
-Architectural characteristic, allow to maintain availability. In the face of outrageous fortune.  
-Slings and errors of faults and errors.
-
-\textbf{Fault}
-Incorrect internal state. Initiated internally, or something introduced from the outside, through network for example.
-Fault-tolerance - You recover internal incorrect state, you use exception handlers f.example.
-Fault-intolerance - As soon as i detect incorrect internal state, terminate.
-
-We want to stop the system from producing an error.
-
-\textbf{Error}
-If the system produces incorrect output, or the behaviour of the system is different than usual. If the system starts hammering another system, with exessive request, thats an error in behaviour.
-On account of a undiscovered fault in the system.
-
-\textbf{Failure}
-Some errors lead to failures.
-Loss of availability. The system is unresponsive. The system can no longer accomplish its mission.
-We want to avoid failure.
-
-\textbf{Wicked database hang}
-A lot of variables in the particular problem, the situation was very unique. 
-It is impossible to engineer every problem away from every integration point. Therefore you need to put in things in place that prevent a failure at a integration point, to propagate to the entire system, and take it down.
-
-\textbf{in spec vs out of spec "wicked error"}
-Unless you force them in QA, you only get the wicked error in production, unless you design QA with them included.
-Use a test harness to find the problems in development.
-
-\textbf{Patterns to help with integration points}
-Use circuit break, use timeouts, use decoupling middleware, handshaking.
-
-\textbf{Chain reactions}
-It is common but wrong to treat horizontal scaled farm of servers, machines or containers, as independent devices. They are highly correlated, through for example software.
-Failure in one of a correlated set of applications means that the risk of failure in the remaining applications is higher.
-
-\textbf{Cascading failure}
-Let the 'error jump the gap'. Amplifying a failure in a down stream system.
-
-
-\textbf{Spectrum of calling}
-Which implementation of communication do we choose 
-Nygaard talks about the spectrum of calling, how in-process method calls are easy and cannot fail. If the library with the function in it, is there, then it works. It is the same time, same host and same process.
-Same time, different host and different process, is harder. The call is blocking, but we are not sure to receive a answer any time soon.
-
-The longer we can wait with taking a definitive decision the better. A mix of the communication styles my be preferable.
-
-
-\textbf{Error will occur}
-Errors will occur, the big question is whether we amplify them or do something to dampen or nullify them in our organization. 
-If a system is fatigue, failure can occur, it sets cracks in the structure, that crack can propagate if it is not stopped. We get a catastrophic failure.
-If we have crack stoppers in place, dampering the failure, prevent it from propagating and accelerating. 
-We cannot prevent the system from getting damaged. But we can preserve some feature for some users, and prevent catastrophic failures.
-
-
-Nygaard likes the idea of simmian army, it is hard if not impossible to test the system at the same scale as in production. Forcing yourself to be anti-fragile, by creating problems.
-
-Monitoring system design. It is good if it can register heartbeats from the application. A lot of systems only register when something goes wrong. Not getting a heartbeat is something going wrong.
+\section{Microservices at Netflix scale}
+Netflix are very known for utilizing microservices at a monumental scale, and are often quoted and set as an example for the movement towards microservice architectures. In a talk at \textit{GOTO Amsterdam 2016}, called \textit{Microservices at Netflix Scale: Principles, Tradeoffs \& Lessons Learned}\cite{meshenberg2016microservices} with Ruslan Meschenberg, director of Platform engineering at Netflix. 
 
 
 
+
+There are challenges with doing microservices.
+
+Their old monolith application could not be moved directly to the cloud. Therefore they piece by piece moved it to the cloud.
+
+Monolith was latent to bugs, introducing a bug in one part, the bug was in the entire application. The RDBMS was further a single point of failure. Not very resilient.
+They had a meltdown of their delivery system, which caused them to prioritize moving from a monolith to microservices.
+
+\subsection{First principles of microservices}
+\textbf{Buy it vs build it}
+Netflix does only build software if they have to, and cannot use open source or payed software. Put emphasise on contributing to open source is in focus contra buying software.
+
+\textbf{Services should be stateless}
+Most of your services should be stateless, exception for persistence and caching layer.
+If a node die, you just need to retry it or hit another instance.
+Netflix use caos testing to prove they do this.
+
+\textbf{Scale out vs. up}
+If you keep scaling up, you hit a limit.
+Horizontal scaling gives a longer runway. It is so much easier to add new instances. Cloud gives the benefit of elasticity.
+
+\textbf{Redundancy and isolation for resiliency}
+You do not want a single point of failure.
+We want to isolate failures, so we do not get cascading failures. Then redundancy does not necessarily help.
+
+\textbf{Automate destructive testing}
+Simian Army. Started with chaos monkey.
+Our system will fail, and it will fail at a suboptimal time, if we do not develop a resilient system.
+
+\subsection{Principles in action}
+\textbf{Stateless services}
+In order for a stateless service to be a good citizen. Register in service discovery. Needs to implement a health check, so external system can verify it is functional. If it wants to call other services it needs to call service discovery to get information on the other service locations.
+
+You need to test that services are stateless while they are running in production. Development environment will not be the same.
+
+\textbf{Chaos monkey}
+Runs around and destroys services, monday to friday.
+
+\textbf{Data}
+From RDBMS to Cassandra.
+
+Cassandra is Netflix main key value storage.
+It is one of the biggest scale noSQL services. It is open source, Netflix needed to contribute, making it multi regional, multi directional replication ready.
+Storage engine, with respect to CAP theorem, available, partition tolerance, tunable consistency. 
+
+\textbf{Billing services}
+Deal with money, and they have to be a bit more careful. Want to do it just right. 
+It needs to be fully locked, and is not as accessible as the rest of the services.
+Took Netflix the longest to migrate to the cloud, of all their services from the monolith.
+
+
+\subsection{Priorities}
+\textbf{1. Innovation}
+Always strive for innovation, traded for reliability and efficiency.
+
+\textbf{2.Reliability}
+
+
+\textbf{3. Efficiency}
+
+Challenge in monolith, there is a lot of coupling between teams, one team may be ready for deploying, others are not. It is too slow, hinders the innovation.
+
+Loose coupling: Each team work independently. Each team Develop, Test, Deploy and support their product. End-end ownership.
+There is a motivation for writing quality code, and writing it fast. Engineers get motivated by results and their impact. Everyone are constantly doing something.
+
+Separation of concerns:
+Each team can focus on their core.
+
+\subsection{Cost of microservices}
+\textbf{Changes the organisation}
+Some jobs disappear.
+
+You want to evolve the organisation.
+
+\textbf{Migration does not happen overnight}
+It takes time before you can move everything to the new system. Have to maintain and possible expand the old monolith.
+
+\subsection{Lessons learned}
+\textbf{IPC is crucial for loose coupling}
+Common language between the services, establish the contract/language between services.
+
+You want some homogeneity how you deploy the services. People do not have to reinvent how the deploy the applications.
+Gives source of truth, if something goes wrong, we can look at which technology we changed lastly.
+
+\textbf{Databases}
+Caching to protect DBs
+
+500 plus microservices are harder on the database than one or two monoliths.
+Therefore netflix uses chaches in front of the databases.
+
+\textbf{Telemetry}
+Operational visibility matters.
+
+Will telemetry scale with number of services, and will you be able to identify what is important to monitor.
+Observe -> Orient -> Decide -> Act
+This is done automatically, there is to many logs for a human to make any sense of.
+
+\textbf{Arkitektural diagram}
+You do not have the luxury of a architecture diagram. You have to create diagram at runtime, because changes in the architecture happens all the time.
+
+\textbf{Reliability matters}
+It is really important at scale.
+Rate of failure is proportional to the amount of change at the scale at which the system is running. Netflix are pushing a lot of changes and are running at massive scale.
+
+Netflix strive for 4 9's of availability. 52 minutes of downtime a year.
+
+\textbf{Availability}
+Availability is very important. Netflix likes to focus on Innovation and velocity, but availability is important to retain customers.
+
+Cascading failures are prone in microservices. If each microservices has a availability of 99.99, the overall availability gets poor.
+We want to detect and correct the errors. Therefore we use circuit breakers, because we do not want to propagate the failure to the client. 
+We want to figure out if the failure is in a non-critical service. If it is not critical we can probably still give good service in the remaining areas.
+
+\textbf{Destructive testing}
+You have to inject failure in production. Not to start with, but in the end.
+
+FIT - Fault-injection Test Framework, used to insert failures into http connections, 'test harness'.
+
+\textbf{Containers}
+Does not make microservices.
+
+Changes the level of encapsulation, from virtual machine to process.
+Great benefits for developer velocity, iterate on short cycles, you can do a lot of cool things. It is not a silver bullet.
+Running containers at scale requires a very good infrastructure. Use kubernetes if you want to run it.
+
+\subsection{Microservices resource}
+\textbf{Netlfix made a lot of open source}
+Use it instead of developing it on your own.
+
+\subsection{Take away}
+Microservices bring good value. To developer velocity, availability and other dimensions.
+
+They are not free. It requires orginisational changes and central infrastructure investment. Do not necessarily do it just because Netflix did it.
+
+}
+
+\note{
 
 \section{Abstraction}
 Here we want to discuss how we see a modern cloud native application.
@@ -182,16 +321,18 @@ We want some kind of diagram that shows our perspective. Which layers and how wi
 We want the cloud native diagram one, with all technologies in it.
 
 “Most SERVICES discussed in the literature are purely technical and belong in the infrastructure layer. Domain and application SERVICES collaborate with these infrastructure SERVICES. For example, a bank might have an application that sends an e-mail to a customer when an account balance falls below a specific threshold. The interface that encapsulates the e-mail system, and perhaps alternate means of notification, is a SERVICE in the infrastructure layer."\cite[p.~103]{evans2004domain}
+}
 
+\newpage
 
 \input{sections/introduction/problem_formulation.tex}
 
 \note{
 
 Kig i kapitel 2 s. 59 - cloud-native-java-designing-resilient-systems-with-spring-boot-spring-cloud-and-cloud-foundry
-"The patterns for how we develop software, both in teams and as individuals, are always evolving. The open source software movement has provided the software industry with somewhat of a Cambrian explosion of tools, frameworks, platforms, and operating systems—all with an increasing focus on flexibility and automation. A majority of today’s most popular open source tools focus on features that give soft‐ ware teams the ability to continuously deliver software faster than ever before possi‐ ble, at every level, from development to operations."
+"The patterns for how we develop software, both in teams and as individuals, are always evolving. The open source software movement has provided the software industry with somewhat of a Cambrian explosion of tools, frameworks, platforms, and operating systems—all with an increasing focus on flexibility and automation. A majority of today’s most popular open source tools focus on features that give software teams the ability to continuously deliver software faster than ever before possible, at every level, from development to operations."
 
-%\subsection*{Noter}
+\subsection*{Noter}
 These requirements has started big scale initiatives in cloud computing, has generated new tools and databases available for development of distributed big scale enterprise applications. 
 
 Creating a need for developers to explore and evaluate which of the many platforms to choose, 
@@ -249,7 +390,7 @@ Stability summary chapter 6 \cite[p. 117]{nygard2007release}
 
 "A View of Cloud Computing"
 "While the cost of over provisioning is easily measured, the cost of under provisioning is more difficult to measure yet potentially equally serious: not only do rejected users generate zero revenue, they may never come back"
-"In fact, this example underestimates the benefits of elasticity, because in ad- dition to simple diurnal patterns, most services also experience seasonal or other periodic demand variation (for example, e-commerce in December and photo sharing sites after holidays) as well as some unexpected demand bursts due to external events "
+"In fact, this example underestimates the benefits of elasticity, because in addition to simple diurnal patterns, most services also experience seasonal or other periodic demand variation (for example, e-commerce in December and photo sharing sites after holidays) as well as some unexpected demand bursts due to external events "
 }
 
 \note{
@@ -259,8 +400,7 @@ Excerpt From: “NoSQL Distilled: A Brief Guide to the Emerging World of Polyglo
 
 
 “One is to handle data access with sizes and performance that demand a cluster; the other is to improve the productivity of application development by using a more convenient data interaction style”
-Excerpt From: pramod j. sadalage. “NoSQL Distilled: A Brief Guide to the Emerging World of Polyglot Persistence.” iBooks. 
-
+Excerpt From: pramod j. sadalage. “NoSQL Distilled: A Brief Guide to the Emerging World of Polyglot Persistence.” iBooks.
 }
 
 

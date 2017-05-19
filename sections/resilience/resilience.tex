@@ -176,8 +176,82 @@ Decoupling Middleware is the communication protocol used to communicate between 
 Nygaard describes how fundamental it is to the system design which form of communication is chosen, and how big consequences for the implementation changing this has. Choosing communication in a system is on an architecture level, fundamentally changing the implementation of individual services within the system.
 \comment{Expand this, I feel like this is very important. Find more sources talking about this}
 
+\comment{Use the notes from the goto conference video:}
+\note{
+\section{Nygaard Stability Patterns and Antipatterns}
 
-\comment{Notes}
+\url{https://www.youtube.com/watch?v=VZePNGQojfA}
+Worked as devops, identified some recurring problems, 'luckily'
+
+
+\textbf{Definition of availability:}
+Probability that system is operating at time t.
+When I do something, is the system successfully going to complete that thing? Complete the mission that it is given.
+Has nothing to do with servers running, hardware being alive.
+Not something that is directly controllable. You ability to introduce stability in your software.
+
+\textbf{Stability}
+Architectural characteristic, allow to maintain availability. In the face of outrageous fortune.  
+Slings and errors of faults and errors.
+
+\textbf{Fault}
+Incorrect internal state. Initiated internally, or something introduced from the outside, through network for example.
+Fault-tolerance - You recover internal incorrect state, you use exception handlers f.example.
+Fault-intolerance - As soon as i detect incorrect internal state, terminate.
+
+We want to stop the system from producing an error.
+
+\textbf{Error}
+If the system produces incorrect output, or the behaviour of the system is different than usual. If the system starts hammering another system, with exessive request, thats an error in behaviour.
+On account of a undiscovered fault in the system.
+
+\textbf{Failure}
+Some errors lead to failures.
+Loss of availability. The system is unresponsive. The system can no longer accomplish its mission.
+We want to avoid failure.
+
+\textbf{Wicked database hang}
+A lot of variables in the particular problem, the situation was very unique. 
+It is impossible to engineer every problem away from every integration point. Therefore you need to put in things in place that prevent a failure at a integration point, to propagate to the entire system, and take it down.
+
+\textbf{in spec vs out of spec "wicked error"}
+Unless you force them in QA, you only get the wicked error in production, unless you design QA with them included.
+Use a test harness to find the problems in development.
+
+\textbf{Patterns to help with integration points}
+Use circuit break, use timeouts, use decoupling middleware, handshaking.
+
+\textbf{Chain reactions}
+It is common but wrong to treat horizontal scaled farm of servers, machines or containers, as independent devices. They are highly correlated, through for example software.
+Failure in one of a correlated set of applications means that the risk of failure in the remaining applications is higher.
+
+\textbf{Cascading failure}
+Let the 'error jump the gap'. Amplifying a failure in a down stream system.
+
+
+\textbf{Spectrum of calling}
+Which implementation of communication do we choose 
+Nygaard talks about the spectrum of calling, how in-process method calls are easy and cannot fail. If the library with the function in it, is there, then it works. It is the same time, same host and same process.
+Same time, different host and different process, is harder. The call is blocking, but we are not sure to receive a answer any time soon.
+
+The longer we can wait with taking a definitive decision the better. A mix of the communication styles my be preferable.
+
+
+\textbf{Error will occur}
+Errors will occur, the big question is whether we amplify them or do something to dampen or nullify them in our organization. 
+If a system is fatigue, failure can occur, it sets cracks in the structure, that crack can propagate if it is not stopped. We get a catastrophic failure.
+If we have crack stoppers in place, dampering the failure, prevent it from propagating and accelerating. 
+We cannot prevent the system from getting damaged. But we can preserve some feature for some users, and prevent catastrophic failures.
+
+
+Nygaard likes the idea of simmian army, it is hard if not impossible to test the system at the same scale as in production. Forcing yourself to be anti-fragile, by creating problems.
+
+Monitoring system design. It is good if it can register heartbeats from the application. A lot of systems only register when something goes wrong. Not getting a heartbeat is something going wrong.
+}
+
+
+
+\note{
 \begin{quote_highlight}
 "Ability of the system to resume normal functionality after shock"\cite[p. 15]{omer2013resilience}
 \end{quote_highlight}
@@ -265,3 +339,4 @@ But whatever the cause of the failure, we had created a system that was vulnerab
 
 \textbf{Countering Integration Point Problems}\cite{nygard2007release}[p. 44]
 "The most effective patterns to combat integration point failures are Circuit Break and Decoupling Middleware"
+}
