@@ -1,17 +1,5 @@
 \chapter{The Fundamentals of Resilience in Cloud Computing}
 \label{ch:resillience}
-Describe resilience now, close some possible routes to take, through writing period
-
-
-Get a concrete idea what resilience means, underlying concepts
-
-
-Identify where the strengths of micro services lie compared to monolith.
-
-
-Set the stage: Why are we talking about resilience, why is it important?
-
-
 
 Nygaard describes how software engineering is taught incompletely, and that focus when developing distributed software should be shifted. Nygaard states that focus should be on what a system should not do, contra today's focus on what a system should do. The first acknowledgement when developing distributed systems is according to Nygaard the realisation that failure will occur, and focus should be on handling them instead of avoiding them altogether. Further stating that a stable system will keep on working as intended, even though persistent stress or component failure is present.
 
@@ -28,23 +16,22 @@ Strigini describes a movement within information and communication technology, s
 Dealing with resilience in distributed systems is a necessity, when applications are growing in scale and complexity. The following chapter will establish a definition of resilience, which can be used to evaluate application and infrastructure architecture. 
 
 \section{Defining resilience}
-Resilience stems from the Latin word resilíre, meaning "to leap back". Relating it to software engineering it can be defined as a systems ability to "bounce back" and adapt to disruption. \cite{omer2013resilience} Resilience has been used within many disciplines before being applied to software engineering, and has been defined very broadly, potentially incorporating many aspects within cloud computing. The following section will try to pin down what resilience means within cloud computing and what it entails to strive for a system with a high resilience.
+Resilience stems from the Latin word resilíre, meaning "to leap back". Relating it to software engineering it can be defined as a systems ability to "bounce back" and adapt to disruption\cite{omer2013resilience}. Resilience has been used within many disciplines before being applied to software engineering, and has been defined very broadly, potentially incorporating many aspects within cloud computing. The following section will try to pin down what resilience means within cloud computing and what it entails to strive for a system with a high resilience.
 
 
 Resilience has been defined and characterised by many different parties, within several disciplines.\cite{folke2002resilience, dalziell2004resilience, rose2005modeling, andersson2006urban, fiksel2003designing, bruneau2003framework, reed2009methodology, pavard2006design}
-These definitions help understand the meaning of resilience, and link it to the understanding of cloud computing. Important keywords from these definitions have been identified and put into figure \ref{fig:resilience_keywords}, creating an resilience characteristic overview. The keywords identify the core concepts that resilience convey when used, all very relevant when defining resilience within cloud computing.
+These definitions help understand the meaning of resilience, and link it to the understanding of cloud computing. Important keywords from these definitions have been identified, creating an overview of different resilience characteristics. The keywords identify the core concepts that resilience convey when used, all very relevant when defining resilience within cloud computing.
 
 All collections of keywords relate very closely, and help define key concepts within resilience with keywords such as: \textit{stable equilibrium, cope, adapt, proactive measures, reorganize, retain structure, redundancy, robustness}. The context in which there is a necessity for resilience is also included and clear, focusing on the possible disruptive events, described with the following keywords: \textit{undergoing change, face of disruption, face of stress, perturbation, disruptive events}, emphasizing the need for resilient systems in environment characterized by these keywords.
 
-\begin{figure}[!htb]
-  \includegraphics[scale=0.15]{resilience_keywords}  
-  \caption{Resilience keywords}
-  \label{fig:resilience_keywords}
-\end{figure}
-
-
 The keywords can be grouped and related to know principles within cloud computing, helping simplify the broader characteristics of resilience, creating a model for a cloud computing related resilience definition. The keywords have been grouped according to their association, under a headline inspired directly by the identified resilience keywords and known cloud computing keywords, seen on figure \ref{fig:resilience_keywords_grouped}. The two overarching words being \textit{dependability} and \textit{adaptivity} each with several sub-concepts, all described in the following section.
 
+\begin{figure}[!htb]
+  \includegraphics[scale=0.15]{resilience_keywords_grouped}  
+  \caption{Resilience keywords grouped in a cloud context}
+  \label{fig:resilience_keywords_grouped}
+\end{figure}
+\newpage
 \subsection{Dependability}
 Dependability describes the systems ability to deliver the intended level of service, whether the users can rely on the servie level. Having a dependable service means to have a service level that is not impacted by faults and their derived errors. The users of a system perceive the system state as an alternation between service accomplishment and interruption, either a service is precisely as specified or different. The transition between these states are controlled by restoration and failure events, either pushing the service in a direction that aligns or deviates with the intended service level. Dependability is mainly quantified through measures on \textit{availability} and \textit{reliability}\cite{laprie1985dependable}.
 
@@ -69,15 +56,11 @@ Adaptivity can be defined as the systems ability to adapt to a disruptive situat
 
 
 \textit{Capacity and redundancy} is two different aspects that inherently are very linked. Capacity is the highest throughput a system can deliver, with and acceptable response time for each request\cite[p. 136]{nygard2007release}. Redundancy meaning how much extra capacity a system has, that can be applied in case of failure to uphold stated system requirements.
+
+\note {
 \begin{figure}[!htb]
   \includegraphics[scale=0.15]{resilience_capacity}  
   \caption{Capacity figure from: Ambrust et al. – A View of Cloud Computing \comment{Make own picture of this :).}  }
-  \label{fig:resilience_keywords_grouped}
-\end{figure}
-
-\begin{figure}[!htb]
-  \includegraphics[scale=0.15]{resilience_keywords_grouped}  
-  \caption{Resilience keywords grouped in a cloud context}
   \label{fig:resilience_keywords_grouped}
 \end{figure}
 
@@ -85,7 +68,7 @@ Adaptivity can be defined as the systems ability to adapt to a disruptive situat
 \comment{The layer abstraction should be explained like in his book} 
 \comment{Explain service-oriented architecture}
 \comment{Define operations}
-
+}
 
 \section{Stability Antipatterns}
 When working with big complex systems, rest assure: Failure is bound to happen. How the failure was triggered, which fractures it created and how much it propagated will differ each time. Stability antipatterns is a concept Nygaard uses when understanding how these failures appear within a distributed system, which characteristics the failures have and how some architectures leads to them.\cite[p. 31]{nygard2007release}.

@@ -40,7 +40,7 @@ Capabilities are elastic, supporting rapid outward and inward scaling.
 \textbf{Measured service}\\
 Resources are measured, providing transparency for both the provider and consumer. Enabling cloud systems to optimize resource usage.
 
-
+\note {
 \comment{Maybe include this in the definition?}
 Three aspects introduced with Cloud Computing: \cite{armbrust2010view}
 1. Infinite computing resources available on demand. Can help dealing with load surges, nullifying the need for provisioning planning.
@@ -54,15 +54,14 @@ Three defining aspects\cite{sosinsky2010cloud}.
 
 The benefits of resource pooling are so compelling that technologies that makes this possible are a priority.
 
-\comment{Kunne bruges til indledning.}
-"The dictionary includes many definitions for the word “cloud.” A cloud can be a mass of water droplets, gloom, an obscure area, or a mass of similar particles such as dust or smoke. When it comes to cloud computing, the definition that best fits the context is “a collection of objects that are grouped together.” It is that act of grouping or creating a resource pool that is what succinctly differentiates cloud computing from all other types of networked systems."\cite{sosinsky2010cloud}
-
 
 \begin{figure}[!htb]
   \includegraphics[scale=0.5]{cloud_computing_definition_cloud_infrastructure}  
   \caption{Cloud infrastructure}
   \label{fig:cloud_computing_definition_cloud_infrastructure}
 \end{figure}
+
+}
 
 \subsection{Service models / Utility Computing Classes}
 The aforementioned cloud infrastructure characteristics is made available to the consumer through three different service models\cite{mell2011nist}.
@@ -85,9 +84,10 @@ The consumer can provision processing, storage and network resources, but does n
   \label{fig:cloud_computing_definition_service_models}
 \end{figure}
 
-\comment{Notes}
+\note{
 utility computing - the computer resources being sold
 "Service models describe the type of service that the service provider is offering. The best-known service models are Software as a Service, Platform as a Service, and Infrastructure as a Service—the SPI model. The service models build on one another and define what a vendor must manage and what the client’s responsibility is."
+}
 
 \subsection{Deployment models}
 Cloud infrastructures are made available through four different deployment models, with distinct differences. The deployment model describes  location and ownership of the infrastructure, and determines who is responsible for the infrastructure. The deployment model affects the expected data confidentiality and security, the specified availability, and the available deployment size.
@@ -141,13 +141,13 @@ Figure \ref{fig:cloud_computing_definition_virtualization} compares a hypervisor
 \end{figure}
 
 
-\comment{Notes}
+\note{
 Resource pooling is in turn often enabled by the use of hypervisors or containers\cite{bernstein2014containers}. Common for both technologies is that they provide isolation and a multitenancy layer that enables the cloud infrastructure to serve different customers with one server instance\cite{krebs2012architectural}. By abstracting physical resources into virtual, management and automatic allocation of computing resource is made possible\cite{sosinsky2010cloud, armbrust2010view}, giving the possibility to subdivide physical resources, and present smaller and separate virtual resource partitions\cite{barham2003xen}. 
 
 Supporting mordern development flow, where small pieces of code is written and tested in constant iteration\cite{fink2014docker}.
 
 Modern applications often depend on many existing components, relying on other services and applications. These dependencies can easily conflict with other component dependencies\cite{merkel2014docker}. Using virtualization applications can be packaged along with dependencies and run in disparate environments, making distribution between development, test and production environments easy.
-
+}
 \subsection{Docker}
 Docker is a open source project that provide developers with a high-level tool to manage container virtualization. Besides the earlier explained advantages with container virtualization itself, docker provides several benefits, making container virtualization even more usable. Docker introduces many indispensable features for big-scale application projects\cite{dockerFAQ}. The core features of docker are explained below:
 
@@ -173,7 +173,7 @@ Docker images are accessible on the Docker Hub, that makes it possible to share 
 Docker makes it possible to automate and customize the creation and deployment of containers, through an simple API.
 
 \section{Cluster management}
-Kubernetes is a container-management tool, that watches for changes in the cluster, keeping it in a steady state\cite{2016borg}. Kubernetes is open source but has mainly been developed by Google, that has extensive experience with running their infrastructure based on containers. Kubernetes has been developed with outset in two predecessor container-management tools developed internally at Google. Kubernetes main design goal is to ease deployment and management of complex distributed systems\cite{kubernetes_frontpage}. Kubernetes key features are described below:
+Kubernetes is a container-management tool, that watches for changes in the cluster, keeping it in a steady state\cite{burns2016borg}. Kubernetes is open source but has mainly been developed by Google, that has extensive experience with running their infrastructure based on containers. Kubernetes has been developed with outset in two predecessor container-management tools developed internally at Google. Kubernetes main design goal is to ease deployment and management of complex distributed systems\cite{kubernetes_frontpage}. Kubernetes key features are described below:
 
 \textbf{Automatic binpacking}\\
 Kubernetes places containers on servers according to the amount of resources needed by the container, maximizing utilization of server resources, with focus on availability.
@@ -193,7 +193,7 @@ Rollouts of new configurations are done progressively while monitoring the appli
 \textbf{Storage orchestration}\\
 Kubernetes can automatically orchestrate storage, supporting local and remote storage options.
 
-
+\note{
 \url{https://github.com/kubernetes/kubernetes/tree/master/examples/storage/cassandra}  
 This example also uses some of the core components of Kubernetes:\\
 Pods\\
@@ -209,7 +209,7 @@ Daemon Sets\\
   \label{fig:cloud_computing_kubernetes_architecture}
 \end{figure}
 
-\subsection*{Noter}
+
 \comment{Kig på den her, for input til kubernetes afsnit}
 \url{https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture.md}
 
@@ -220,6 +220,4 @@ DevOps
 \url{https://www.cncf.io/about/charter/}
 
 \comment{Kig på cloud native, brug gerne "The cloud-native future - O'Reilly Media" downloadet som pdf i Cloud litterature mappen}
-
-%\input{sections/cloud_computing/cluster_management.tex}
-%\input{sections/cloud_computing/containerization.tex}
+}
