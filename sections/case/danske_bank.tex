@@ -16,7 +16,7 @@ Danske bank has a high amount of existing systems, having active in-house softwa
 \section{The shared database}
 Danske bank has a multitude of applications sharing a common database layer, that contains a wide variety of information about newly created and existing business customers and their access privileges to services within Danske bank. Development of the shared database was according to Danske bank started in 1991, where dependent applications were integrated closely with the database. Each application had the necessary logic for manipulating the database according to it's needs. Based on problems with a high amount of duplicated code across the expanding sets of interacting applications Danske bank initiated a reiteration of the shared database architecture in 2006. 
 
-An small part of the enormous architecture can be seen on Figure \ref{fig:danske_bank_shared_database}, the architecture can be divided into three layers: Application layer, Database access layer and a Database layer. The application layer consists of many diverse applications, each utilizing the common database either through a specific access service or by directly communicating with the database. The database is mainly accessed through a multitude of different services, in the database access layer, these services act as interfaces to the database, ensuring that data is created, read, updated and deleted according to the specific context. The database layer consists of a resource intensive IBM DB2 relation database management system (RDMS), hosting a SQL database. 
+An small part of the current and enormous architecture can be seen on Figure \ref{fig:danske_bank_shared_database}, the architecture can be divided into three layers: Application layer, Database access layer and a Database layer. The application layer consists of many diverse applications, each utilizing the common database either through a specific access service or by directly communicating with the database. The database is mainly accessed through a multitude of different services, in the database access layer, these services act as interfaces to the database, ensuring that data is created, read, updated and deleted according to the specific context. The database layer consists of a resource intensive IBM DB2 relation database management system (RDMS), hosting a SQL database. 
 
 \note{The database effectively sits as a integration tool for the multitude of dependent applications.}
 
@@ -28,7 +28,6 @@ An small part of the enormous architecture can be seen on Figure \ref{fig:danske
 
 
 Even though Danske bank has tried to combat some of the issues with a shared database architecture, there is still inherently many problems with the architecture. 
-
 
 \subsection{Challenges with a shared database}
 The shared database is a very common form of integration, and according to Newman the most common one\cite[p.~41]{newman2015microservices}. A database integration starts out very simple and is quickly established, but with time becomes rigid.
@@ -43,6 +42,8 @@ Each consumer without a database access layer is highly couple to the database, 
 \subsubsection{Loss of cohesion}
 By having several database access layers and dependent applications directly interacting with the database, the logic required to perform common operations on the database is duplicated. This infers a big overhead if a bug is discovered within this common logic, making it necessary to update several code bases with the same fix.
 
+\note {
+
 \subsection{Pace of change}
 
 \subsection{Team Structure}
@@ -50,6 +51,8 @@ By having several database access layers and dependent applications directly int
 \subsection{Security}
 
 \subsection{Technology}
+
+}
 
 \note{
 \subsection{Where Danske bank want to go}
