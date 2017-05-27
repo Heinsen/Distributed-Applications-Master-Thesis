@@ -3,12 +3,22 @@
 
 This chapter is about architectural styles for distributed applications. Considering the architecture of any application is extremely important to ensure that the application can be effectively maintained and expanded in the future. Architecture for distributed applications has moved through several phases: monolith, service oriented architecture (SOA), and microservice.
 
+We see a natural evolution in the different architectures. 
+
+Development tools, frameworks and technology changes how software can be developed.
+
+Technology and pace of problem solving is inflicting how software is developed.
+
+
 \note{
 “ This chapter is about architectural styles, application architectures, and architecture patterns. A style describes how to implement a specific architecture, while an architecture pattern explains how to address a specific concern within an architecture but is broader than a design pattern. I suggest you not get too hung up on the differences, but just understand that DDD can reside at the heart of a lot of surrounding architectural influences.”
 Excerpt From: Vernon, Vaughn. “Implementing Domain-Driven Design.”
 
 We need to emphasize that there are many ways of doing architecture and many reason for doing particular architectures. Functional and non-functional requirements
 }
+
+
+
 
 
 \section{Domain Driven Design}
@@ -23,22 +33,20 @@ Evans deems it very important that a model is kept simple, emphasizing the need 
 \end{figure}
 
 
-\citeauthor{fowler2014microservices} describes the usability of DDD when designing distributed applications:
+According to Lewis and Fowler\cite{fowler2014microservices} usability of DDD when designing distributed applications are described is:
 
-\begin{quote_highlight}
-DDD divides a complex domain up into multiple bounded contexts and maps out the relationships between them. This process is useful for both monolithic and microservice architectures, but there is a natural correlation between service and context boundaries that helps clarify, and as we describe in the section on business capabilities, reinforce the separations\cite{fowler2014microservices}.
-\end{quote_highlight}\\
+\tquote{DDD divides a complex domain up into multiple bounded contexts and maps out the relationships between them. This process is useful for both monolithic and microservice architectures, but there is a natural correlation between service and context boundaries that helps clarify, and as we describe in the section on business capabilities, reinforce the separations}{Lewis and Fowler}{2014}
 
-\citeauthor{fowler2014microservices} emphasize how DDD is usable, generally when designing applications, also mentioning how separation between bounded contexts is more explicit when using microservices, highlighting one of the key features of the architecture. Reducing the risk of sharing model across bounded contexts.
+According  emphasize how DDD is usable, generally when designing applications, also mentioning how separation between bounded contexts is more explicit when using microservices, highlighting one of the key features of the architecture. Reducing the risk of sharing model across bounded contexts.
 
 \section{Monolithic}
 The word monolith describes a application that exists as an single unit. By having the entire application as a single entity, the source code can be developed and managed together, giving multiple short term advantages\cite[p.~68]{long2017cloud}. Functionality can easily be added on top of a existing code base, giving the many advantages of low level programming language constructs. Communication can be done internally, between processes, not relying on non-deterministic network communication channels. 
-According to \citeauthor{fowler2014microservices} enterprise web applications are often created as a monolith, consisting of three main parts: a client-side user interfaces, a shared common database management systems and a monolith server-side applications. The server-side application is a large and complex application, packed into a single executable. The application binds interface and database together, executing domain logic based on user input, retrieving and updating data as needed. 
+According to Lewis and Fowler\cite{fowler2014microservices} enterprise web applications are often created as a monolith, consisting of three main parts: a client-side user interfaces, a shared common database management systems and a monolith server-side applications. The server-side application is a large and complex application, packed into a single executable. The application binds interface and database together, executing domain logic based on user input, retrieving and updating data as needed. 
 As the application grows in size, immediate advantages fade. The code base reaches a size where small changes in one part of the application might incur unforeseen changes in other parts. Centralizing the application decreases risk of failure, but at the same time forces development teams to coordinate changes, making sure breaking changes are not introduced\cite[p.~68]{long2017cloud}. 
 According to Eric Evans having a single and unified model for a large system is not feasible nor cost-effective, and have several potential pitfalls if legacy code is updated by several teams simultaneously. Coordination might halt the project completely. The unified model may not be sufficient for some parts of the application, forcing functionality in elsewhere. Having a unified model leads to a very complex model that tries to encapsulate all aspects of the particular domain, making it difficult to use and therefore defeating the purpose\cite[p.~331]{evans2004domain}.
 
 \subsection{Netflix -- the Transition away from the Monolith}
-According to \citeauthor{meshenberg2016microservices} Netflix previously had a monolithic implementation of their website. Each team would contribute a JAR file, that would be gathered into a single WAR file, that was deployed on a internal infrastructure. According to \citeauthor{meshenberg2016microservices}, this kind of architecture is very unreliable, mentioning that any issue introduced in either of the JAR files would be propagated onto all copies of the single service site executable. More importantly, the old architecture had a single relational database management system (RDBMS), creating a single point of failure\cite{meshenberg2016microservices}. Netflix experienced a outage, where their central RDBMS failed and caused wide system failure, resulting in four days with downtime. According to \citeauthor{meshenberg2016microservices} this event started the Netflix transition from a monolith to a microservice architecture.
+According to Meshenberg\cite{meshenberg2016microservices} Netflix previously had a monolithic implementation of their website. Each team would contribute a JAR file, that would be gathered into a single WAR file, that was deployed on a internal infrastructure. According to Meshenberg, this kind of architecture is very unreliable, mentioning that any issue introduced in either of the JAR files would be propagated onto all copies of the single service site executable. More importantly, the old architecture had a single relational database management system (RDBMS), creating a single point of failure\cite{meshenberg2016microservices}. Netflix experienced a outage, where their central RDBMS failed and caused wide system failure, resulting in four days with downtime. According to Meshenberg this event started the Netflix transition from a monolith to a microservice architecture.
 
 \note {
 The client-side user interface consists of HTML pages, with some underlying javascript files. The database is a shared among all applications in the enterprise, implemented as a relational database, containing tables for the entire business domain. The server-side application is a monolith, binding interface and database together, executing domain logic based on user input and retrieving and updating data as needed. The server-side application is a single executable.
@@ -47,7 +55,15 @@ The client-side user interface consists of HTML pages, with some underlying java
 }
 
 \section{Service-Oriented Architecture}
-\comment{still missing}
+
+There are many different view on what SOA is and how it is used to develop software. According to 
+
+Focus is not on the specific implementation, but on how the architecture can support our organizations needs and goals. There might be some common infrastructure capabilities of every SOA architecture, but the architecture should match the organisation. 
+
+
+
+
+
 
 \section{Microservices}
 Microservice architecture gives an application composed of many small intercommunicating services. Each individual service has a well defined and limited functionality and a well defined interface for external communication. Services communicate with each other through their interfaces and together they achieve a overarching business goal\cite[p.~2]{newman2015microservices}. A comparison between a monolithic and microservice architecture is shown on Figure \ref{fig:architecture_microservice_definition}, showing they key difference between the two architecture types. Microservices are independently deployable, whereas the monolith scales 1:1, giving less flexibility. 

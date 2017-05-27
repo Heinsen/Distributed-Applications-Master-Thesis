@@ -4,19 +4,17 @@
 Cloud Computing is both applications available over the internet, but also the hardware and system software that provide these services.
 Rather than scaling a single node vertically, Cloud Computing shifts focus and enables horizontal scaling of virtualized storage and network resources\cite{armbrust2010view}. Cloud computing enable applications to fulfil new requirements for rapid capacity up and down scaling, with the notion that available virtual resources are limitless\cite{sosinsky2010cloud}.
 
-According to \citeauthor{sosinsky2010cloud} Cloud Computing sets new standards for system development and deployment, representing a real paradigm shift:\\
-\begin{quote_highlight}
-"Cloud computing represents a real paradigm shift in the way in which systems are deployed. The massive scale of cloud computing systems was enabled by the popularization of the Internet and the growth of some large service companies. Cloud computing makes the long-held dream of utility computing possible with a pay-as-you-go, infinitely scalable, universally available system. [...] That’s why cloud computing is revolutionary, even if the technology it is built on is evolutionary"\cite[p. 3 ]{sosinsky2010cloud}
-\end{quote_highlight}\\
+According to Barrie Sosinsky\cite[p. 3 ]{sosinsky2010cloud} Cloud Computing sets new standards for system development and deployment, representing a real paradigm shift:
+\tquote{Cloud computing represents a real paradigm shift in the way in which systems are deployed. The massive scale of cloud computing systems was enabled by the popularization of the Internet and the growth of some large service companies. Cloud computing makes the long-held dream of utility computing possible with a pay-as-you-go, infinitely scalable, universally available system. [...] That’s why cloud computing is revolutionary, even if the technology it is built on is evolutionary}{Sosinsky}{2010}
 
 Cloud Computing is a enabler for further evolving how distributed systems are designed, distributed, updated and accessed.
 
 \section{Defining Cloud Computing}
 This section will try and pin down what defines Cloud computing, enabling usage of the term for the rest of the report. Cloud Computing has been over utilized, and the term has become very saturated.
 
-The National Institute of Standards and Technology (NIST) defines Cloud Computing\\
+The National Institute of Standards and Technology (NIST) defines Cloud Computing\cite{mell2011nist}:\\
 \begin{definition}
-Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources\citeauthor{mell2011nist}
+Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources
 \end{definition}
 \\
 Cloud infrastructures are a composition of hardware and software enabling five essential characteristics. Each characteristic is detailed below.
@@ -106,7 +104,7 @@ The cloud infrastructure is provisioned to the general public, in a "Pay-as-you-
 A composition of several distinct cloud infrastructures.
 
 
-\citeauthor{armbrust2010view} states that data confidentiality and auditability is one of the biggest obstacles, for a large-scale adoption of public cloud computing infrastructures. Internal consumer concerns and legislation prohibits some consumers from fully adopting public cloud computing infrastructures, forcing a private cloud deployment models. 
+Armbrust et al.\cite{armbrust2010view} states that data confidentiality and auditability is one of the biggest obstacles, for a large-scale adoption of public cloud computing infrastructures. Internal consumer concerns and legislation prohibits some consumers from fully adopting public cloud computing infrastructures, forcing a private cloud deployment models. 
 \comment{Should this be here or somewhere else? Should it be expanded?}
 
 
@@ -114,7 +112,7 @@ A composition of several distinct cloud infrastructures.
 Resource pooling enables the remaining four essential characteristics of Cloud Computing: On-demand self-service, broad network access, rapid elasticity and measured service\cite{bittman2009server}. Resource pools are split  between consumers through a multitenancy layer, that enables the cloud infrastructure to distribute one service between several consumers\cite{krebs2012architectural}. This multitenancy layer is created with hypervisor and container technologies that both provide virtualization, these technologies are fundamental for Cloud Computing. Virtualization makes it possible to create several emulations on one server, that has the same attributes and characteristics as the physical system. This emulation has a memory address space, processor resources and device I/O, and is isolated from the rest of the system, utilizing its reserved amount of resources. This section will explain both technologies, their differences and why container technology has gain on VMs in the past few years.
 
 \subsection{Hypervisors}
-Hypervisors provide virtual machines (VM) access to system resources. According to \citeauthor{sosinsky2010cloud} two types of hypervisors exist, differentiated by whether the hypervisor is on top of a host OS or not.
+Hypervisors provide virtual machines (VM) access to system resources. According to \cite[p.~100]{sosinsky2010cloud} two types of hypervisors exist, differentiated by whether the hypervisor is on top of a host OS or not.
 
 \begin{itemize}
 	\item \textbf{Type 1 Native:} The hypervisor has no host OS.
@@ -136,7 +134,7 @@ Figure \ref{fig:cloud_computing_definition_virtualization} compares a hypervisor
 \begin{figure}[!htb]
 	\centering 
 		 \includegraphics[scale=0.2]{cloud_computing_definition_virtualization}  
-	  \caption{Hypervisor and container based deployment models, model lend from \citeauthor{bernstein2014containers}}
+	  \caption{Hypervisor and container based deployment models, model lend from \cite{bernstein2014containers}}
   \label{fig:cloud_computing_definition_virtualization}
 \end{figure}
 
@@ -155,7 +153,7 @@ Docker is a open source project that provide developers with a high-level tool t
 By bundling the application with all its dependencies, and creating a machine-specific abstraction, docker makes it easy to run the exact same container on different machines, with different configurations.
 
 \textbf{Application-centric}\\
-Docker centralizes the application, in the deployment phase. Reducing friction when deploying the application. According to \citeauthor{burns2016borg} this has several benefits, improving application deployment and introspection.
+Docker centralizes the application, in the deployment phase. Reducing friction when deploying the application. According to Burns et al.\cite{burns2016borg} this has several benefits, improving application deployment and introspection.
 
 \textbf{Automatic build}\\
 Docker provides the dockerfile abstraction, making it possible to automatically assemble containers. A key feature for enabling many of the cloud infrastructure advantages. The dockerfile is a simple file that contains instructions on which libraries that are needed and actions should be taken for successfully starting the container.

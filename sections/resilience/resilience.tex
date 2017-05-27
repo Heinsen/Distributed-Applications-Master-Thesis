@@ -1,17 +1,13 @@
 \chapter{The Fundamentals of Resilience in Cloud Computing}
 \label{ch:resillience}
 
-Nygaard describes how software engineering is taught incompletely, and that focus when developing distributed software should be shifted. Nygaard states that focus should be on what a system should not do, contra today's focus on what a system should do. The first acknowledgement when developing distributed systems is according to Nygaard the realisation that failure will occur, and focus should be on handling them instead of avoiding them altogether. Further stating that a stable system will keep on working as intended, even though persistent stress or component failure is present.
+Nygaard describes how software engineering is taught incompletely, and that focus when developing distributed software should be shifted. Nygaard states that focus should be on what a system should not do, contra today's focus on what a system should do. The first acknowledgement when developing distributed systems is according to Nygaard the realisation that failure will occur, and focus should be on handling them instead of avoiding them altogether. Further stating that a stable system will keep on working as intended, even though persistent stress or component failure is present. Nygaard states the following\cite[p. 27]{nygard2007release}:
 
-\begin{quote_highlight}
-"Once you accept that failures will happen, you have the ability to design your system's reaction to specific failures. [..] This sort of self-protection determines the whole system's resilience." \cite[p. 27]{nygard2007release}
-\end{quote_highlight}
+\tquote{Once you accept that failures will happen, you have the ability to design your system's reaction to specific failures. [..] This sort of self-protection determines the whole system's resilience.}{Nygaard}{2007}
 
-Strigini describes a movement within information and communication technology, stating that newly developed systems are more interconnected and changed without global system intervention by developers. Setting unprecedented requirements to existing practices of dependable design, making current practices inadequate when trying to deliver satisfactory levels of dependability.
+Strigini describes a movement within information and communication technology, stating that newly developed systems are more interconnected and changed without global system intervention by developers. Setting unprecedented requirements to existing practices of dependable design, making current practices inadequate when trying to deliver satisfactory levels of dependability\cite[p. 5]{strigini2012fault}.
 
-\begin{quote_highlight}
-"While existing practices of dependable design deal reasonably well with achieving and predicting dependability in ICT systems that are relatively closed and unchanging, the tendency to making all kinds of ICT systems more interconnected, open, and able to change without new intervention by designers, is making existing techniques inadequate to deliver the same levels of dependability"\cite[p. 5]{strigini2012fault}
-\end{quote_highlight}
+\tquote{While existing practices of dependable design deal reasonably well with achieving and predicting dependability in ICT systems that are relatively closed and unchanging, the tendency to making all kinds of ICT systems more interconnected, open, and able to change without new intervention by designers, is making existing techniques inadequate to deliver the same levels of dependability}{Strigini}{2012}
 
 Dealing with resilience in distributed systems is a necessity, when applications are growing in scale and complexity. The following chapter will establish a definition of resilience, which can be used to evaluate application and infrastructure architecture. 
 
@@ -86,7 +82,7 @@ Cascading failures happen when a failure from one layer cause problems in caller
 The circuit breaker pattern and timeouts can combat cascading failures.
 
 \subsection{Users}
-Users increase the amount of traffic, and will eventually surpass capacity, unless increased with a growing demand. If a transaction is too long, the demand has surpassed the capacity. Derived errors can occur if the capacity is fully utulized, for example memory exhaustion, causing other internal services to fail. These derived errors can be combated with a correct service capacity.
+Users increase the amount of traffic, and will eventually surpass capacity, unless increased with a growing demand. If a transaction is too long, the demand has surpassed the capacity. Derived errors can occur if the capacity is fully utilized, for example memory exhaustion, causing other internal services to fail. These derived errors can be combated with a correct service capacity.
 
 \subsection{Blocked Threads}
 Concurrency errors within a service, can block several threads. Timeouts in wait functions can defend against indefinitely blocked threads.

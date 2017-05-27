@@ -97,19 +97,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Quote highlight
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newenvironment{quote_highlight}
-    {
-    \begin{tabular}{|p{1\textwidth}}
-    \begin{em}
-    ‘‘
-	}
-    {
-    ‘‘
-    \end{em}
-    \end{tabular} 
-    \vspace{7pt}
-    }
-    
+\newcommand{\tquote}[3] {
+\vspace{12pt}
+\emph{“#1”}
+\hfill\textbf{-- #2, #3}
+\vspace{12pt}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Definition
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -125,7 +119,7 @@
     \end{tabular} 
     \vspace{7pt}
     }
-        
+
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Comment
