@@ -20,7 +20,7 @@ An small part of the current and enormous architecture can be seen on Figure \re
 \note{The database effectively sits as a integration tool for the multitude of dependent applications.}
 
 \begin{figure}[!htb]
-  \includegraphics[scale=0.14]{danske_bank_shared_database}  
+  \includegraphics[width=\textwidth]{danske_bank_shared_database}  
   \caption{Datbase integration architecture}
   \label{fig:danske_bank_shared_database}
 \end{figure}
@@ -30,6 +30,14 @@ Even though Danske bank has tried to combat some of the issues with a shared dat
 
 \subsection{Challenges with a shared database}
 The shared database is a very common form of integration, and according to Newman the most common one\cite[p.~41]{newman2015microservices}. A database integration starts out very simple and is quickly established, but with time becomes rigid.
+
+\note{
+\url{https://www.youtube.com/watch?v=wgdBVIX9ifA&t=674s} 
+GOTO 2014 • Microservices • Martin Fowler
+
+Fowler says it is a big problem for a lot of companies that they have these big shared databases.
+
+}
 
 \subsubsection{Single point of failure}
 Each consumer is highly reliant on a correct and running database. All consumers are communicating with the same database, inferring a very high responsibility on each consumer, a incorrect implementation could cause the database to collapse, due to malformed or a high amount of requests from a single or several consumers.
@@ -115,4 +123,5 @@ In need of something that can server a lot of reads
 
 External parties view and bind internal implementation
 
-Logic associated with interpreting and changing data is spread out, if some logic contains a bug or the database is changed, it infers changes multiple places, removing cohesion}
+Logic associated with interpreting and changing data is spread out, if some logic contains a bug or the database is changed, it infers changes multiple places, removing cohesion
+}

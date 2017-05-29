@@ -1,7 +1,5 @@
 \chapter{Implementation}
 
-
-
 This chapter describes the implementation
 
 \note {
@@ -9,7 +7,61 @@ This chapter describes the implementation
 }
 
 
+\section{Effects of Replication}
+\comment{Han siger det er vigtig: \url{https://testdetective.com/performance-testing-vegeta-attack/},}
+\comment{3 scale, by RED HAT: \url{https://www.3scale.net/2015/04/how-to-load-test-and-tune-performance-on-your-api-part-i/}}
+A benchmarking test of a simple application has been completed to show the impact of replication, and how it improves capacity and thereby level of availability. When developing a microservice architecture it is important to determine the limit for individual service endpoints. Determining whether an application has the proper capacity for the expected load, and how much unexpected load it can handle. Replication of services is one of the main advantages of using microservices. Giving the ability to scale as demand grows and having a healthy level of redundancy if needed. 
+Kubernetes was utilized to create a cluster on the Google Cloud Platform (GCP), creating a suitable environment for carrying out the test. Making it possible to change the replication factor after deployment and survey each active node, making usage of Grafana to survey load on individual notes by monitoring CPU and network usage. The application was made available with three different node replication factors: 1,  5 and 10, to investigate the increase of throughput on a single api endpoint. 
+The application was load tested with a benchmarking tool running on a separate server in a benchmarking tool developed specifically for the test. By evaluating the responses time and success rate of requests the maximum amount of requests per second for the specific replication factor was determined and evaluated.
+
+
+\subsubsection{Test Application}
+The application was developed in Java using the Spring boot framework, making it possible to create a production ready application quickly. 
+
+The spring boost framework was utilized to create a REST API, exposing a single endpoint supporting a GET request, fetching a list of small \textit{rule} objects containing a single attribute. The application was tested locally and containerized using docker, using the spotify \footnote{Docker maven plugin for creating and pushing containerized applications directly with maven \url{https://github.com/spotify/docker-maven-plugin}} docker maven plugin that makes it possible go create and push new docker images to the docker hub\footnote{The image is available on docker hub: \url{https://hub.docker.com/r/ihacheinsen/simple-rest-api/}} using maven. A kubernetes deployment was  used to deploy the application in the cluster, utilizing the Kubernetes functionality to scale the application to the wished amount of replicates for the given test step.
+
+\subsection{Test Tool}
+A NodeJS application was developed, to initiate the chosen benchmarking tool and collect results from the test. The application consists of a single page, making it possible to specify the host that should be load tested, number of total requests in each test step, a start rate of requests per second (multiplied with the current test step) and a total and start step for the test. 
+
+The application was hosted through GCP on a separate virtual machine instance, located in \textit{europe-west1-c} (a different zone then the cluster hosting the test application) to ensure some 'distance' between the test tool and test application. GCP makes it possible to access created instances through SSH, where the test tool was deployed using docker.
+
+Load was generated with the benchmarking tool Vegeta\footnote{The Vegeta load testing tool and library can be found on github: \url{https://github.com/tsenart/vegeta}}. Vegeta is a open source library, that makes it possible to generate a high amount of requests directed to any given host, providing several neat commands for generating reports of the test results as well. The test tool initiates Vegeta for each test step, steadily increasing the amount of request per second for each increasing step. Vegeta produce results for each step, which are gathered in a simplified JSON structure for display on the test tool page.
+
+\subsection{Test}
+The application has been load tested in 20 steps, starting with \textit{100.000 request per second} steadily increased by multiplying the start rate with the step value, resulting in a maximum of 200.000 requests per second. Each step sends a total of 100000 requests, resulting in different durations of each test step. The equation for calculating the given duration for a step is seen on figure \ref{fig:implementation_load_duration_equation} below, calculated before initiating each test step.
+
+\begin{figure}[!htb]
+  \includegraphics[width=\textwidth]{implementation_load_duration_equation}  
+  \caption{Equation used to calculate duration of each load test step}
+  \label{fig:implementation_load_duration_equation}
+\end{figure}
+
+This calculation was done to satisfy the parameters of the utilized benchmarking tool Vegeta, that requires a test duration and a amount of requests per second, without the ability to specify a fixed total amount of requests with a at a given rate.
+
+Each test iteration was done 10 times to account for outliers, creating a reasonable sample basis.
+
+
+\subsection{Results}
+The results are presented for each of the cluster configurations, with a mean value for each step, calculated with values across all 10 iterations. 
+
+The results clearly show a improvement in maximum throughput for the application, with the lowest attainable throughput at 1 node, and a highest at 10 nodes.
+
+Many factors affect the test: Virtual machine network and processor power, test tool process power and Vegeta, emitting up too 200.000 requests per second.
+
+At the same time, hosting the test application in a cluster, where these factors can be determined and changed by configuration makes it possible to evaluate the application with different setups. 
+
+The test tool makes it easy to initiate new test iterations, and gathers results for further review. Having a impression of the capacity for a given application makes it possible to quantify whether application services live up to the requirements, and therefore do not act as the systems bottleneck.
+
+
+
+\section{Circuit breaker}
+
+
+\note {
+
 \subsection{Distributed databases}
+
+}
 
 \note {
 Notes for:

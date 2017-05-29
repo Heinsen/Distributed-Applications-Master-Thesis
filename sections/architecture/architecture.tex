@@ -10,16 +10,28 @@ Development tools, frameworks and technology changes how software can be develop
 Technology and pace of problem solving is inflicting how software is developed.
 
 
+Monolith gives good inter-module re-factoring capabilities. If you want to change a boundary, you can easily change it. When using microservices it is hard to change interfaces when they are in place. Therefore it is not advised to start out with a microservice architecture if the module boundaries well are not well known.
+
+Monolith makes it to easy to run around modularity. Not keeping module boundaries solid. 
+
+In many ways microservices are a discipline that forces you to keep your modularity.
+
+Microservices allow you to use multiple platforms, gives flexibility. 
+
+Monolith are simple to use, because we are used to doing it that way. Microservices are so cool, we want to do it. If you look at an application and say it would work nice as a single rails service, then do not do microservices. They introduce distributed computing, asynchronous communication, they are hard to do \cite{fowler2014microservicesoamonolith}.
+
+
+\cite{fowler2017what} "The value of a Patterns is saying here is a specific technique, some ideas about when it is applicable or not and enough knowledge about a pattern to know: these are the things i should watch out for these are some of the things that I would expect to see as consequences of that."
+"Saying something as vague as event-driven is too imprecise, similar problems exist with SOA, it mean so many different things"
+
+"Microservices carve down what it is about"
+
 \note{
 “ This chapter is about architectural styles, application architectures, and architecture patterns. A style describes how to implement a specific architecture, while an architecture pattern explains how to address a specific concern within an architecture but is broader than a design pattern. I suggest you not get too hung up on the differences, but just understand that DDD can reside at the heart of a lot of surrounding architectural influences.”
 Excerpt From: Vernon, Vaughn. “Implementing Domain-Driven Design.”
 
 We need to emphasize that there are many ways of doing architecture and many reason for doing particular architectures. Functional and non-functional requirements
 }
-
-
-
-
 
 \section{Domain Driven Design}
 The DDD term was coined by Eric Evans in his book of the same name from 2004\cite[preface]{evans2004domain}. Evans works with the notion that any complex domain should be partitioned into smaller subdomains, making it possible to comprehend the different subdomains and how a good solution can be created in that part of the domain. Models express a deep understanding of a particular subdomain, defining a model makes it possible to talk about the domain internal in a development team and externally with other development teams or customers. The model is a product of careful analysis of the domain, and should be reflected in the implementation, so that the analysis of the domain is visible in the code. This makes it possible to understand the implementation, and helps when maintaining and updating the application\cite[p.~2]{evans2004domain}.
@@ -54,7 +66,23 @@ The client-side user interface consists of HTML pages, with some underlying java
 "To start explaining the microservice style it's useful to compare it to the monolithic style: a monolithic application built as a single unit. Enterprise Applications are often built in three main parts: a client-side user interface (consisting of HTML pages and javascript running in a browser on the user's machine) a database (consisting of many tables inserted into a common, and usually relational, database management system), and a server-side application. The server-side application will handle HTTP requests, execute domain logic, retrieve and update data from the database, and select and populate HTML views to be sent to the browser. This server-side application is a monolith - a single logical executable[2]. Any changes to the system involve building and deploying a new version of the server-side application." \cite{fowler2014microservices}
 }
 
+
 \section{Service-Oriented Architecture}
+
+Means many things to different people, it is hard to understand what it is.
+
+
+Enterprise service bus,
+
+Comittess that lay down standards for how services connect to each other. SOA is a too broad term, it means so many things that it is effectively useless. Microservices is a subset of the SOA term, it therefore makes sense to say that microservices not necesarrily brings anything new to the table. At the same time a new term makes it possible to concentrate on specific and very usable parts of SOA.
+
+Cooperation that brings downs 
+
+\cite{fowler2014microservicesoamonolith}
+
+
+
+\cite{microsoft2017chapter}
 
 There are many different view on what SOA is and how it is used to develop software. According to 
 
@@ -128,3 +156,73 @@ A challenge with using services as components is the inherent complexity of comm
 
 \subsubsection*{Sophisticated Real-Time Monitoring}
 When designing many independent services, it is necessary to have sophisticated monitoring and logging, in order to control that services are running correctly. This enables engineers to know if any action needs to be taken to restore a fully functional system, or if service was automatically restored.
+
+
+\section{Event-driven architecture}
+
+There are four patterns occurring in many of the systems where the word event-driven architecture.
+
+Systems are often get very coupled because the different system depend on each other.
+
+\section{Event notification}
+It is a particular important part of the architecture. Subsystems communicate through events.
+
+Applications subscribe to the events they are interested in, and react when an event comes along. 
+By doing this you reverse dependencies.
+Besides reversing dependencies, we now have a record that can be referred to and passed around, when an event happens. 'Bottling it op'.
+
+What is the difference between events and commands. Events does not expect any specific reaction, but are just informing about change. Commands imply certain reaction to a event.
+
+It allows us to hook up many different system up to events, without incurring change in existing applications. It easily allows to implement new features, without changing other
+
+At the same time it removes easy observable flow. There is no code to look at, you have to debug.
+
+\subsection{Event-carried State Transfer}
+Downstream services duplicate the data they receive from events, removing the need for calls to the emitter. Less traffic is required, because more information is put into the events. Subscribing services can therefore deduct what to do from events, without contacting the emitter for additional data. The event therefore contains all the data that downstream systems want to have.
+
+Downstream services therefore need to store the events they are interested in. 
+
+It reduces the calls to the emitter, reducing traffic. Can improve availability, consumers are not directly tied to the emitter, the consumer has it's own data and can therefore continue operation if the emitter goes down.
+
+This introduces lack of consistency. This is a less common pattern, but it can be a good one to utilize in some cases.
+
+\subsection{Event Sourcing}
+Changes are registered, by putting event on top of a event stack or log, the event is thereafter processed, updating the application state.
+
+The Log can rebuild application state at any time.
+
+In case of changes:
+1. Event object is created - 'Address change' - pop into a seperate storage area
+2. Process event - 'Change address'
+
+Event sourcing works on customer state the way subversion works on code.
+
+It is often a combination of all events and some 'snapshots'. Snapshots are sometimes done, 'closing out the year' ignoring events that has happened earlier, simplify the events, making it easier to reason about future events. Storage is therefore a mixture of events and snapshots. But you always want to be able to reason about the current state.
+
+This pattern have several benefits:
+Audit
+Debugging, realy usefull to be able to go back and forth in state.
+Historic state, if a error has occurred in the past, the difference it would make in current state can be calculated by going back and changing an event and calculating the difference.
+Alternative state, you have a alternative to storing application state, by storing it in live memory. You still have to have an alternative store, so you can recreate state.
+
+Disadvantages:
+Unfamiliar, harder to work with
+External system, gets a bit more complex, cannot ask the system for events again. Therefore a replay mechanism has to be made, to be able to restore application state. Has to save events.
+Event Schema, how are events stored, so they can be replayed while the application that processes them is changed around them.
+Identifiers, Traps when trying to make it possible to replay application state.
+Potential disadvantages:
+Asynchrony, adds complexity as it is introduced to handle emitting and handling events. It does not have to be used though.
+Version, It can be hard to reason about. If application state structure is changed, can the application the still process year old events. Snapshots can be cut down two one day, so this is not a problem.
+
+Pros and cons. Advantages and disadvantages.
+
+\subsection{Command Query Responsibility Segregation}
+Seperate pieces of software components that read and write to the central store.
+
+Command model, write the model. It is only used when making updates.
+
+Query model, 
+
+It is appropriate pattern, but seems to 
+
+

@@ -25,7 +25,7 @@ Many tech companies have publicly talked about their innovative ways of working,
 This is a completely new way of designing a organisation, and removes pre-existing process and organisation inhibitors. It is possible for each team to create and release features independently, minimizing waiting time between teams. At the same time teams are responsible for what they create, removing handoffs between teams. The focus is having loosely coupled but tightly aligned teams\cite{kniberg2014spotify}.
 It is important that organisation and process inhibitors are removed before utilizing microservices as an architecture choice\cite{meshenberg2016microservices}. This will make it possible to utilize available technology to the fullest, by allowing teams to choose which technology is used for development of the separate features\cite{fowler2014polyglot}. A central database slows down teams, by creating dependencies across team boundaries, creating a need for coordinating changes. Giving the possibility for a polyglot database architecture where a specific database technology is used because of it's advantages in the specific situation creating a system that contains several databases with different data\cite{george2016it, fowler2014microservices}.
 
-\comment{Increas focus on the technology aspect, it is after all our main interest}
+\comment{Increase focus on the technology aspect, it is after all our main interest}
 
 \section{Knowledge sharing}
 A huge trend of knowledge sharing has started, where online accessible conference talks and a high quantity of open source projects inspire and help developers solve common challenges. Conferences have focus on new open source technology, system architecture, working process and organisational structure, all with a common goal: speeding up software development and the ability to solve increasingly difficult problems. Conferences are either entirely committed to or has tracks about topics like: Cloud computing, Agile development, Domain Driven Design, Microservices, NoSQL, Docker, Cassandra among many others\cite{george2016it}. Company internal projects that beforehand was only internal accessible, are increasingly made open source, giving developers very advanced tools to create elegant and efficient solutions quickly. These projects are freely accessible, with well known support challenges, where developers can find help with specific challenges utilizing the projects.
@@ -41,6 +41,15 @@ High requirements for availability, always online, always used by users
 }
 
 The inherent problem with distributed systems is their resilience. How well do they match up against the face of disruptive events or internal errors. A lot of different errors can occur, when a application is deployed, and it is by nature very hard to reason about which error occurred and why, when the system is in production. It is near impossible to exhaust every possible error pattern through preliminary testing, especially if the application has any modest level of complexity. At the same time, the test environment will never completely match the production environment. Precautionary measures therefore need to be taken, taking into account that latent bugs, error patterns and external events will challenge any deployed application. 
+
+With today's technology and tools available it is possible to create resilient application.
+
+With the correct amount of benchmark testing and fail saves, it is possible to guaranty up time.
+
+%\url{http://tech.opentable.co.uk/blog/2014/02/28/api-benchmark/}
+"As developers we rely on technologies that, with a minimum effort, can guarantee some pretty decent results in terms of performance. Modern web frameworks handle concurrency and thread management without requiring much plumbing code. Sophisticated and relatively cheap cloud services help us monitor our applications, providing dashboards, reports and alerting systems. Deploying on the cloud we can run our services and even auto-scale them depending on how much power we need. Even with these tools we must still own the responsibility of writing good quality code, testing it properly, and deploying as fast as possible in order to optimise the delivery process of our products."
+
+But what about performance? I mean, what about the relationship between the code we write every day, and the way we impact overall performance? Are we sure that we are not deploying to production something that is degrading our services’ performance?"
 
 \comment{Expand and include references}
 
