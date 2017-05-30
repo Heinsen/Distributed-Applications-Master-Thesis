@@ -1,5 +1,4 @@
 \chapter{Implementation}
-
 This chapter describes the implementation
 
 \note {
@@ -16,19 +15,17 @@ The application was load tested with a benchmarking tool running on a separate s
 
 
 \subsubsection{Test Application}
-The application was developed in Java using the Spring boot framework, making it possible to create a production ready application quickly. 
-
-The spring boost framework was utilized to create a REST API, exposing a single endpoint supporting a GET request, fetching a list of small \textit{rule} objects containing a single attribute. The application was tested locally and containerized using docker, using the spotify \footnote{Docker maven plugin for creating and pushing containerized applications directly with maven \url{https://github.com/spotify/docker-maven-plugin}} docker maven plugin that makes it possible go create and push new docker images to the docker hub\footnote{The image is available on docker hub: \url{https://hub.docker.com/r/ihacheinsen/simple-rest-api/}} using maven. A kubernetes deployment was  used to deploy the application in the cluster, utilizing the Kubernetes functionality to scale the application to the wished amount of replicates for the given test step.
+The test application was devloped as a java application, due to the simplicity and good documentation of the available java frameworks, making it possible to develop a test ready application rather confidently. The test application exposes a single API endpoint supporting GET requests, which returns a empty list of simple \textit{Rule} objects, containing a single attribute. The spring boost framework was utilized to create the API endpoint, due to it's simplicity and ease of use. The application was tested locally and containerized using docker, using the spotify \footnote{Docker maven plugin for creating and pushing containerized applications directly with maven \url{https://github.com/spotify/docker-maven-plugin}} docker maven plugin that makes it possible go create and push new docker images to the docker hub\footnote{The image is available on docker hub: \url{https://hub.docker.com/r/ihacheinsen/simple-rest-api/}} using maven. A kubernetes deployment was  used to deploy the application in the cluster, utilizing the Kubernetes functionality to scale the application to the wished amount of replicates for the given test step, delivering good monitoring, making it possible to monitor health and utilization of individual service replicas.
 
 \subsection{Test Tool}
-A NodeJS application was developed, to initiate the chosen benchmarking tool and collect results from the test. The application consists of a single page, making it possible to specify the host that should be load tested, number of total requests in each test step, a start rate of requests per second (multiplied with the current test step) and a total and start step for the test. 
+A NodeJS application was developed, to initiate the chosen benchmarking tool and collect results from the test. The application expose a single web page, making it possible to specify the host targeted for load test, number of total requests in each test step, a start rate of requests per second - used to calculate rate at each test step - the start step and a total amounts of steps for the test. 
 
-The application was hosted through GCP on a separate virtual machine instance, located in \textit{europe-west1-c} (a different zone then the cluster hosting the test application) to ensure some 'distance' between the test tool and test application. GCP makes it possible to access created instances through SSH, where the test tool was deployed using docker.
+The application was hosted through GCP on a separate VM instance, located in \textit{europe-west1-c} (a different zone then the cluster hosting the test application) to ensure some 'distance' between the test tool and test application. GCP makes it possible to access created instances through SSH, where the test tool was deployed and monitored using docker.
 
-Load was generated with the benchmarking tool Vegeta\footnote{The Vegeta load testing tool and library can be found on github: \url{https://github.com/tsenart/vegeta}}. Vegeta is a open source library, that makes it possible to generate a high amount of requests directed to any given host, providing several neat commands for generating reports of the test results as well. The test tool initiates Vegeta for each test step, steadily increasing the amount of request per second for each increasing step. Vegeta produce results for each step, which are gathered in a simplified JSON structure for display on the test tool page.
+Load was generated with the benchmarking tool Vegeta\footnote{The Vegeta load testing tool and library can be found on github: \url{https://github.com/tsenart/vegeta}}. Vegeta is a open source library, that makes it possible to generate a high amount of requests directed to any given host, making it possible to tune the test by specifying wished timeout, duration among other parameters, providing several neat commands for generating reports of the test results as well. The test tool initiates Vegeta for each test step, steadily increasing the amount of request per second for each increasing step. Vegeta produce results for each step, which are gathered in a simplified JSON structure for display on the test tool web page. Besides response time, Vegeta gives information about success rate and overall duration of a test, giving more indicators of whether the specific host under test managed to satisfied the load. If a host is overloaded, the duration of the test typically exceeds the predefined duration, due to a high amount of timeouts, giving a poor success rate. Success rate and duration are therefore a product of response time.
 
 \subsection{Test}
-The application has been load tested in 20 steps, starting with \textit{100.000 request per second} steadily increased by multiplying the start rate with the step value, resulting in a maximum of 200.000 requests per second. Each step sends a total of 100000 requests, resulting in different durations of each test step. The equation for calculating the given duration for a step is seen on figure \ref{fig:implementation_load_duration_equation} below, calculated before initiating each test step.
+The application has been load tested in 20 steps, starting with 100.000 request per second steadily increased by multiplying the start rate with the current step, resulting in a maximum of 200.000 requests per second. Each step sends a total of 100000 requests, resulting in different durations of each test step. The equation for calculating the given duration for a step is seen on figure \ref{fig:implementation_load_duration_equation} below, calculated before initiating each test step.
 
 \begin{figure}[!htb]
   \includegraphics[width=\textwidth]{implementation_load_duration_equation}  
@@ -36,23 +33,42 @@ The application has been load tested in 20 steps, starting with \textit{100.000 
   \label{fig:implementation_load_duration_equation}
 \end{figure}
 
-This calculation was done to satisfy the parameters of the utilized benchmarking tool Vegeta, that requires a test duration and a amount of requests per second, without the ability to specify a fixed total amount of requests with a at a given rate.
+This calculation was done to satisfy the parameters of the utilized benchmarking tool Vegeta, that requires a test duration and a amount of requests per second, without the ability to specify a fixed total amount of requests at a given rate.
 
 Each test iteration was done 10 times to account for outliers, creating a reasonable sample basis.
 
 
-\subsection{Results}
-The results are presented for each of the cluster configurations, with a mean value for each step, calculated with values across all 10 iterations. 
+\subsection{Test Results}
+The test results are evaluated primarily by judging the response time median at each step for the given cluster configuration. Success rate and duration also contribute to the evaluation, providing useful insights into how successfully the application configuration handled the load. A response time above 500 ms does not qualify as being satisfactory.
 
-The results clearly show a improvement in maximum throughput for the application, with the lowest attainable throughput at 1 node, and a highest at 10 nodes.
+%\begin{figure}[!htb]
+%  \includegraphics[width=\textwidth]{}  
+%  \caption{Response time of each cluster configuration at a given rate of request per second }
+%  \label{fig:}
+%\end{figure}
 
-Many factors affect the test: Virtual machine network and processor power, test tool process power and Vegeta, emitting up too 200.000 requests per second.
+Test results are gathered for each configuration, creating an average across all 10 executed tests. The results clearly show a improvement in maximum throughput for the application, with the lowest attainable throughput at 1 node, and a highest at 10 nodes.
 
-At the same time, hosting the test application in a cluster, where these factors can be determined and changed by configuration makes it possible to evaluate the application with different setups. 
+The results show how replication factor of the test application is a determining factor for maximum throughput, creating clear boundaries for when a application is able to satisfy a given load. It is concluded that the main limiting factor for the application is processor power, setting a natural upper limit for the attainable throughput. By replicating the application, a higher amount of processor power was reserved, making it possible to serve a higher amount of requests. The application was able to satisfy the following loads at different replication factors:
 
-The test tool makes it easy to initiate new test iterations, and gathers results for further review. Having a impression of the capacity for a given application makes it possible to quantify whether application services live up to the requirements, and therefore do not act as the systems bottleneck.
+\begin{center}
+\begin{tabular}{ |p{2cm}|p{5cm}|  }
+ \hline
+{\textbf{Nodes}} & {\textbf{Requests per Second}}\\
+ \hline
+ \textbf{1} & 9000 r/s\\
+ \hline
+ \textbf{5} & 11000 r/s\\ 
+ \hline
+ \textbf{10} & 14000 r/s\\ 
+ \hline
+\end{tabular}
+\end{center}
 
+\subsubsection{Limiting Factors}
+Many factors was found to affect the test results, besides the application under test, which has to be considered when doing load testing. The test tool was hosted on a separate machine to minimize external factors and create 'distance' to the application under test: Several provisioning sizes were tried before choosing a VM instance with 8 CPU's, as this was the smallest machine capable of delivering the required load of 200.000 requests per second. Several testing tools were tried and tested, Vegeta made it possible to emit the required amount of requests simultaneously, having create functionality to create reports, other tools did not deliver in the same way for this test, but reflecting about which tool serves the purpose of the specific test best is adviced. Having a tool not meeting expectations is a potent source for error, hiding in the test tool and not the test application.
 
+The test tool makes it easy to initiate new test iterations, and gathers results for further review. Having a impression of the capacity for a given application makes it possible to quantify whether application services live up to the requirements, and not as the systems new bottleneck. Identifying the correct minimum and maximum load, as well as identifying expected performance can be a tedious task, immediate by the test tool, making it easy to try out different configurations. Hosting the test application in a cluster, where limiting factors can be determined and changed by configuration makes it possible to evaluate the test application in different setups, finding the optimal setup.
 
 \section{Circuit breaker}
 
