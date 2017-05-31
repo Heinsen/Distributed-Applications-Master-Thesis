@@ -1,6 +1,7 @@
-\chapter{Danske Bank}
+\chapter{Case Study at Danske Bank}
+\textit{The result of the cooperation with Danske Bank is the following case study of the Business Customer Agreement (BCA) system, which stands as a example of an application that has outgrown the chosen software architecture. This chapter will describe the BCA system and the inherent limitations in the chosen architecture.}
 
-Danske bank is the largest bank in Denmark \cite[p.~38]{danske_bank_setting_up_in_denmark}, with 2.7 million personal customers, 238,000 small and medium-sized business customers and 1,700 corporate and institutional customers, across the Nordic countries and in Northern Ireland. Danske bank offers a wide range of banking services for Danish and international customers, promising highly available and feature rich digital solutions. Danske bank is active in many sectors within the fields of banking, providing comprehensive digital solutions within each, resulting in several high-end digital solutions. Current solutions include comprehensive web solutions, tablet and smarthphones applications for personal banking and a leading mobile payment application with more than 400.000 transactions daily. Danske bank prioritizes being on the technological forefront, deeming it highly important for customer satisfaction and retainment stating the following on their website\cite{danske_bank_our_essence}:
+Danske Bank is the largest bank in Denmark \cite[p.~38]{danske_bank_setting_up_in_denmark}, with 2.7 million personal customers, 238,000 small and medium-sized business customers and 1,700 corporate and institutional customers, across the Nordic countries and in Northern Ireland. Danske Bank offers a wide range of banking services for Danish and international customers, promising highly available and feature rich digital solutions. Danske Bank is active in many sectors within the fields of banking, providing comprehensive digital solutions within each, resulting in several high-end digital solutions. Current solutions include comprehensive web solutions, tablet and smarthphones applications for personal banking and a leading mobile payment application with more than 400.000 transactions daily. Danske Bank prioritizes being on the technological forefront, deeming it highly important for customer satisfaction and retainment stating the following on their website\cite{danske_bank_our_essence}:
 
 \tquote{We have a constant focus on improving our advisory services and developing unique digital products. Our goal is to give our customers the best possible advice and provide them with seamless digital solutions. By continuously developing our offerings and introducing new and innovative tools, we aim to create value for all our customers – from making daily payments easy for our private customers to supporting our large, corporate customers in developing their business}{Danske bank}{2017}
 
@@ -10,12 +11,16 @@ Complex infrastructure
 Data handling
 1 mill transactions}
 
-Danske bank has a high amount of existing systems, having active in-house software development projects running for more than 30 years. Danske bank is a big and complex organisation, which is reflected in their software infrastructure, that consists of a diverse and extensive range of software systems of varying size. Many of the earlier developed software projects are labelled by developers as being 'legacy systems' referred to with equal amounts of respect and awe. As some of these legacy systems have been extensively utilized in a steady growing amount of new applications, developers have faced many challenges with high coupling and loss of cohesion. The following chapter will present and analyse one of these legacy systems, that is essential to one of the business areas within Danske bank, more specifically agreements for business customers and their access to banking services.
+Danske Bank has a high amount of existing systems, having active in-house software development projects running for more than 30 years. Danske Bank is a big and complex organisation, which is reflected in their software infrastructure, that consists of a diverse and extensive range of software systems of varying size. Many of the earlier developed software projects are labelled by developers as being 'legacy systems' referred to with equal amounts of respect and awe. As some of these legacy systems have been extensively utilized in a steady growing amount of new applications, developers have faced many challenges with high coupling and loss of cohesion. The following chapter will present and analyse one of these legacy systems, that is essential to one of the business areas within Danske Bank, more specifically agreements for business customers and their access to banking services.
 
-\section{The shared database}
-Danske bank has a multitude of applications sharing a common database layer, that contains a wide variety of information about newly created and existing business customers and their access privileges to services within Danske bank. Development of the shared database was according to Danske bank started in 1991, where dependent applications were integrated closely with the database. Each application had the necessary logic for manipulating the database according to it's needs. Based on problems with a high amount of duplicated code across the expanding sets of interacting applications Danske bank initiated a reiteration of the shared database architecture in 2006. 
+\section{The Business Customer Agreement System}
+Danske Bank was contacted before the project period started, to figure out if part of the organisation had interest in a cooperation with outset in existing systems and challenges therein. 
 
-An small part of the current and enormous architecture can be seen on Figure \ref{fig:danske_bank_shared_database}, the architecture can be divided into three layers: Application layer, Database access layer and a Database layer. The application layer consists of many diverse applications, each utilizing the common database either through a specific access service or by directly communicating with the database. The database is mainly accessed through a multitude of different services, in the database access layer, these services act as interfaces to the database, ensuring that data is created, read, updated and deleted according to the specific context. The database layer consists of a resource intensive IBM DB2 relation database management system (RDMS), hosting a SQL database. 
+Several meetings were arranged with senior developers from the \textit{Corporate Users and Agreements} department before a suitable application within Danske Bank's ecosystem was identified for further exploration. The initial talk led to preliminary design sketches of the existing architecture and the inherent challenges it possess, a follow up meeting was scheduled to gain a more intricate knowledge of the system.
+
+Thomas Lønborg Hansen is Lead Software Architect in the Corporate Users and Agreements department and has worked with the BCA system for several years. The BCA integrates a wide variety of applications together, containing information about existing and newly created business customers and their access privileges to services offered by Danske Bank. The BCA serves as an integration layer for several hundreds of applications within Danske Bank's ecosystem, being the single source of truth when determining a specific customers access privileges \textit{"there are 20 or 30 system each consisting of 50 or more applications, they mainly query the database through interfaces, while some legacy systems still directly interact with the database"}. Development of the shared database was according to Danske Bank started in 1991, where dependent applications were integrated closely with the database, each application having the necessary logic to manipulate the database, \textit{"that was what you did at the time [when developing integration mechanisms for distributed applications in 1991]"}. This form of integration causes a multitude of problems, creating a high amount of duplicated code across the expanding set of interacting applications \textit{"A lot of people needed the same functionality, which caused a lot of duplicated code ... maybe even across 100 different callers"}. Based on problems with a high amount of duplicated code across the expanding sets of interacting applications Danske Bank initiated a reiteration of the shared database architecture in 2006, introducing new interfaces making it possible for applications to interact with the database without having database dependent query code.
+
+A small part of the current architecture can be seen on Figure \ref{fig:danske_bank_shared_database}, the architecture can be divided into three layers: Application layer, Database access layer and a Database layer. The application layer consists of many diverse applications, each utilizing the common database either through a specific access service or by directly communicating with the database. The database is mainly accessed through a multitude of different services, in the database access layer, these services act as interfaces to the database, ensuring that data is created, read, updated and deleted according to the specific context. The database layer consists of a resource intensive IBM DB2 relation database management system (RDMS), hosting a SQL database. 
 
 \note{The database effectively sits as a integration tool for the multitude of dependent applications.}
 
@@ -26,28 +31,54 @@ An small part of the current and enormous architecture can be seen on Figure \re
 \end{figure}
 
 
-Even though Danske bank has tried to combat some of the issues with a shared database architecture, there is still inherently many problems with the architecture. 
+Even though Danske Bank has tried to combat some of the issues with a shared database architecture, there is still inherently many problems and limitations with the architecture, which will be further discussed in the following section.
 
 \subsection{Challenges with a shared database}
-The shared database is a very common form of integration, and according to Newman the most common one\cite[p.~41]{newman2015microservices}. A database integration starts out very simple and is quickly established, but with time becomes rigid.
+As hinted earlier, the shared database architecture is a very common integration method\cite[p.~41]{newman2015microservices}, but also a method filled with challenges\cite[t.~10:36]{fowler2014microservicesoamonolith}. This section will try and pin down why this form of integration has been so widespread and secondly in greater detail which challenges and limitations it introduces.
+
+\subsubsection{The value of the relational database}
+There are several valuable aspects of utilizing a relational database, and challenges with sharing the database does not necessarily stem from utilizing a relational database itself. The main benefits provided by relational databases are outline below:
+
+\textbf{Persistent data}\\
+Enterprise applications typically implement some kind of database, due to the need of backing up data while improving flexibility over storing data using the file system. Storing data in volatile memory is not really an option, incurring data loss with the loss of power or failure in the operating system \cite[p.~3]{sadalage2012nosql}. 
+\textbf{Concurrency}\\
+Relational databases handle concurrency by providing data through transactions, containing most of the complexity when working with concurrency.
+\textbf{Integration}\\
+A single database makes it possible to share data between applications easily, SQL implements strong concurrency control, making it possible to share the application between several applications as well as using a single database from several places within one application\cite[p.~4]{sadalage2012nosql}. 
+\textbf{A Standard Model}
+Relational databases made some basics standards for utilizing them, by learning the basics of the relational model reaping the benefits in many projects was made possible.
+
+Relational databases was in turn used as a integration method due to it improving communication between applications, as mentioned earlier utilizing the same database for all data makes it easier for the individual application, if ever some data is needed, it is as easy as reaching down into the database to find it. Concurrency guarantees make sure that data does not conflict, and that each application always has a complete and correct view of the data.
+
+The shared database is a very common form of integration, and according to San Newman the most common one\cite[p.~41]{newman2015microservices}. A database integration starts out very simple and is quickly established, but with time becomes rigid. Martin Fowler also express how common this integration is and what it brings with it "If we think about the monolithic world we think of the fact that generally all of the data is sitting in one honking big relational database ... everything goes in the same place ... first it [referring to decentralization of data management in microservices] removes this horrible mess of integrating through a database, which causes no end of problems in enterprises all over the place"\cite[t.~10:36]{fowler2014microservicesoamonolith}. 
 
 \note{
-\url{https://www.youtube.com/watch?v=wgdBVIX9ifA&t=674s} 
+\url{https://youtu.be/wgdBVIX9ifA?t=558} 
 GOTO 2014 • Microservices • Martin Fowler
 
 Fowler says it is a big problem for a lot of companies that they have these big shared databases.
 
+Integration through a database does not seem very liked by leading figures working with enterprise software and distributed systems. 
 }
 
 \subsubsection{Single point of failure}
-Each consumer is highly reliant on a correct and running database. All consumers are communicating with the same database, inferring a very high responsibility on each consumer, a incorrect implementation could cause the database to collapse, due to malformed or a high amount of requests from a single or several consumers.
+Each consumer is highly reliant on a correct and running database. All consumers are communicating with the same database, inferring a very high responsibility on each consumer, a incorrect implementation could cause the database to collapse, due to malformed or a high amount of requests from a single or several consumers, Nygaard includes this in his description of stability antipatterns\cite[p. 31]{nygard2007release}, this is further described in section \ref{sec:stability_antipatterns}
 A high amount of applications are dependent on the singular database, the lack of redundancy would cause a complete stop to the many applications dependent on the database, if it was ever to crash.
+
+\subsection{Capacity}
+Two types of capacity scaling exists, vertical and horizontal. Vertical scaling incurs increasing the processing power on a singular server, while horizontal scaling incorporates replicating the application on several servers, relying less on individual server processing power by distributing load. With a single SQL database in place at the hearth of several applications, the capacity for these applications will be limited. Vertical scaling is limited to the biggest machine available, by choosing a architecture that only supports vertical scaling it will at some point be a limiting factor \cite{meshenberg2016microservices}.
+Capacity improvement and the effects of replication is thoroughly investigated in chapter \ref{ch:implementation} section \ref{sec:Effects_of_Replication} where experiments have been conducted to show the effects of replication.
 
 \subsubsection{High coupling}
 Each consumer without a database access layer is highly couple to the database, making changes to the database structure incur changes in all directly linked consumers implementation.
 
 \subsubsection{Loss of cohesion}
 By having several database access layers and dependent applications directly interacting with the database, the logic required to perform common operations on the database is duplicated. This infers a big overhead if a bug is discovered within this common logic, making it necessary to update several code bases with the same fix.
+
+\subsubsection{Complex model}
+By sharing a database between several applications, the database needs to contain a richer model, incorporating all aspects needed by each involved applications. Creating a very complex model\cite[p.~6]{sadalage2012nosql}. Identifying what Eric Evans calls \textit{Bounded contexts} is extremely important to avoid several pitfals, discussed in further detail in section\ref{sec:DDD}.
+
+
 
 \note {
 
@@ -62,7 +93,7 @@ By having several database access layers and dependent applications directly int
 }
 
 \note{
-\subsection{Where Danske bank want to go}
+\subsection{Where Danske Bank want to go}
 Distribute responsibility, each consumer wanting to subscribe to the data source, has it's own representation of the data, moving responsibility from the single database to a consumer database. Adding more consumers does hereby not introduce risk on all other consumers, by burdening a central database.
 
 A more scalable solution, where an unlimited number of consumers can be added, solving limitations in the current implementation. Not limiting database implementation, making it possible to swap individual parts of the system without incurring change on the rest of the system.
@@ -108,7 +139,7 @@ Access Control layer(proxy) description:
 \say{The Group offers Danish and international customers a wide range of services in the fields of banking, mortgage finance, insurance, leasing, real-estate brokerage and asset management} 
 
 
-Danske bank has been in constant development, modernizing existing and creating new systems, with a focus on 
+Danske Bank has been in constant development, modernizing existing and creating new systems, with a focus on 
 focusing on creating highly available, consistent and scalable solutions.
 
 
@@ -124,4 +155,11 @@ In need of something that can server a lot of reads
 External parties view and bind internal implementation
 
 Logic associated with interpreting and changing data is spread out, if some logic contains a bug or the database is changed, it infers changes multiple places, removing cohesion
+
+\textbf{More details about some of the tables:}\\
+Functionality access:
+Can i ask for adjustment to mastercard
+Can i see my leasing agreement
+
+These are accessed on runtime.
 }
