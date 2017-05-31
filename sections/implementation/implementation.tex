@@ -39,17 +39,15 @@ Each test iteration was done 10 times to account for outliers, creating a reason
 
 
 \subsection{Test Results}
-The test results are evaluated primarily by judging the response time median at each step for the given cluster configuration. Success rate and duration also contribute to the evaluation, providing useful insights into how successfully the application configuration handled the load. A response time above 500 ms does not qualify as being satisfactory.
+The test results are evaluated primarily by judging the response time median at each step for the given cluster configuration. Success rate and duration also contribute to the evaluation, providing useful insights into how successfully the application configuration handled the load. The response time results are visualised in figure \ref{fig:implementation_effect_of_replication_requests}. A response time above 100 ms was deemed unsatisfactory, which was breached for each cluster configuration rather clearly with a enormous spike in response times at a certain load increase. 
 
-%\begin{figure}[!htb]
-%  \includegraphics[width=\textwidth]{}  
-%  \caption{Response time of each cluster configuration at a given rate of request per second }
-%  \label{fig:}
-%\end{figure}
+\begin{figure}[!htb]
+  \includegraphics[width=\textwidth]{implementation_effect_of_replication_requests}  
+  \caption{Response time for each cluster configuration}
+  \label{fig:implementation_effect_of_replication_requests}
+\end{figure}
 
-Test results are gathered for each configuration, creating an average across all 10 executed tests. The results clearly show a improvement in maximum throughput for the application, with the lowest attainable throughput at 1 node, and a highest at 10 nodes.
-
-The results show how replication factor of the test application is a determining factor for maximum throughput, creating clear boundaries for when a application is able to satisfy a given load. It is concluded that the main limiting factor for the application is processor power, setting a natural upper limit for the attainable throughput. By replicating the application, a higher amount of processor power was reserved, making it possible to serve a higher amount of requests. The application was able to satisfy the following loads at different replication factors:
+Test results are gathered for each configuration, creating an average across all 10 tests executed for each cluster configuration. The results clearly show a improvement in maximum throughput for the application, with the lowest attainable throughput at 1 node, and a highest at 10 nodes. The results show how replication factor of the test application is a determining factor for maximum throughput, creating clear boundaries for when a application is able to satisfy a given load. The application was able to satisfy the following loads at different replication factors:
 
 \begin{center}
 \begin{tabular}{ |p{2cm}|p{5cm}|  }
@@ -65,10 +63,27 @@ The results show how replication factor of the test application is a determining
 \end{tabular}
 \end{center}
 
-\subsubsection{Limiting Factors}
-Many factors was found to affect the test results, besides the application under test, which has to be considered when doing load testing. The test tool was hosted on a separate machine to minimize external factors and create 'distance' to the application under test: Several provisioning sizes were tried before choosing a VM instance with 8 CPU's, as this was the smallest machine capable of delivering the required load of 200.000 requests per second. Several testing tools were tried and tested, Vegeta made it possible to emit the required amount of requests simultaneously, having create functionality to create reports, other tools did not deliver in the same way for this test, but reflecting about which tool serves the purpose of the specific test best is adviced. Having a tool not meeting expectations is a potent source for error, hiding in the test tool and not the test application.
+Measurements after reaching a configurations seemingly maximum throughput gives very mixed results, and should not be regarded. The figure clearly shows how the 5 node cluster configuration delivers bad response times between 10.000 and 14.000 requests per second, while reappearing in the graph after 14.000 request per second. It would seem that the cluster configuration is able to recover from a constant flow of requests, for a short period of time, in the end the configuration does not manage to uphold the required response time at the high load.
 
-The test tool makes it easy to initiate new test iterations, and gathers results for further review. Having a impression of the capacity for a given application makes it possible to quantify whether application services live up to the requirements, and not as the systems new bottleneck. Identifying the correct minimum and maximum load, as well as identifying expected performance can be a tedious task, immediate by the test tool, making it easy to try out different configurations. Hosting the test application in a cluster, where limiting factors can be determined and changed by configuration makes it possible to evaluate the test application in different setups, finding the optimal setup.
+The CPU load for nodes in the different cluster configurations was exported from the default Kubernetes cluster monitoring tool Grafana, visualised below in figure \ref{fig:implementation_effect_of_replication_cpu}. It is clearly visible on the graph that nodes in the 1 node cluster configuration is drastically more loaded, whereas nodes in 5 and 10 node configurations are less loaded across test runs.
+
+\begin{figure}[!htb]
+  \includegraphics[width=\textwidth]{implementation_effect_of_replication_cpu}  
+  \caption{CPU usage on individual nodes, in different cluster configurations}
+  \label{fig:implementation_effect_of_replication_cpu}
+\end{figure}
+
+It has to be noted that several factors are contributing to the discrepancy between the different CPU datasets. The CPU data has a low sampling rate - the default sampling rate for CPU and network monitoring is 1 minute -, and data was manually exported, making the collection sub optimal. As mentioned earlier, fail-overs of cluster configurations, due to reaching maximum throughput, extends the overall duration, creating variations in test runs duration. The exported data is therefore fitted, giving the most accurate representation.
+
+\subsubsection{Limiting Factors}
+Many factors was found to affect the test results, which are important to consider when doing load testing.The test tool was hosted on a separate machine to minimize external factors and create 'distance' to the application under test: Several provisioning sizes were tried before choosing a VM instance with 8 CPU's, as this was the smallest machine capable of delivering the required maximum load of 20.000 requests per second. Choosing smaller VM instances decreased the reliability of the test tool due to exhaustion of the available processor power.
+
+Several testing tools were tried and tested, Vegeta made it possible to emit the required amount of requests simultaneously, other tools did not deliver in the same way for this test. Reflecting about which tool serves the purpose of the specific test best is advised. The different available open source tools are designed with different purposes in mind, having a tool not meeting expectations is a potent source for error, hiding in the test tool and therefore not the test application.
+
+
+The test tool makes it easy to initiate new test iterations, and gathers results for further review. Having a impression of the capacity for a given application makes it possible to quantify whether application services live up to the requirements, and not as the systems new bottleneck. Identifying the correct minimum and maximum load, as well as identifying expected performance can be a tedious task, immediate by the test tool, making it easy to try out different configurations. Hosting the test application in a cluster, where limiting factors can be determined and changed by configuration makes it possible to evaluate the test application in different setups, identifying the optimal configuration.
+
+
 
 \section{Circuit breaker}
 
