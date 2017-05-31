@@ -1,1 +1,23 @@
 \chapter{Discussion}
+\label{ch:discussion}
+
+
+
+\section{Effects of Replication test}
+It is advanced to take all factors into account
+
+Cloud computing makes it inherently hard to survey what is running and how well.
+
+It is hard to get an impression of how an application runs in production. Will the allocated server processor power be sufficient for the application and the expected load, how will the loadbalancer, proxy or whatever in front of the application hinder or add to performance.
+
+The chosen language and how the it is utilized, a lot of constructs are created to make it easier to develop, maintain and introduce to new developers, which impact does these constructs have on the performance, and will they work in this different setting.
+
+The discrepancy between development and production environment introduces hard to comprehend implications.
+
+When doing benchmark testing a lot of factors play into the equation. The application under test is limited by the language chosen, and the server running the application, as well as the infrastructure it is running on and the capacity it is running at. The test tool is also limited by these factors, and most importantly different open source test tools have different purposes and limitations, which in turn are hard to fully grasp.
+
+Gathering data is easy, aggregating and determining which data is important and why is hard. Kubernetes makes a lot of data available, on many different levels of the system stack, making it easy to get data, but still hard to choose the important data. Gathering data does not solve the inherent problem with distributed systems: lack of transparency. Having access to the data on the other hand makes us able to solve this problem, which has always existed, also in monolith or SOA architectures. Deploying a applications on a distant server does inherently make it hard to reason about the application behaviour, but having easy access to data that is intermediate between microservices makes it possible to reason about the behaviour, be it still hard, but possible with the correct aggregation tools.
+
+This shows how performance of the individual application is a medley of all stack levels: Infrastructure, provisioning, runtime, orchestration & management and application definition and development. Stressing the need for a centralization of the responsibility and focus of all the layers, Spotify is doing it with great success already, it makes a lot of sense when evaluated from this perspective. Neither of the prohibiting factors should be in place no matter what architecture is chose, if developers are limited by organisation, process or technology adoption, the end product will be as well.
+
+
