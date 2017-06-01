@@ -2,7 +2,6 @@
 \label{ch:discussion}
 
 
-
 \section{Effects of Replication test}
 It is advanced to take all factors into account
 
@@ -19,3 +18,13 @@ When doing benchmark testing a lot of factors play into the equation. The applic
 Gathering data is easy, aggregating and determining which data is important and why is hard. Kubernetes makes a lot of data available, on many different levels of the system stack, making it easy to get data, but still hard to choose the important data. Gathering data does not solve the inherent problem with distributed systems: lack of transparency. Having access to the data on the other hand makes us able to solve this problem, which has always existed, also in monolith or SOA architectures. Deploying a applications on a distant server does inherently make it hard to reason about the application behaviour, but having easy access to data that is intermediate between microservices makes it possible to reason about the behaviour, be it still hard, but possible with the correct aggregation tools.
 
 This shows how performance of the individual application is a medley of all stack levels: Infrastructure, provisioning, runtime, orchestration and management, and application definition and development. Stressing the need for a centralization of the responsibility and focus of all the layers, Spotify is doing it with great success already, it makes a lot of sense when evaluated from this perspective. Neither of the prohibiting factors should be in place no matter what architecture is chose, if developers are limited by organisation, process or technology adoption, the end product will be as well.
+
+
+\section{The open source project problem}
+Having access to these advanced tools give very great benefits. We can utilize them and if done correctly achieve things way quicker than what was possible before.
+
+At the same time these tools, frameworks and libraries have their limitations. Who contributes to them, when will bug fixes arrive and can we trust that it will work?
+
+Early on when talking with Danske Bank, they said that this was one of their concerns when picking up open source software, if something is not working correctly, who do you call?
+
+Danske Bank have service agreements for their usage of Cassandra, if they meet an obstacle that they cannot solve internally, or their database crashes, they call their service provider, which then help them fix issues and answers questions about Cassandra.

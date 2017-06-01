@@ -31,26 +31,31 @@ A small part of the current architecture can be seen on Figure \ref{fig:danske_b
 \end{figure}
 
 
-Even though Danske Bank has tried to combat some of the issues with a shared database architecture, there is still inherently many problems and limitations with the architecture, which will be further discussed in the following section.
+Even though Danske Bank has tried to combat some of the issues with a shared database architecture, there is still inherently many problems and limitations with the architecture, which will be further discussed in the following sections.
 
-\subsection{Challenges with a shared database}
-As hinted earlier, the shared database architecture is a very common integration method\cite[p.~41]{newman2015microservices}, but also a method filled with challenges\cite[t.~10:36]{fowler2014microservicesoamonolith}. This section will try and pin down why this form of integration has been so widespread and secondly in greater detail which challenges and limitations it introduces.
+\section{The Shared Database}
+This section will try and pin down why this form of integration has been so widespread and secondly in greater detail which challenges and limitations it introduces. As hinted earlier, the shared database architecture is a very common integration method, but also a method filled with challenges. According to San Newman this form of integration is the most common one in enterprise applications \cite[p.~41]{newman2015microservices}. Martin Fowler also express how common this integration is, how he classifies the BCA architecture as being a Service Oriented Architecture (SOA) and the amount of problems this form of integration introduces \cite{fowler2014microservicesoamonolith}:
 
-\subsubsection{The value of the relational database}
-There are several valuable aspects of utilizing a relational database, and challenges with sharing the database does not necessarily stem from utilizing a relational database itself. The main benefits provided by relational databases are outline below:
+\tquote{... if we think about the monolithic world we think of the fact that generally all of the data is sitting in one honking big relational database ... everything goes in the same place and even in a lot of service oriented architectures it is really a lot about multiple services all pulling data in and out of one logical large database ... first it [referring to decentralization of data management in microservices] removes this horrible mess of integrating through a database, which causes no end of problems in enterprises all over the place ... }{Martin Fowler}{2014}. 
+
+A database integration starts out very simple and is quickly established, but with time becomes rigid. Integration through a database is frowned upon by leading spokesmen writing literature and doing presentations about enterprise software architecture, presented as a mistake when Monolithic and SOA architectures were developed. There are many values of the relational database but also challenges when used as a shared relational database which will be described in detail below.
+
+\subsection{The Value of the Relational Database}
+There are several valuable aspects of utilizing a relational database, some of the main benefits are outline below, followed by an explanation of the wide use as an integration method.
 
 \textbf{Persistent data}\\
-Enterprise applications typically implement some kind of database, due to the need of backing up data while improving flexibility over storing data using the file system. Storing data in volatile memory is not really an option, incurring data loss with the loss of power or failure in the operating system \cite[p.~3]{sadalage2012nosql}. 
+Enterprise applications typically need some kind of data storage. There are several ways to store data, using either the filesystem or volative memory, but lack of flexibility and persistence makes these options less attractive. Databases introduce a flexible way to persist data with strong guarantees for concurrency \cite[p.~3]{sadalage2012nosql}.
+
 \textbf{Concurrency}\\
-Relational databases handle concurrency by providing data through transactions, containing most of the complexity when working with concurrency.
-\textbf{Integration}\\
-A single database makes it possible to share data between applications easily, SQL implements strong concurrency control, making it possible to share the application between several applications as well as using a single database from several places within one application\cite[p.~4]{sadalage2012nosql}. 
-\textbf{A Standard Model}
-Relational databases made some basics standards for utilizing them, by learning the basics of the relational model reaping the benefits in many projects was made possible.
+Relational databases handle concurrency by providing data through transactions, containing most of the complexity when working with concurrency \cite[p.~4]{sadalage2012nosql}. 
 
-Relational databases was in turn used as a integration method due to it improving communication between applications, as mentioned earlier utilizing the same database for all data makes it easier for the individual application, if ever some data is needed, it is as easy as reaching down into the database to find it. Concurrency guarantees make sure that data does not conflict, and that each application always has a complete and correct view of the data.
+\textbf{A Standard Model}\\
+Good and basic standards for the utilization of relational databases makes it possible to use this type of databases very easily across different projects \cite[p.~4]{sadalage2012nosql}. 
 
-The shared database is a very common form of integration, and according to San Newman the most common one\cite[p.~41]{newman2015microservices}. A database integration starts out very simple and is quickly established, but with time becomes rigid. Martin Fowler also express how common this integration is and what it brings with it "If we think about the monolithic world we think of the fact that generally all of the data is sitting in one honking big relational database ... everything goes in the same place ... first it [referring to decentralization of data management in microservices] removes this horrible mess of integrating through a database, which causes no end of problems in enterprises all over the place"\cite[t.~10:36]{fowler2014microservicesoamonolith}. 
+\comment{Reiterate how we do this transaction:}
+Due to strong concurrency, a single database makes it possible to store and share data easily this is meant to be utilized internally in a single application, but can also easily be used across several applications, improving ease of communication \cite[p.~4]{sadalage2012nosql}. A single connection to the database can be resued within a dependant application, giving a single persistent reference to all relevant data.
+
+\comment{Mention the microservice premium, if we describe it in architecture chapter at least.}
 
 \note{
 \url{https://youtu.be/wgdBVIX9ifA?t=558} 
@@ -61,24 +66,34 @@ Fowler says it is a big problem for a lot of companies that they have these big 
 Integration through a database does not seem very liked by leading figures working with enterprise software and distributed systems. 
 }
 
-\subsubsection{Single point of failure}
+\subsection{Challenges with a Shared Relational Database}
+Challenges with a shared database in the BCA system and others alike, can be divided in two groups: The limitations of relational databases, and database as an integration method.
+
+\subsubsection{Limitations with Relational Databases}
+The relational model is build around relations, hence the name, providing elegant relational algebra for writing and retrieving data, but at the same time creating a difference between in-memory data structure and the database model, this is called \textit{Impedance Mismatch}. The relational database is inherently not designed to run on clusters, the only sense able way to scale a relational database is vertically, creating a upper limit for the \textit{Capacity}, but also introducing a \textit{Single Point of Failure}. 
+
+\textbf{Single Point of Failure}
 Each consumer is highly reliant on a correct and running database. All consumers are communicating with the same database, inferring a very high responsibility on each consumer, a incorrect implementation could cause the database to collapse, due to malformed or a high amount of requests from a single or several consumers, Nygaard includes this in his description of stability antipatterns\cite[p. 31]{nygard2007release}, this is further described in section \ref{sec:stability_antipatterns}
 A high amount of applications are dependent on the singular database, the lack of redundancy would cause a complete stop to the many applications dependent on the database, if it was ever to crash.
 
-\subsection{Capacity}
+\textbf{Capacity}
 Two types of capacity scaling exists, vertical and horizontal. Vertical scaling incurs increasing the processing power on a singular server, while horizontal scaling incorporates replicating the application on several servers, relying less on individual server processing power by distributing load. With a single SQL database in place at the hearth of several applications, the capacity for these applications will be limited. Vertical scaling is limited to the biggest machine available, by choosing a architecture that only supports vertical scaling it will at some point be a limiting factor \cite{meshenberg2016microservices}.
 Capacity improvement and the effects of replication is thoroughly investigated in chapter \ref{ch:implementation} section \ref{sec:Effects_of_Replication} where experiments have been conducted to show the effects of replication.
 
-\subsubsection{High coupling}
+\textbf{Impedance Mismatch}
+
+\subsubsection{Issues Sharing a Single Databases}
+
+\textbf{High Coupling}
 Each consumer without a database access layer is highly couple to the database, making changes to the database structure incur changes in all directly linked consumers implementation.
 
-\subsubsection{Loss of cohesion}
+\textbf{Loss of Cohesion}
 By having several database access layers and dependent applications directly interacting with the database, the logic required to perform common operations on the database is duplicated. This infers a big overhead if a bug is discovered within this common logic, making it necessary to update several code bases with the same fix.
 
-\subsubsection{Complex model}
+\textbf{Complex Model}
 By sharing a database between several applications, the database needs to contain a richer model, incorporating all aspects needed by each involved applications. Creating a very complex model\cite[p.~6]{sadalage2012nosql}. Identifying what Eric Evans calls \textit{Bounded contexts} is extremely important to avoid several pitfals, discussed in further detail in section\ref{sec:DDD}.
 
-
+\textbf{Technology Lock In}
 
 \note {
 
