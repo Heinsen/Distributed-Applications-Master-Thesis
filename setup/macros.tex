@@ -107,20 +107,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Definition
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newenvironment{definition}
-    {
-    \begin{tabular}{|p{1\textwidth}}
-    \begin{em}
-    ‘‘
-	}
-    {
-    ‘‘
-    \end{em}
-    \end{tabular} 
-    \vspace{7pt}
-    }
+\usepackage{mdframed}
+\definecolor{shadecolor}{RGB}{224,224,224}
+\newcommand{\defi}[3] {
+		\vspace{10pt}
+		\begin{mdframed}[linecolor=white, backgroundcolor=shadecolor!20] 
+			\vspace{4pt}
+			\textbf{#1}\\
+			\emph{#2}\\
+			\vspace{4pt}
+		\begin{footnotesize}
+			{#3}
+		\end{footnotesize}
+		\vspace{5pt}
+	\end{mdframed}
+	\vspace{10pt}
+}
 
-    
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Comment
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
