@@ -33,12 +33,33 @@ A huge trend of knowledge sharing has started, where online accessible conferenc
 The entire movement started when Amazon announced Amazon Web Services in 2006. It meant anyone could register and rent virtual machines for hosting distributed applications. Since then, virtualization has been further revolutionised with the introduction of container technology, which was made open source through the docker initiative in 2014. Docker made it possible to start up new independent and isolated environments in seconds, something Google had developed on internally because they needed it\cite{bernstein2014containers}. Which is somewhat a trademark for the entirety of the cloud native movement, is has sprung out of a big variety of needs: serving massive amounts of users, creating reliable applications, the ability to update and add functionality often and easily, minimize integration complexity and technology lock in. In the end the focus should be on solving the problems at hand and in the future, not maintenance and effects of new extensions on the existing application.
 
 
+
+"In a post-GitHub world, it is no longer sufficient for a software foundation to offer just a software repo, mailing list, and website: we need to offer an enhanced set of services that facilitates increased adoption. You should host your project with the Cloud Native Computing Foundation (CNCF) becaus"
+
+\url{https://www.cncf.io/projects/}
+
 \section{Resilience}
 %Fail whale \url{http://www.whatisfailwhale.info/}
 \note {
 Distanced view on deployment, focus on development phase
 High requirements for availability, always online, always used by users
 }
+
+From preface of Newman book:
+
+\note{
+if the fundamental design of the system doesn’t make it easy to make changes, then there are limits to what can be accomplished.
+
+At the same time, many organizations were experimenting with finer-grained architectures to accomplish similar goals, but also to achieve things like improved scaling, increasing autonomy of teams, or to more easily embrace new technologies. 
+}
+
+From chapter 1 page 1 Newman book: 
+\note{
+
+Amazon and Google espoused the view of small teams owning the full lifecycle of their services. And, more recently, Netflix has shared with us ways of building antifragile systems at a scale that would have been hard to comprehend just 10 years ago.
+Domain-driven design. Continuous delivery. On-demand virtualization. Infrastruc‐ ture automation. Small autonomous teams. Systems at scale. Microservices have emerged from this world. They weren’t invented or described before the fact; they emerged as a trend, or a pattern, from real-world use.
+}
+
 
 The inherent problem with distributed systems is their resilience. How well do they match up against the face of disruptive events or internal errors. A lot of different errors can occur, when a application is deployed, and it is by nature very hard to reason about which error occurred and why, when the system is in production. It is near impossible to exhaust every possible error pattern through preliminary testing, especially if the application has any modest level of complexity. At the same time, the test environment will never completely match the production environment. Precautionary measures therefore need to be taken, taking into account that latent bugs, error patterns and external events will challenge any deployed application. 
 

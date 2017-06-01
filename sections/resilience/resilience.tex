@@ -1,6 +1,8 @@
 \chapter{The Fundamentals of Resilience in Cloud Computing}
 \label{ch:resillience}
 
+
+\comment{Create introduction after Meta text}
 Nygaard describes how software engineering is taught incompletely, and that focus when developing distributed software should be shifted. Nygaard states that focus should be on what a system should not do, contra today's focus on what a system should do. The first acknowledgement when developing distributed systems is according to Nygaard the realisation that failure will occur, and focus should be on handling them instead of avoiding them altogether. Further stating that a stable system will keep on working as intended, even though persistent stress or component failure is present. Nygaard states the following\cite[p. 27]{nygard2007release}:
 
 \tquote{Once you accept that failures will happen, you have the ability to design your system's reaction to specific failures. [..] This sort of self-protection determines the whole system's resilience.}{Nygaard}{2007}
@@ -34,6 +36,7 @@ Dependability describes the systems ability to deliver the intended level of ser
 
 \textbf{Availability} describes the accessibility to data, and is generally determined by calculating the time a service was unavailable, over a given period. The availability level can then be determined, by stating how much downtime is allowed, within a given period\cite[p. 477]{beyer2016siteReliabilityEngineering}. Is the data available to users or dependent service boundaries? If data is not available to our users, it does not exist from their perspective\cite[p. 345]{beyer2016siteReliabilityEngineering}.
 
+\comment{Kig på 'Measuring Service Risk' side 26 is site reliability engineering}
 
 \textbf{Reliability} is the probability that a system will fulfil set requirements in stated conditions for a given period of time\cite{o2012practical}. The resilience of the system therefore determines the reliability, by analysing the amount of external disruption a system can handle. Google states that reliability is the fundamental feature of a system, and autonomous and resilient system behaviour is a good way to achieve reliability\cite[p. 84]{beyer2016siteReliabilityEngineering}.
 
@@ -125,16 +128,14 @@ The circuit breaker pattern is based on the principles and functions of a fuse i
 The circuit break is a state machine pattern, moving between three states: open, closed and half-open. When in open state, requests are processed ordinarily. When in closed state, requests fail immediately. The circuit break can transit from open to closed if requests unexpectedly are unsuccessfully processed. The half-open state processes requests ordinarily to test if it is possible to process requests successfully. If requests are processed successfully in the half-open state, the circuit breaker changes the state to open. A threshold specifies the amount of unsuccessful processed requests, that triggers state transition from open to closed state. Another threshold determines when to transit form closed to half-open states.
 
 Circuit breaker guards against integration points, when a failure occurs in a integration point, it should not be called. Used together with timeouts, that can inform the system of a present error.
-
-
-\comment{Perspektiver}
+\comment{Perspektiver and insert diagram}
 
 \subsection{Bulkheads}
 The bulkheads design pattern is inspired by bulkheads know from ship design, where compartments throughout the ship divides the ship into watertight partitions. This ensures that a single penetration of the ships hull, does not sink the ship. When applied to software, bulkheads is used to partition capacity, preserving functionality if errors occur. Bulkheads can protect against chain reactions, by ensuring backups of services important to several other services. The bulkhead pattern is usable on both a application and infrastructure level, by partitioning thread pools, server CPU or separate servers, determining the granularity. 
 
 
 Bulkheads are excellently implemented with virtualization, where capacity can be changed quickly by increasing or decreasing the allocated amount of independent services.
-
+\comment{Insert diagram}
 
 \subsection{Steady State}
 Steady state refers to intended state of a service, where the functionality is completely fulfilled and the service is operating as intended. Many factors influence this steady state and some potentially interrupts it. Manual operations incur overhead and eventually introduce human made errors, a system should be able to run indefinitely without operational intervention. \comment{Mention afore mentioned dev ops} Further more mechanism that accumulates resources must be drained at the same rate or greater not to overflow. When mechanism overflow, errors can occur by increasing response time or slowing down databases. By purging unused data from databases, clogging of server memory is avoided, which could potentially slow read and write operations. Log files is also a potential memory clog, and should therefore be left of the production server.

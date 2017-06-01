@@ -23,8 +23,13 @@ This shows how performance of the individual application is a medley of all stac
 \section{The open source project problem}
 Having access to these advanced tools give very great benefits. We can utilize them and if done correctly achieve things way quicker than what was possible before.
 
+When looking at what is accessable, it is still a major improvement, Netflix's Ruslan Meshenberg\cite{meshenberg2016microservices} puts a lot of emphasis on how adopters of microservice architectures should accessible open source software, as Netflix took the upkeep of having to develop these tools, frameworks and libraries, themselves, which was hard and took a lot of resources.
+
 At the same time these tools, frameworks and libraries have their limitations. Who contributes to them, when will bug fixes arrive and can we trust that it will work?
 
 Early on when talking with Danske Bank, they said that this was one of their concerns when picking up open source software, if something is not working correctly, who do you call?
 
 Danske Bank have service agreements for their usage of Cassandra, if they meet an obstacle that they cannot solve internally, or their database crashes, they call their service provider, which then help them fix issues and answers questions about Cassandra.
+
+A good example is my challenges with the proxy settings and accessing heapster in my cluster setup. A change in newer versions of Kubernetes changed access patterns to the cluster, making it impossible to access the cluster in the same way as earlier, without a well documented solution. Proxy served as a decent solution, but still did not solve all problems.
+

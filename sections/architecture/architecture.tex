@@ -1,15 +1,20 @@
 \chapter{Architecture in Distributed Applications}
 \label{ch:architecture}
 
-This chapter is about architectural styles for distributed applications. Considering the architecture of any application is extremely important to ensure that the application can be effectively maintained and expanded in the future. Architecture for distributed applications has moved through several phases: monolith, service oriented architecture (SOA), and microservice.
+\textit{Identifying the optimal architecture for a system is extremely important, as it has a major influence in all factors of a software project throughout: development, deployment, expansion and maintenance of the system. This chapter will follow up on the previous case description and explain the evolution of software architecture, elaborating on three fundamentally different ways of structuring software projects}
 
-We see a natural evolution in the different architectures. 
+Considering the architecture of any system is extremely important to ensure that the application can be effectively developed, deployed and expanded in the future. Architecture for distributed applications has moved through three main phases: monolith, service oriented architecture (SOA), and currently Microservice is gaining a lot of attention. Each iteration of architecture has learned valuable lessons from the latter, with an increasing focus on breaking a system into lesser parts, simplifying working with the system at hand. According to Martin Fowler the term architecture has many meanings, but two common elements \cite[p.~1]{fowler2002patterns}:
 
-Development tools, frameworks and technology changes how software can be developed.
+Breaking the system into smaller parts makes it easier to comprehend possible solutions and structure code.
 
-Technology and pace of problem solving is inflicting how software is developed.
+Many external factors influence how software has been developed through time, available languages, frameworks and tools has drastically changed how software is developed today. 
+
+Competition has also had it's influence by setting new requirements to the speed of development, having short and agile release cycles has never been more important.
+
+At the same time users have gained a more intricate knowledge of software and the possibilities having high expectations for functionality and consistency of the software that is developed.
 
 
+\note {
 Monolith gives good inter-module re-factoring capabilities. If you want to change a boundary, you can easily change it. When using microservices it is hard to change interfaces when they are in place. Therefore it is not advised to start out with a microservice architecture if the module boundaries well are not well known.
 
 Monolith makes it to easy to run around modularity. Not keeping module boundaries solid. 
@@ -19,12 +24,16 @@ In many ways microservices are a discipline that forces you to keep your modular
 Microservices allow you to use multiple platforms, gives flexibility. 
 
 Monolith are simple to use, because we are used to doing it that way. Microservices are so cool, we want to do it. If you look at an application and say it would work nice as a single rails service, then do not do microservices. They introduce distributed computing, asynchronous communication, they are hard to do \cite{fowler2014microservicesoamonolith}.
+}
 
+\note {
 
 \cite{fowler2017what} "The value of a Patterns is saying here is a specific technique, some ideas about when it is applicable or not and enough knowledge about a pattern to know: these are the things i should watch out for these are some of the things that I would expect to see as consequences of that."
 "Saying something as vague as event-driven is too imprecise, similar problems exist with SOA, it mean so many different things"
 
 "Microservices carve down what it is about"
+
+}
 
 \note{
 “ This chapter is about architectural styles, application architectures, and architecture patterns. A style describes how to implement a specific architecture, while an architecture pattern explains how to address a specific concern within an architecture but is broader than a design pattern. I suggest you not get too hung up on the differences, but just understand that DDD can reside at the heart of a lot of surrounding architectural influences.”
@@ -32,6 +41,29 @@ Excerpt From: Vernon, Vaughn. “Implementing Domain-Driven Design.”
 
 We need to emphasize that there are many ways of doing architecture and many reason for doing particular architectures. Functional and non-functional requirements
 }
+
+
+\section{Defining Architecture in Distributed Systems}
+
+
+\defi{Architecture (Oxford)}{The conceptual structure and logical organization of a computer or computer-based system}{\url{https://en.oxforddictionaries.com/definition/architecture}}
+
+It is important to establish the abstraction level when talking about software development, when developing distributed applications every level should be incorporated in the discussion, as each level has different implications for the final application.
+
+
+
+When designing distributed applications two main levels exist: Application and Infrastructure. The application level is the lower level where application definition and development take place, here many decisions have to be made taking developer competences, organisation and process among other factors into account. Which languages and frameworks are available, which database fit the data best, which subversion tool can be utilized, how are dependencies defined and managed, is it necessary to deploy any Continuous Integration (CI) or Continous Delivery (CD) tools and how do we manage the applications external API?. 
+
+Decisions on this level will influence the application throughout it's entire lifetime, from development through to deployment and possibly in the end retirement. Some decisions are easier to change than others, Nygaard state the following about decoupling middleware, showing how crucial basic architectural decisions can be \cite[p.~116]{nygard2007release}:
+
+\tquote{Decoupling Middleware is an architecture decision. It Ripples into every part of the system. This is one of those nearly irreversible decisions that should be made early rather than late}{Nygaard}{2007}
+
+Some application level architecture decisions ripple into every part of the application, while others causes minor changes in parts of the system. Being aware of the implications of a certain architecture is crucial.
+
+
+
+"A microservice architecture is the natural consequence of applying the single responsibility principle at the architectural level. This results in a number of benefits over a traditional monolithic architecture such as independent deployability, language, platform and technology independence for different components, distinct axes of scalability and increased architectural flexibility."\cite[p.~3]{fowler2014testing}
+
 
 \section{Domain Driven Design}
 \label{sec:DDD}
@@ -70,18 +102,17 @@ The client-side user interface consists of HTML pages, with some underlying java
 
 \section{Service-Oriented Architecture}
 
+SOA defines a enterprise services bus (ESB) at it's core, which is a used to send messages between components connected to it. Messages are send to the bus, with attached metadata containing information about the tasks needing to be solved for a given client application. SOA often incorporates a high amount of middleware, sitting between the components connected to the event bus, the middleware registers services connected to the service bus, creating a registry of available services. The middleware can contain business logic, taking several forms, from very industry-specific to more general purpose applications. SOA often utilizes Simple Object Access Protocol (SOAP) for message-passing, passing Extensible Markup Language (XML) documents between services \cite[p.~272]{sosinsky2010cloud}.
+
+Martin Fowler author and Chief Scientist at ThoughtWorks, spoke about microservices at GOTO Berlin 2014 stating the following about the ESB \cite[t.8.15]{fowler2014microservicesoamonolith}:
+\tquote{When a lot of people talk about service oriented architecture they talk about the idea of let's get some powerfull piece of middleware that will automatically do all sorts of stuff it will route message it will apply business rules it does all sorts of things, this of course is the enterprise service bus or as it is more correctly know, the egregious spaghetti box}{Fowler}{20015}
+
+
 Means many things to different people, it is hard to understand what it is.
-
-
-Enterprise service bus,
 
 Comittess that lay down standards for how services connect to each other. SOA is a too broad term, it means so many things that it is effectively useless. Microservices is a subset of the SOA term, it therefore makes sense to say that microservices not necesarrily brings anything new to the table. At the same time a new term makes it possible to concentrate on specific and very usable parts of SOA.
 
 Cooperation that brings downs 
-
-\cite{fowler2014microservicesoamonolith}
-
-
 
 \cite{microsoft2017chapter}
 
@@ -89,11 +120,9 @@ There are many different view on what SOA is and how it is used to develop softw
 
 Focus is not on the specific implementation, but on how the architecture can support our organizations needs and goals. There might be some common infrastructure capabilities of every SOA architecture, but the architecture should match the organisation. 
 
-
 “Web services enabled a new form of a widely used communication mechanism—a challenger to using the SQL with shared databases. (Much of this work was done under the banner of “Service-Oriented Architecture”—a term most notable for its lack of a consistent meaning.)”
 
 Excerpt From: pramod j. sadalage. “NoSQL Distilled: A Brief Guide to the Emerging World of Polyglot Persistence.” iBooks. 
-
 
 
 \section{Microservices}
@@ -103,12 +132,16 @@ Having small and independently deployable services makes it possible to update s
 
 At the same time microservices introduce more complexity. By having individual services, each service has it's own life cycle and can potentially fail. Microservices makes it necessary to have increased automation when deploying, monitoring and maintaining system health\cite{meshenberg2016microservices}.
 
-
 \begin{figure}[!htb]
   \includegraphics[scale=0.24]{architecture_microservice_definition}  
   \caption{Monolith and Microservice architectures compared}
   \label{fig:architecture_microservice_definition}
 \end{figure}
+
+"If you can do things that improve small projects, then that cumulative effect can be very significant on an enterprise, particularly since small projects often have disproportionate value. Indeed, one of the best things you can do is turn a large project into a small one by simplifying its architecture and process."
+
+patterns of Enterprise Application Architectures page 4.
+
 
 \subsection{Defining characteristics}
 \note{
@@ -162,10 +195,15 @@ When designing many independent services, it is necessary to have sophisticated 
 
 
 \section{Event-driven architecture}
-
+\comment{This section is still in note form}
 There are four patterns occurring in many of the systems where the word event-driven architecture.
 
 Systems are often get very coupled because the different system depend on each other.
+
+\section{Service discorvery}
+C. Richardson, “Service discovery in a microservices architecture.” 
+\url{https://www.nginx.com/blog/service-discovery-in-a-microservices-architecture/}
+
 
 \section{Event notification}
 It is a particular important part of the architecture. Subsystems communicate through events.
