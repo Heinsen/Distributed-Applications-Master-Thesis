@@ -1,32 +1,33 @@
-\chapter{Cloud Computing}
+\chapter{The Fundamentals of Cloud Computing}
 \label{ch:cloud_computing}
 
-\textit{In previous chapter the three predominant architectural patterns in design of distributed systems were described. This chapter will explain the possibilities cloud computing has created for development and distribution of distributed applications. As well as the cloud native movement behind it, pushing for more resilient applications.}
+\textit{In previous chapter the three predominant architectural patterns in design of distributed systems were described. This chapter will explain the possibilities cloud computing has created for development and distribution of applications. As well as the cloud native movement behind it, pushing for more resilient applications.}
 
 Cloud Computing is both applications available over the internet, but also the hardware and system software that provide these services.
-Rather than scaling a single node vertically, Cloud Computing shifts focus and enables horizontal scaling of virtualized storage and network resources\cite{armbrust2010view}. Cloud computing enable applications to fulfil new requirements for rapid capacity up and down scaling, with the notion that available virtual resources are limitless\cite{sosinsky2010cloud}. At the same time virtualization facilitates reproducibility, resource isolation and transparency, recently revolutionised by the container abstraction, making it possible to create systems consisting of many small independent services. 
+Rather than scaling a single node vertically, Cloud Computing shifts focus and enables horizontal scaling of virtualized storage and network resources \cite{armbrust2010view}. Cloud computing enable applications to fulfil new requirements for rapid capacity up and down scaling, with the notion that available virtual resources are limitless \cite{sosinsky2010cloud}. At the same time virtualization facilitates reproducibility, resource isolation and transparency, recently revolutionised by the container abstraction, making it possible to create systems consisting of many small independent services. 
 
-According to Barrie Sosinsky\cite[p. 3 ]{sosinsky2010cloud} Cloud Computing sets new standards for system development and deployment, representing a real paradigm shift:
+According to Barrie Sosinsky \cite[p. 3 ]{sosinsky2010cloud} Cloud Computing sets new standards for system development and deployment, representing a real paradigm shift:
 
 \tquote{Cloud computing represents a real paradigm shift in the way in which systems are deployed. The massive scale of cloud computing systems was enabled by the popularization of the Internet and the growth of some large service companies. Cloud computing makes the long-held dream of utility computing possible with a pay-as-you-go, infinitely scalable, universally available system. [...] That’s why cloud computing is revolutionary, even if the technology it is built on is evolutionary}{Sosinsky}{2010}
 
 Cloud Computing is a enabler for further evolving how distributed systems are designed, distributed, updated and accessed. 
 
+\note {
 \comment{Something about open source libraries and tools. Introduce Cloud Native}
-
 
 \comment{CNCF’s newly-announced reference architecture (below) to segment the stack and identify the prevailing projects, products and companies that enable organizations to build, test, deploy and scale cloud native applications}
 
 \url{https://medium.com/memory-leak/introducing-the-cloud-native-landscape-86c536411373}
+}
 
 \section{Defining Cloud Computing}
-This section will try and pin down what defines Cloud computing, as the term has been over utilized, concrete definition has vanished.
+This section will try and pin down what defines Cloud computing, determining a concise meaning for the term.
 
-The National Institute of Standards and Technology (NIST) defines the Cloud Computing infrastructure as a composition of hardware and software enabling five essential characteristics \cite{mell2011nist}:
+The National Institute of Standards and Technology (NIST) has defined Cloud Computing \cite{mell2011nist}:
 
 \defi{Cloud Computing (NIST)}{Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources}{The NIST definition of cloud computing\cite{mell2011nist}}
 
-NIST defines each of the five characteristics in further detailed, explained below:
+NIST characterizes cloud computing as a infrastructure that through a composition of hardware and software enable five essential characteristics:
 
 \textbf{On-demand self-service}\\
 Computing capabilities can be provisioned on-demand automatically without human interaction.
@@ -43,30 +44,7 @@ Capabilities are elastic, supporting rapid outward and inward scaling.
 \textbf{Measured service}\\
 Resources are measured, providing transparency for both the provider and consumer. Enabling cloud systems to optimize resource usage.
 
-\note {
-\comment{Maybe include this in the definition?}
-Three aspects introduced with Cloud Computing: \cite{armbrust2010view}
-1. Infinite computing resources available on demand. Can help dealing with load surges, nullifying the need for provisioning planning.
-2. Only increasing hardware resources when needed.
-3. paying for computing resources as you go.
-
-Three defining aspects\cite{sosinsky2010cloud}.
-1. Abstraction
-2. Massively scalable
-3. Utility, service provided
-
-The benefits of resource pooling are so compelling that technologies that makes this possible are a priority.
-
-
-\begin{figure}[!htb]
-  \includegraphics[scale=0.5]{cloud_computing_definition_cloud_infrastructure}  
-  \caption{Cloud infrastructure}
-  \label{fig:cloud_computing_definition_cloud_infrastructure}
-\end{figure}
-
-}
-
-\subsection{Service models}
+\subsection{Service Models}
 The cloud infrastructure is made available to the consumer through three different service models \cite{mell2011nist}. Service models are distinguished by the provided systems software abstraction and resource management level. The level of abstraction and resource management affect the available services, leaving increasing levels of management responsibilities to the provider \cite[p. 52]{armbrust2010view}.
 The three service models are depicted on figure \ref{fig:cloud_computing_definition_service_models}, where the different abstraction levels are visible.
 
@@ -86,21 +64,16 @@ The consumer can provision processing, storage and network resources, but does n
   \label{fig:cloud_computing_definition_service_models}
 \end{figure}
 
-This thesis has used the IaaS service model, using the Kubernetes cluster scripts to start the cluster used during experiments, and creating dockerfiles with different types of image types, these concepts will be further explained in section \ref{sec:docker} and \ref{sec:cluster} below. Virtual Machines (VM's) have also been started manually, to host the test application described in more detail in chapter \ref{ch:implementation}.
+This thesis has used the IaaS service model, using the Kubernetes cluster scripts to start the cluster used during experiments, and creating dockerfiles with different types of image types (see section {sec:docker} and \ref{sec:cluster}).
 
-\note{
-utility computing - the computer resources being sold
-"Service models describe the type of service that the service provider is offering. The best-known service models are Software as a Service, Platform as a Service, and Infrastructure as a Service—the SPI model. The service models build on one another and define what a vendor must manage and what the client’s responsibility is."
-}
-
-\subsection{Deployment models}
-Cloud infrastructures are made available through four different deployment models, with distinct differences. The deployment model describes  location and ownership of the infrastructure, and determines who is responsible for the infrastructure. The deployment model affects the expected data confidentiality and security, the specified availability, and the available deployment size.
+\subsection{Deployment Models}
+Cloud infrastructures are made available through four different deployment models, with distinct differences. The deployment model describe location and ownership of the infrastructure, determining who is responsible for the infrastructure. The deployment model affects the expected data confidentiality and security, the specified availability, and the available deployment size.
 
 \textbf{Private cloud}\\
 Internal data center, provisioned for exclusive use to the owning organization.
 
 \textbf{Community cloud}\\
-The infrastructure is provisioned exclusively to a community of organizations with shared concerns to mission, security and policy among others.
+The infrastructure is provisioned exclusively to a community of organizations with shared concerns to mission, security and policy etc.
 
 \textbf{Public cloud}\\
 The cloud infrastructure is provisioned to the general public, in a "Pay-as-you-go" manner.
@@ -112,22 +85,7 @@ A composition of several distinct cloud infrastructures.
 Armbrust et al. states that data confidentiality and auditability is one of the biggest obstacles, for a large-scale adoption of public cloud computing infrastructures \cite{armbrust2010view}. Internal consumer concerns and legislation prohibits some consumers from fully adopting public cloud computing infrastructures, forcing a private cloud deployment models, incurring an increased time frame on the adoption of a cloud infrastructure in some enterprises.
 
 \section{Cloud Native Landscape}
-There is are a high amount of different aspects when working with cloud computing. The Cloud Native Computing Foundation has defined 5 overall levels: Infrastructure, Provisioning, Runtime, Orchestration \& Management and Application Definition \& Development. This project only involves four of the overall levels in the Cloud Native Landscape definition, seen on figure \ref{fig:cloud_computing_cloud_native_landscape}, the technologies utilized in this project is show on each level respectively.
-
-\textbf{Infrastructure} \\
-The provider, and the services they make available. The Google Cloud Platform infrastructure has been used extensively to host all experiments, and is described in section \ref{sec:GCP}.
-
-\textbf{Provisioning}\\ 
-Provisioning contains how the infrastructure is accessed and managed, how computing resources are reserved. No technologies have utilized in this area, and it has therefore been omitted from the figure for the sake of simplicity.
- 
-\textbf{Runtime}\\
-Runtime defines OS, storage, container runtime and networking. Docker has been used throughout all projects created and deployed during this thesis. A thorough section on virtualization, hypervisors and container including a description of docker is available in section \ref{sec:virtualization}.
- 
-\textbf{Orchestration \& Management}\\
-Orchestration \& Management is exactly that, orchestration tools as well as services coordinating and management tools. Kubernetes have been used for cluster creation and orchestration, described in section \ref{sec:cluster}. 
- 
-\textbf{Application Definition \& Development}\\
-This contains a lot of components, and is the more traditional level in the stack. Here the application environment and it's dependencies are listed including: databases, language and frameworks, source control management, dependency management, continuous integration (CI), continuous Delivery (CD) among other aspects. This project has utilized the NodeJS and Spring Boot frameworks together with their package managers Node Package Manger (NPM) and Maven which is described in greater detail in section \ref{sec:node} and \ref{sec:spring} below. Github was used for source control management \footnote{All repositories are available at: \url{https://heinsen-thesis.github.io/}}.
+There are a high amount of different aspects when working with cloud computing. The Cloud Native Computing Foundation has defined 5 overall levels: Infrastructure, Provisioning, Runtime, Orchestration \& Management and Application Definition \& Development. This project only involves four of the overall levels in the Cloud Native Landscape definition, seen on figure \ref{fig:cloud_computing_cloud_native_landscape}. The technologies utilized in this project is show on each level respectively.
 
 \begin{figure}[!htb]
 \begin{center}
@@ -137,10 +95,20 @@ This contains a lot of components, and is the more traditional level in the stac
 \end{center}
 \end{figure}
 
+\textbf{Infrastructure} \\
+The provider, and the services they make available. The Google Cloud Platform infrastructure has been used extensively to host all experiments.
 
-\note {
-There are two distinctive and overall layers when talking about distributed applications, the application and infrastructure layer, working on two different abstraction levels.
-}
+\textbf{Provisioning}\\ 
+How the infrastructure is accessed and managed, and computing resources are reserved. No technologies have been utilized in this area, and it has therefore been omitted from the figure for the sake of simplicity.
+ 
+\textbf{Runtime}\\
+Runtime defines OS, storage, container runtime and networking. Docker has been used throughout all projects created and deployed during this thesis (see section \ref{sec:virtualization}).
+ 
+\textbf{Orchestration \& Management}\\
+Orchestration \& Management is exactly that, orchestration tools as well as services coordinating and management tools. Kubernetes have been used for cluster creation and orchestration (see section \ref{sec:cluster}).
+ 
+\textbf{Application Definition \& Development}\\
+This level contains a lot of components. Here the application environment and it's dependencies are listed including: databases, language and frameworks, source control management, dependency management, continuous integration (CI), continuous delivery among other aspects.
 
 \section{Virtualization, Hypervisors and Containers}
 \label{sec:virtualization}
@@ -154,17 +122,7 @@ Hypervisors provide VM access to system resources. According to \cite[p.~100]{so
 	\item \textbf{Type 2 Hosted:} The hypervisor is installed on top of a host OS. (seen on figure \ref{fig:cloud_computing_definition_virtualization})
 \end{itemize}
 
-Type 1 VM's have no host operating system below them and are running directly on a bare system, completely simulating the hardware that it is running on. Type 1 virtualization is therefore called full virtualization. Type 2 VM's has a underlying host operating system, with a software interface mapping guest OSs system calls to the host OS. Hypervisor virtualization is machine-level virtualization, because it attempts to emulate a complete computing environment \cite{fink2014docker}. This makes this type of virtualization very resource intensive. A hypervisor approach is ideal when applications running on a single server require different OSs, and need access to a complete computing environment.
-
-\subsection{Containers}
-Containers always share OS with the host, making container deployments very small and enables hundreds of simultaneous containers running on a single server. Containers try to share resources among running instances, by sharing RAM, disk space and kernel. Containers start up in seconds, while VMs take minutes to boot \cite{dockerFAQ}. Container virtualization is categorized as system-level virtualization, due to the the containers operating at the process level. Container virtualization is know from the Linux kernel library Linux Container(LXC). LXC gives the possibility to create processes that are sand boxed from one another, controlling their available resources. Docker is the most popular container technology, utilizing LXC adding high-level tools on top. These tools further enhance container technology by improving usability and accessibility. Docker is more thoroughly explained in the coming section. 
-
-Due to containers natural small size, each service can be packed in its own container, providing excellent separation and isolation from other service executables, configurations, libraries and lifecycles. Each service can be packed separately, preventing services from affecting or conflicting with each other. Because each service doesn't need to be composed with the remaining services and is almost independent of the production environment (besides being the correct platform), immutable containers can be created \cite{kubernetes_what_is}. This gives a consistent environment from development into production, removing possible surprise challenges in the production environment.
-\comment{Overvej om vi skal have hele application oriented vs. machine oriented med. Det er jo mere en afledt fordel, som påvirker desing og "time to market"}
-
-
-\subsection{Comparison}
-Figure \ref{fig:cloud_computing_definition_virtualization} compares a hypervisor and container approach. The hypervisor approach is ideal when different OSs or versions are needed, requiring a VM level abstraction\cite{bernstein2014containers}. Containers on the other hand reduce deployment size drastically, by utilizing a singular OS on each server. Even though the applications are limited to same platform as the server they are running on, containers have emerged as a very attractive virtualization method, due to very low overhead and ease of deployment \cite{fink2014docker}.
+Type 1 VM's have no host operating system below them and are running directly on a bare system, completely simulating the hardware that it is running on. Type 1 virtualization is therefore called full virtualization. Type 2 VM's has a underlying host operating system, with a software interface mapping guest OSs system calls to the host OS. Hypervisor virtualization is machine-level virtualization, because it attempts to emulate a complete computing environment \cite{fink2014docker}. This makes this type of virtualization very resource intensive. A hypervisor approach is ideal when applications running on a single server require different OS's, and need access to a complete computing environment.
 
 \begin{figure}[!htb]
 	\centering 
@@ -173,6 +131,13 @@ Figure \ref{fig:cloud_computing_definition_virtualization} compares a hypervisor
   \label{fig:cloud_computing_definition_virtualization}
 \end{figure}
 
+\subsection{Containers}
+Containers always share OS with the host, container deployments are therefore very small making it possible to have hundreds of containers running simultaneous on a single server. Containers try to share resources among running instances, by sharing RAM, disk space and kernel. Containers start up in seconds, while VMs take minutes to boot \cite{dockerFAQ}. Container virtualization is categorized as system-level virtualization, due to the the containers operating at the process level. Container virtualization is know from the Linux kernel library Linux Container(LXC). LXC gives the possibility to create processes that are sand boxed from one another, controlling their available resources. Docker is the most popular container technology, utilizing LXC adding high-level tools on top. These tools further enhance container technology by improving usability and accessibility.
+
+Due to containers natural small size, each service can be packed in its own container, providing excellent separation and isolation from other service executables, configurations, libraries and lifecycles. Each service can be packed separately, preventing services from affecting or conflicting with each other. Because each service doesn't need to be composed with the remaining services and is almost independent of the production environment (besides being the correct platform), immutable containers can be created \cite{kubernetes_what_is}. This gives a consistent environment from development into production, removing possible surprise challenges in the production environment.
+
+\subsection{Comparison}
+Figure \ref{fig:cloud_computing_definition_virtualization} compares a hypervisor and container approach. The hypervisor approach is ideal when different OS's or versions are needed, requiring a VM level abstraction\cite{bernstein2014containers}. Containers on the other hand reduce deployment size drastically, by utilizing a singular OS on each server. Even though the applications are limited to same platform as the server they are running on, containers have emerged as a very attractive virtualization method, due to very low overhead and ease of deployment \cite{fink2014docker}.
 
 \note{
 Resource pooling is in turn often enabled by the use of hypervisors or containers\cite{bernstein2014containers}. Common for both technologies is that they provide isolation and a multitenancy layer that enables the cloud infrastructure to serve different customers with one server instance\cite{krebs2012architectural}. By abstracting physical resources into virtual, management and automatic allocation of computing resource is made possible\cite{sosinsky2010cloud, armbrust2010view}, giving the possibility to subdivide physical resources, and present smaller and separate virtual resource partitions \cite{barham2003xen}. 
@@ -207,26 +172,26 @@ Docker images are accessible on the Docker Hub, making it possible to share usef
 \textbf{Tool ecosystem}\\
 Docker makes it possible to automate and customize the creation and deployment of containers, through an simple API.
 
-\section{Cluster management}
+\section{Cluster Management}
 \label{sec:cluster}
 Kubernetes is a container-management tool, that watches for changes in the cluster, keeping it in a steady state \cite{burns2016borg}. Kubernetes is open source but has mainly been developed by Google, that has extensive experience with running their infrastructure based on containers. Kubernetes has been developed with outset in two predecessor container-management tools developed internally at Google. Kubernetes main design goal is to ease deployment and management of complex distributed systems \cite{kubernetes_frontpage}. Kubernetes key features are described below:
 
-\textbf{Automatic binpacking}\\
+\textbf{Automatic Binpacking}\\
 Kubernetes places containers on servers according to the amount of resources needed by the container, maximizing utilization of server resources, with focus on availability.
 
-\textbf{Self-healing}\\
+\textbf{Self-Healing}\\
 Containers are checked with user-defined health checks, making sure they are operating correctly. If not containers are killed and restarted, newly started containers are only advertised to users when ready to serve.
 
-\textbf{Horizontal scale}\\
+\textbf{Horizontal Scale}\\
 Kubernets can scale service horizontally automatically and manually.
 
 \textbf{Service discovery and load balancing}\\
 Containers are given a unique up address and a single DNS name, making them discoverable across the network.
 
-\textbf{Automated rollouts and backups}\\
+\textbf{Automated Rollouts and Backups}\\
 Rollouts of new configurations are done progressively while monitoring the application, making sure that there are some working instances at all times. Kubernetes can rollback configurations if working incorrectly.
 
-\textbf{Storage orchestration}\\
+\textbf{Storage Orchestration}\\
 Kubernetes can automatically orchestrate storage, supporting local and remote storage options.
 
 \note{
@@ -260,6 +225,8 @@ DevOps
 \comment{nævn deployments, brugt i forsøget. Kubernetes documentation on scaling a deployment \url{https://kubernetes.io/docs/concepts/workloads/controllers/deployment/\#scaling-a-deployment}}.
 }
 
+
+\note {
 \comment{Mention the specification of processor/core resources, either here or in GCP section}
 
 \section{Google Cloud Platform}
@@ -285,3 +252,4 @@ makes it possible to create and
 
 It makes it possible to create docker files qucikly and directly using maven.
 \url{https://spring.io/guides/gs/spring-boot-docker/}
+}
