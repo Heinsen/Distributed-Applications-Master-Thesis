@@ -71,17 +71,20 @@ Adaptivity can be defined as the systems ability to adapt to a disruptive situat
 
 \subsubsection{Robustness} 
 Robustness covers how quantifiable the system behaviour is in the face of disruption challenging system behaviour \cite[p. 10]{sterbenz2010resilience}. These disruptions are both internal and external\cite{omer2013resilience}. Robustness includes the systems ability to withstands disruptions rather than adapt to them, a robust system has been designed to withstand known uncertainties, maintain intended level of service and same form of functionality.
-\comment{Kig på: "Evaluating robustness of cloud-based systems" Godt input til robustness}
 
-\subsubsection{Fault tolerance and avoidance}
+\note {
+\comment{Kig på: "Evaluating robustness of cloud-based systems" Godt input til robustness}
+}
+
+\subsubsection{Fault Tolerance and Avoidance}
 Fault tolerance and avoidance is used to describe dependability of a system, from internal and external harm. Tolerance is making the system tolerable to the effects of faults. Avoidance meaning guarding a system against potential defects, that could cause system failure \cite{strigini2012fault}.
 
 
-\subsubsection{Recovery time} 
+\subsubsection{Recovery Time} 
 Recovery time is a measure for how long time period a system needs to resume fulfilling the stated requirements.
 
 
-\subsubsection{Capacity and redundancy}
+\subsubsection{Capacity and Redundancy}
 Capacity and redundancy is two different aspects that inherently are very linked. Capacity is the highest throughput a system can deliver, with and acceptable response time for each request \cite[p. 136]{nygard2007release}. Redundancy meaning how much extra capacity a system has, that can be applied in case of failure to uphold stated system requirements.
 
 \note {
@@ -137,18 +140,17 @@ A slow response ties up the resource on the calling end, the longer a call is on
 \subsection{SLA Inversion}
 Service-level agreement inversion is when a service promises a specific service level without taking into account the service-level agreement of the services it relies on. Service-level is determined by the dependencies service-levels and the probability for failure internally. It is therefore important to decouple from dependent services and degrade functionality gracefully as dependant services fail. If decoupling is not possible, circuit breaks can be put into place. 
 
-\subsection{Unbound Result sets}
+\subsection{Unbound Result Sets}
 Unbound results sets occur when the amount of requested data is not limited, and the result set therefore grows equally with the entire data set. Limiting the result set will ensure that memory in the calling application will not be exhausted, if the data set is expanding.
 
 
-\section{Stability patterns}
+\section{Stability Patterns}
 Stability patterns are applied to increase stability and reduce damage done when errors occur. These patterns serve as design guidance when implementing services.
 
 
 \subsection{Timeouts}
 Network connections are slow and error prone, but necessary to incorporate in any distributed application. Applying timeouts at integration points help avoid blocked threads and mitigate slow responses from dependent services. By defining timeouts an upper limit for time waiting is set, the application can then move on and recover from failure.
 
-\comment{Perspektiver and insert diagram}
 
 \subsection{Circuit Breaker}
 The circuit breaker pattern is based on the principles and functions of a fuse in electric circuits. From a software perspective, the idea is to wrap dangerous operations, so that they can be circumvented when not working properly. This allows a system to degrade functionality if errors occur, guarding against integration points, slow responses, unbalanced capacities and cascading failures.
@@ -156,19 +158,15 @@ The circuit breaker pattern is based on the principles and functions of a fuse i
 The circuit break is a state machine pattern, moving between three states: open, closed and half-open. When in open state, requests are processed ordinarily. When in closed state, requests fail immediately. The circuit break can transit from open to closed if requests unexpectedly are unsuccessfully processed. The half-open state processes requests ordinarily to test if it is possible to process requests successfully. If requests are processed successfully in the half-open state, the circuit breaker changes the state to open. A threshold specifies the amount of unsuccessful processed requests, that triggers state transition from open to closed state. Another threshold determines when to transit form closed to half-open states.
 
 Circuit breaker guards against integration points, when a failure occurs in a integration point, it should not be called. Used together with timeouts, that can inform the system of a present error.
-\comment{Perspektiver and insert diagram}
 
 \subsection{Bulkheads}
 The bulkheads design pattern is inspired by bulkheads know from ship design, where compartments throughout the ship divides the ship into watertight partitions. This ensures that a single penetration of the ships hull, does not sink the ship. When applied to software, bulkheads is used to partition capacity, preserving functionality if errors occur. Bulkheads can protect against chain reactions, by ensuring backups of services important to several other services. The bulkhead pattern is usable on both a application and infrastructure level, by partitioning thread pools, server CPU or separate servers, determining the granularity. 
 
 
 Bulkheads are excellently implemented with virtualization, where capacity can be changed quickly by increasing or decreasing the allocated amount of independent services.
-\comment{Insert diagram}
 
 \subsection{Steady State}
 Steady state refers to intended state of a service, where the functionality is completely fulfilled and the service is operating as intended. Many factors influence this steady state and some potentially interrupts it. Manual operations incur overhead and eventually introduce human made errors, a system should be able to run indefinitely without operational intervention. \comment{Mention afore mentioned dev ops} Further more mechanism that accumulates resources must be drained at the same rate or greater not to overflow. When mechanism overflow, errors can occur by increasing response time or slowing down databases. By purging unused data from databases, clogging of server memory is avoided, which could potentially slow read and write operations. Log files is also a potential memory clog, and should therefore be left of the production server.
-\comment{Talk more in depth about dev ops, use site reliability engineering book}
-
 
 \subsection{Fail Fast}
 The fail fast principle dictates informing callers quickly, when a system SLA cannot be met. By failing fast the system avoids incurring internal problems externally. By verifying that integration points are correctly working early, potentially wasted resources are reserved by completely avoid running transactions that cannot complete in their entirety.
@@ -183,9 +181,6 @@ A test harness is a supplement to traditional unit tests, acceptance test. The t
 Decoupling Middleware is the communication protocol used to communicate between dependent but decoupled services. Varying from same time, host and process to different time, host and process.
 
 Nygaard describes how fundamental it is to the system design which form of communication is chosen, and how big consequences for the implementation changing this has. Choosing communication in a system is on an architecture level, fundamentally changing the implementation of individual services within the system.
-\comment{Expand this, I feel like this is very important. Find more sources talking about this}
-
-\comment{Use the notes from the goto conference video:}
 
 
 \note{
