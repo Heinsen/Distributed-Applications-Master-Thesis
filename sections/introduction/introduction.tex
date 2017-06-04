@@ -9,10 +9,17 @@ A boom of knowledge sharing throughout the industry, through conference talks an
 Having the best and most stable solution to a given problem is not necessarily enough, time to market is extremely important to capture market share as well. New applications need to be available to the customer immediately, and at all times, lack of new features and downtime is immediately visible on the company bottom line.
 }
 
-\section{Microservices}
-Monolith applications were a result of technological boundaries, and made developing good design a major challenge. These boundaries have disappeared, pushing developers towards more thoughtful design of applications. Developers today need to put emphasis on understanding the underlying challenges in the particular domain, identifying the optimal architecture that supports the context\cite{evans2016tackling}. High complexity and a strict time to market makes problem solving hard. It is therefore very important to optimize the entire process from identification of a correct solution, through development and deployment of the feature. There are three clear factors in this process: technology utilization, correct working process and organisational structure\cite{george2016it}. Traditionally speaking organisations often divided people into departments according to their specific competences. Each department would be a separated unit, where everyone had the same competences. A new development project would therefore span several departments, creating a need for standardization of tools, languages and working processes. This inherently limits the amount of innovation possible, engineers are forced to solve a problem with a predetermined process, often resulting in similar solutions for very diverse problems\cite{george2016it}. 
-Many tech companies have publicly talked about their innovative ways of working, that has allowed them to improve the amount of innovation and the throughput of their software engineers\cite{kniberg2014spotify}. By having a strong focus on having small, strong, cross-functional and self-organising teams that have "end-to-end" responsibility for the features they build. Teams have a overall mission, knowledge of their specific product strategy and short-term goals that help keep the team on the wished path. Each team is given autonomy, responsible for finding the best way for the team to develop new features, which features the team should implement and how they work together. Everyone in the team is located in the same physical location, creating the optimal conditions for good collaboration across skill-sets\cite{kniberg2014spotify}.
+\section{Knowledge sharing}
+A huge trend of knowledge sharing has started, where online accessible conference talks and a high quantity of open source projects inspire and help developers solve common challenges. Conferences have focus on new open source technology, system architecture, working process and organisational structure, all with a common goal: speeding up software development and the ability to solve increasingly difficult problems. Conferences are either entirely committed to or has tracks about topics like: Cloud computing, Agile development, Domain Driven Design, Microservices, NoSQL, Docker, Cassandra among many others\cite{george2016it}. Company internal projects that beforehand was only internal accessible, are increasingly made open source, giving developers very advanced tools to create elegant and efficient solutions quickly. These projects are freely accessible, with well known support challenges, where developers can find help with specific challenges utilizing the projects. The Cloud Native Computer Foundation \footnote{\url{https://www.cncf.io/}} is a foundation based entirely on helping non software focused companies become cloud native: utilizing the power of containerized, and dynamically orchestrated microservices.
 
+The entire movement started when Amazon announced Amazon Web Services in 2006. It meant anyone could register and rent virtual machines for hosting distributed applications. Since then, virtualization has been further revolutionised with the introduction of container technology, which was made open source through the docker initiative in 2014. Docker made it possible to start up new independent and isolated environments in seconds, something Google had developed on internally because they needed it \cite{bernstein2014containers}. Which is somewhat a trademark for the entirety of the cloud native movement, is has sprung out of a big variety of needs: serving massive amounts of users, creating reliable applications, the ability to update and add functionality often and easily, minimize integration complexity and technology lock in. In the end the focus should be on solving new problems and not on dealing with an forever growing monolithic application. Microservices have sprung out as a trend in real world use \cite[p.~1]{newman2015microservices}.
+
+\section{Microservices}
+Monolithic applications were a result of technological boundaries, and made developing good design a major challenge. These boundaries have disappeared, pushing developers towards more thoughtful design of applications. Developers today need to put emphasis on understanding the underlying challenges in the particular domain, identifying the optimal architecture that supports the context \cite[t.~17:00]{evans2016tackling}. High complexity and a strict time to market makes problem solving hard. It is therefore very important to optimize the entire process from identification of a correct solution, through development and deployment of the feature. There are three clear factors in this process: technology utilization, correct working process and organisational structure \cite[t.~12:16]{george2016it} \cite[preface]{newman2015microservices}. 
+
+The amount of available languages, frameworks and tools has grown tremendously, making it possible to solve complex problems easier and quicker than before. Utilizing available technology is uttermost important to achieve the best solution for a given problem. Traditionally speaking organisations often divided people into departments according to their specific competences. Development project would therefore span several departments, creating a need for standardization of tools, languages and working processes. This inherently limits the amount of innovation possible, engineers are forced to solve all problems a predetermined way, resulting in similar solutions for very diverse problems \cite[t.~14:20]{fowler2014microservicesoamonolith} \cite[00:30]{kniberg2014spotify} \cite{murer2015fifteen} \cite[17:00]{meshenberg2016microservices}. 
+
+The organisation structures impact on software development has been broadly acknowledged \cite{fowler2014microservices, newman2014demystifying}, and companies are therefore breaking pre-existing organisational structures, prohibiting fast and agile development. Many tech companies have publicly talked about their innovative ways of working, that has allowed them to improve the amount of innovation and the productivity of their software engineers \cite[00:30]{kniberg2014spotify} \cite[16:00]{meshenberg2016microservices}. By having a strong focus on having small, strong, cross-functional and self-organising teams that have "end-to-end" responsibility for the features they build. Teams have a overall mission, knowledge of their specific product strategy and short-term goals that help keep the team on the wished path. Each team is given autonomy, responsible for finding the best way for the team to develop new features, which features the team should implement and how they work together. Everyone in the team is located in the same physical location, creating the optimal conditions for good collaboration across skill-sets \cite[01:00]{kniberg2014spotify} \cite{gray2006conversation}.
 
 \begin{figure}[!htb]
   \begin{center} 
@@ -22,130 +29,24 @@ Many tech companies have publicly talked about their innovative ways of working,
   \label{fig:introduction_squads}
 \end{figure}
 
-This is a completely new way of designing a organisation, and removes pre-existing process and organisation inhibitors. It is possible for each team to create and release features independently, minimizing waiting time between teams. At the same time teams are responsible for what they create, removing handoffs between teams. The focus is having loosely coupled but tightly aligned teams\cite{kniberg2014spotify}.
-It is important that organisation and process inhibitors are removed before utilizing microservices as an architecture choice\cite{meshenberg2016microservices}. This will make it possible to utilize available technology to the fullest, by allowing teams to choose which technology is used for development of the separate features\cite{fowler2014polyglot}. A central database slows down teams, by creating dependencies across team boundaries, creating a need for coordinating changes. Giving the possibility for a polyglot database architecture where a specific database technology is used because of it's advantages in the specific situation creating a system that contains several databases with different data\cite{george2016it, fowler2014microservices}.
+This is a completely new way of designing a organisation, and removes pre-existing process and organisation inhibitors. It is possible for each team to create and release features independently, minimizing waiting time between teams. At the same time teams are responsible for what they create, removing handoffs between teams. The focus is having loosely coupled but tightly aligned teams.
+It is important that organisation and process inhibitors are removed before utilizing microservices as an architecture choice\cite{meshenberg2016microservices}. This will make it possible to utilize available technology to the fullest, by allowing teams to choose which technology is used for development of the separate features \cite{fowler2014polyglot}. 
 
-\comment{Increase focus on the technology aspect, it is after all our main interest}
-
-\section{Knowledge sharing}
-A huge trend of knowledge sharing has started, where online accessible conference talks and a high quantity of open source projects inspire and help developers solve common challenges. Conferences have focus on new open source technology, system architecture, working process and organisational structure, all with a common goal: speeding up software development and the ability to solve increasingly difficult problems. Conferences are either entirely committed to or has tracks about topics like: Cloud computing, Agile development, Domain Driven Design, Microservices, NoSQL, Docker, Cassandra among many others\cite{george2016it}. Company internal projects that beforehand was only internal accessible, are increasingly made open source, giving developers very advanced tools to create elegant and efficient solutions quickly. These projects are freely accessible, with well known support challenges, where developers can find help with specific challenges utilizing the projects.
-
-The entire movement started when Amazon announced Amazon Web Services in 2006. It meant anyone could register and rent virtual machines for hosting distributed applications. Since then, virtualization has been further revolutionised with the introduction of container technology, which was made open source through the docker initiative in 2014. Docker made it possible to start up new independent and isolated environments in seconds, something Google had developed on internally because they needed it\cite{bernstein2014containers}. Which is somewhat a trademark for the entirety of the cloud native movement, is has sprung out of a big variety of needs: serving massive amounts of users, creating reliable applications, the ability to update and add functionality often and easily, minimize integration complexity and technology lock in. In the end the focus should be on solving the problems at hand and in the future, not maintenance and effects of new extensions on the existing application.
-
-
-
-"In a post-GitHub world, it is no longer sufficient for a software foundation to offer just a software repo, mailing list, and website: we need to offer an enhanced set of services that facilitates increased adoption. You should host your project with the Cloud Native Computing Foundation (CNCF) becaus"
-
-\url{https://www.cncf.io/projects/}
 
 \section{Resilience}
-%Fail whale \url{http://www.whatisfailwhale.info/}
-\note {
-Distanced view on deployment, focus on development phase
-High requirements for availability, always online, always used by users
-}
+The internet and the services it makes available has in recent years expanded in order of magnitude \cite[p.~4]{nygard2007release}, consequences of downtime are hard to estimate but can effect user satisfaction and trust, and loss of brand and reputation incurring direct and indirect bottom line losses \cite[p.~26]{beyer2016siteReliabilityEngineering}. The internet and the services available on it are essential to modern life, making consequences of down time increasingly severe, it is generally acknowledged that services available over the internet are not suficiently resilient \cite{sterbenz2010resilience}. Designing systems with an increased scale and reach incurs a need for optimizing architecture so that it mitigates failure \cite[p.~4]{nygard2007release}.
 
-From preface of Newman book:
+\tquote{Software engineering has this in common with having children: the labor before the birth is painful and difficult, but the labor after the birth is where you actually spend most of your effort. Yet software engineering as a discipline spends much more time talking about the first period as opposed to the second, despite estimates that 40–90\% of the total costs of a system are incurred after birth}{Beyer et al.}{2016}
 
-\note{
-if the fundamental design of the system doesn’t make it easy to make changes, then there are limits to what can be accomplished.
+Due to the scale and rapid growth in scale and complexity, it is increasingly important to acknowledge that failure is bound to happen, and reducing the risk of failures and the effects is essential \cite{abid2014toward} \cite[p. 117]{nygard2007release} \cite{tseitlin2013antifragile} \cite{krishnan2012weathering}. Gone are the days where developers only focused on development and deployment and maintenance of a system was distant processes in the hands of the operations team. The microservice community embraces ownership \textit{"You build it, you run it"} \cite{gray2006conversation} is the new mantra, embracing deployment and maintenance and focusing on how to make system more resilient when in production \cite[p.~6]{nygard2007release}. 
 
-At the same time, many organizations were experimenting with finer-grained architectures to accomplish similar goals, but also to achieve things like improved scaling, increasing autonomy of teams, or to more easily embrace new technologies. 
-}
+Consequently the stability patterns and their antipatterns have to be analysed (how is failure avoided and what enhances failure), how does the acknowledgement of failure translate into the implementation. Learning from previous efforts to improve resilience is paramount, utilizing the knowledge and the technology stack made available for free use. Gaining an insights into the microservice and cloud native communities is not easy, the problems these communities set out to solve are inherently very complex and it can be very time consuming to understanding which problems a given architectural pattern or open source technology tries to solves. So many different parties inform about the importance of resilience and how it can be achieved, but how are these patterns and technologies implemented in a modern software development department, with existing systems and a specific and complex domain? How are the effects of efforts on improving resilience in a system made quantifiable?
 
-From chapter 1 page 1 Newman book: 
-\note{
+There is a clear gap between the available resources and a concrete implementation, it requires intricate knowledge of the infinite amount of available languages, frameworks and tools to evaluate which to use in a given situation. 
+At the same time, who is there to help us if we do not understand the usage of a given open source project or a new update breaks some existing functionality that we were inherently dependent on working correctly? These aspects of open source does not ring well in big and established enterprise organisations. If so many different and respectable sources say that we need to design resilient software, well then there surely must be something about it, but how do we choose the proper solution between the many and how do we evaluate the impact?
 
-Amazon and Google espoused the view of small teams owning the full lifecycle of their services. And, more recently, Netflix has shared with us ways of building antifragile systems at a scale that would have been hard to comprehend just 10 years ago.
-Domain-driven design. Continuous delivery. On-demand virtualization. Infrastruc‐ ture automation. Small autonomous teams. Systems at scale. Microservices have emerged from this world. They weren’t invented or described before the fact; they emerged as a trend, or a pattern, from real-world use.
-}
-
-
-The inherent problem with distributed systems is their resilience. How well do they match up against the face of disruptive events or internal errors. A lot of different errors can occur, when a application is deployed, and it is by nature very hard to reason about which error occurred and why, when the system is in production. It is near impossible to exhaust every possible error pattern through preliminary testing, especially if the application has any modest level of complexity. At the same time, the test environment will never completely match the production environment. Precautionary measures therefore need to be taken, taking into account that latent bugs, error patterns and external events will challenge any deployed application. 
-
-With today's technology and tools available it is possible to create resilient application.
-
-With the correct amount of benchmark testing and fail saves, it is possible to guaranty up time.
-
-%\url{http://tech.opentable.co.uk/blog/2014/02/28/api-benchmark/}
-"As developers we rely on technologies that, with a minimum effort, can guarantee some pretty decent results in terms of performance. Modern web frameworks handle concurrency and thread management without requiring much plumbing code. Sophisticated and relatively cheap cloud services help us monitor our applications, providing dashboards, reports and alerting systems. Deploying on the cloud we can run our services and even auto-scale them depending on how much power we need. Even with these tools we must still own the responsibility of writing good quality code, testing it properly, and deploying as fast as possible in order to optimise the delivery process of our products."
-
-But what about performance? I mean, what about the relationship between the code we write every day, and the way we impact overall performance? Are we sure that we are not deploying to production something that is degrading our services’ performance?"
-
-\comment{Expand and include references}
-
-\note {
-You do not want a single point of failure. We want to isolate failures, so we do not get cascading failures. Then redundancy does not necessarily help.
-}
-
-\note {
-These requirements has started big scale initiatives in cloud computing, has generated new tools and databases available for development of distributed big scale enterprise applications. 
-
-Creating a need for developers to explore and evaluate which of the many platforms to choose, 
-
-has generated new tools and databases available for development of distributed big scale enterprise applications.
-
-platform for automating deployment, scaling, and operations of application containers across clusters of hosts
-
-Which level are we on? High level: Google app engine, or low level abstraction: EC2.
-
-"The Antifragile Organization" - \url{http://queue.acm.org/detail.cfm?id=2499552}
-"Failure is inevitable. Disks fail. Software bugs lie dormant waiting for just the right conditions to bite. People make mistakes. Data centers are built on farms of unreliable commodity hardware. If you're running in a cloud environment, then many of these factors are outside of your control. To compound the problem, failure is not predictable and doesn't occur with uniform probability and frequency. The lack of a uniform frequency increases uncertainty and risk in the system. In the face of such inevitable and unpredictable failure, how can you build a reliable service that provides the high level of availability your users can depend on?"
-
-Why is it worth it to take on this monster of instability?
-
-
-"Weathering the Unexpected" - \url{http://queue.acm.org/detail.cfm?id=2371516}
-
-"Whether it is a hurricane blowing down power lines, a volcanic-ash cloud grounding all flights for a continent, or a humble rodent gnawing through underground fibers—the unexpected happens. We cannot do much to prevent it, but there is a lot we can do to be prepared for it. To this end, Google runs an annual, company-wide, multi-day Disaster Recovery Testing event—DiRT—the objective of which is to ensure that Google's services and internal business operations continue to run following a disaster."
-
-
-Disasters happen for all kinds of systems. So lets prepare for it already in implementation.
-
-
-"Site Reliability Engineering" - (page 17 in downloaded pdf)
-
-"Software engineering has this in common with having children: the labor before the birth is painful and difficult, but the labor a er the birth is where you actually spend most of your effort. Yet software engineering as a discipline spends much more time talking about the first period as opposed to the second, despite estimates that 40–90% of the total costs of a system are incurred after birth.1"
-
-
-Software systems incur a lot of work even after deployment, so lets spend some time here.
-
-"Toward Antifragile Cloud Computing Infrastructures"\cite{abid2014toward}
-"Cloud computing systems are rapidly growing in scale and complexity. They are also changing dynamically as a result of dynamic addition and removal of system components, different execution environments, common updates and upgrades, runtime repairs, mobility of devices and more. Such large-scale, complex and dynamic cloud environments are prone to failures and performance anomalies"
-
-"Resilience and Survivability in Communication Networks: Strategies, Principles, and Survey of Disciplines"\cite{sterbenz2010resilience}
-"The Internet has become essential to all aspects of modern life, and thus the consequences of network disruption have become increasingly severe. It is widely recognised that the Internet is not suciently resilient, survivable, and dependable, and that significant research, development, and engineering is necessary to improve the situation."
-
-"Networks in general, and the Global Internet in particular, have become essential for the routine operation of businesses and to the global economy. Consumers use the Internet to access information, obtain products and services, manage finances, and communicate with one another. Businesses use the Internet to transact commerce with consumers and other businesses."
-
-
-"Toward Antifragile Cloud Computing Infrastructures" "Amal Abida,b, Mouna Torjmen Khemakhema, Soumaya Marzouka, Maher Ben Jemaaa, Thierry Monteilb,c, Khalil Drirab,c"
-"Cloud computing is earning an increasing popularity over traditional information processing systems for storing and processing huge volumes of data. This concept consists in offering services and resources on-demand over the Internet in the pay-as-you-go model. The Cloud infrastructure is built on modern data centers covering thousands of interconnected servers with capability of hosting a large number of applications. These data centers are often virtualized and computing resources are provisioned to the user in the form of configurable Virtual Machines (VMs)."
-
-Stability summary chapter 6 \cite[p. 117]{nygard2007release}
-"Astronomically unlikely coincidences happen daily"
-"Failures are inevitable. Our systems, and those we depend on will fail in ways large and small. Stability antipatterns amplify transient events. They accelerate cracks in the system. Avoiding the antipatterns does not prevent bad things from happening, but they wull help minimize the damage when bad things do occur."
-
-
-"A View of Cloud Computing"
-"While the cost of over provisioning is easily measured, the cost of under provisioning is more difficult to measure yet potentially equally serious: not only do rejected users generate zero revenue, they may never come back"
-"In fact, this example underestimates the benefits of elasticity, because in addition to simple diurnal patterns, most services also experience seasonal or other periodic demand variation (for example, e-commerce in December and photo sharing sites after holidays) as well as some unexpected demand bursts due to external events "
-}
-
-\note{
-“1.4. Attack of the Clusters
-At the beginning of the new millennium the technology world was hit by the busting of the 1990s dot-com bubble. While this saw many people questioning the economic future of the Internet, the 2000s did see several large web properties dramatically increase in scale.”
-Excerpt From: “NoSQL Distilled: A Brief Guide to the Emerging World of Polyglot Persistence.” 
-
-
-“One is to handle data access with sizes and performance that demand a cluster; the other is to improve the productivity of application development by using a more convenient data interaction style”
-Excerpt From: pramod j. sadalage. “NoSQL Distilled: A Brief Guide to the Emerging World of Polyglot Persistence.” iBooks.
-}
-
-
-
-\comment{Det her også en decent resource til noge tinput på en intro: \url{https://medium.com/memory-leak/introducing-the-cloud-native-landscape-86c536411373}}
-
-
-\newpage
 \input{sections/introduction/problem_formulation.tex}
+
+\section{The Solution}
+By introducing the microservice architecture, development time, technology utilization and system resilience can be severely improved. The concerns in focus in the microservice community is threefold: implementation, process and organisation. By increasing the granularity of system subdivision, a higher regard to detail is attainable, making it possible to release often and fast, identify and solve problems quickly and correctly, and creating systems with a manageable complexity. The microservice architecture improves service availability by dictating small and independent services, with focus on individual features instead of entire products, decentralizing data management, automating infrastructure management and design services for resilience. Replication is made possible by isolating services into separate environments, improving capacity, introducing redundancy and thereby removing single point of failure. By designing applications with stability patterns and antipatterns in mind typical pitfalls known to cause failure are avoided. This thesis shows the effects of replication, where a service was load tested with different replication factors. By replicating the service in different isolated environments the availability was increase, improving response time and percentage of successful responses.
+
