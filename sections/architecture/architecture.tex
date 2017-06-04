@@ -1,24 +1,26 @@
 \chapter{Architecture in Distributed Applications}
 \label{ch:architecture}
 
-\textit{The previous chapter presented the BCA system and the many challenges the chosen architecture introduced. This chapter will follow up on the case description and explain the evolution of software architecture, elaborating on three fundamentally different ways of structuring software projects.}
+\textit{The previous chapter presented the BCA system and the many challenges the chosen architecture introduced. This chapter will follow up on the case description and explain the evolution of software architecture, elaborating on three fundamentally different ways of structuring software projects. To understand the fundamental changes the microservice architecture introduces, and why it is beneficial to utilize it, it is necessary to look at other major architectural patterns. In turn systems structure and dependency management is strongly linked to the availability.}
 
-Architecture has very different meanings in respect to software development, this chapter will try and capture three of the more prominent architecture patterns distributed systems has been designed after the last 40 years: Monolithic, Service Oriented Architecture (SOA) and the newest addition Microservices. Each new iteration of dominant architecture pattern has been born from the previous, incorporating valuable lessons, trying to avoid pitfalls with earlier architectures. A recurring theme is increasing the granularity with which the system is partitioned, moving from Mono to Micro.
+Architecture has very different meanings in respect to software engineering, this chapter will try and capture three of the more prominent architecture patterns distributed systems has been designed after the last 40 years: Monolithic, Service Oriented Architecture (SOA) and the newest addition Microservices. Each new iteration of dominant architecture pattern has been born from the previous, incorporating valuable lessons, trying to avoid pitfalls with earlier architectures. A recurring theme is increasing the granularity with which the system is partitioned, moving from Mono to Micro.
 
 The Oxford dictionary uses \textit{Conceptual Structure} and \textit{Logical Organization} in their definition of architecture in software development, giving a good idea of what architecture can introduce in software development:
  
 \defi{Architecture (Oxford)}{The conceptual structure and logical organization of a computer or computer-based system}{\url{https://en.oxforddictionaries.com/definition/architecture}} 
  
-This of course is a very broad dictionary definition of the term, at the same time, this shows us some fundamental aspects of architecture. Architecture is indeed different sets of concepts, revolving around how we structure our software logically. Martin Fowler introduces his book \textit{Patterns of Enterprise Application Architectures} with the following statement about architecture \cite[p.~1]{fowler2002patterns}: \textit{"'Architecture' is a term that lots of people try to define, with little agreement. There are two common elements: One is the highest-level breakdown of a system into its parts; the other, decisions that are hard to change."}. According to Fowler, a architecture should break down a system into several parts, at the same time a architecture should take 'hard to change' decisions into account. 
+This gives some hints towards the fundamental aspects of architecture in a software engineering perspective. Architecture is indeed different sets of concepts, revolving around how we structure our software logically. Martin Fowler introduces his book \textit{Patterns of Enterprise Application Architectures} with the following statement about architecture \cite[p.~1]{fowler2002patterns}: \textit{"'Architecture' is a term that lots of people try to define, with little agreement. There are two common elements: One is the highest-level breakdown of a system into its parts; the other, decisions that are hard to change."}. According to Fowler, a architecture should break down a system into several parts, at the same time a architecture should take 'hard to change' decisions into account. 
 
-Michael Nygaard states the following about a specific architectural decision (in this case about decoupling middleware) \cite[p.~116]{nygard2007release}: \textit{Decoupling Middleware is an architecture decision. It Ripples into every part of the system. This is one of those nearly irreversible decisions that should be made early rather than late}, supporting the notion that architectural decisions are important due to the hard nature of reversing previous decisions.
+Michael Nygaard states the following about a specific architectural decision (in this case about decoupling middleware) \cite[p.~116]{nygard2007release}: \textit{"Decoupling Middleware is an architecture decision. It Ripples into every part of the system. This is one of those nearly irreversible decisions that should be made early rather than late"}, supporting the notion that architectural decisions are important due to the hard nature of reversing previous decisions.
 
-Many factors have influenced software architecture through time. Available languages, frameworks and tools has drastically changed how software is developed today. Competition has also had it's influence by setting new requirements to the speed of development, having short and agile release cycles has never been more important \cite[t.~6:55]{george2016it}. Creating an architecture that supports these factors, makes it possible to utilize them, which in turn improves all parts of software development.
+Many factors have influenced software architecture through time. Available languages, frameworks and tools has drastically changed how software is developed today. Competition has also had it's influence by setting new requirements to the speed of development, having short and agile release cycles has never been more important \cite[t.~06:55]{george2016it}. Containerization has made it possible to create isolated environments, supporting new development flows and possible architectures.
 
-As with many other solutions to a reoccurring problem, a specific architecture is never a silver bullet, decisions about the fundamental architecture of a system should be grounded in great understanding of what a specific architectural pattern incurs, and what the specific architecture helps mitigate. Vernon Vaughn states the following \cite[p.~113]{vernon2013implementing}: \textit{“The following architectural styles and patterns are not a grab bag of cool tools we should apply everywhere possible. Instead, use them only where applicable, where they mitigate a specific risk that would otherwise increase the potential for project or system failure"}. This chapter will talk shortly about Engineering Culture and Domain Driven Design (DDD) due to importance of both, when determining architecture, which again extends the notion that certain architecture should only be utilized if it is a good fit. The engineering culture section will describe how organisation influences a systems architecture, while DDD serves as a bag of tools for understanding and clearly separating the domain.
+A specific architecture is never a silver bullet, decisions about the fundamental architecture of a system should be grounded in great understanding of what a specific architectural pattern incurs, and what the specific architecture helps mitigate. Vernon Vaughn states the following \cite[p.~113]{vernon2013implementing}: \textit{“The following architectural styles and patterns are not a grab bag of cool tools we should apply everywhere possible. Instead, use them only where applicable, where they mitigate a specific risk that would otherwise increase the potential for project or system failure"}, a certain architecture should only be applied if it actually helps mitigate project or system failure.
+
+This chapter will talk shortly about Engineering Culture and Domain Driven Design (DDD) due to importance of both, when determining architecture, which again extends the notion that certain architecture should only be utilized if it is a good fit. The engineering culture section will describe how organisation influences a systems architecture, while DDD serves as a bag of tools for understanding and clearly separating the domain.
 
 \section{Engineering Culture}
-Engineering culture has earned an increasing focus in modern software development, due to the effects of culture on software development. \textit{Conway's Law} is often mentioned \cite{newman2014demystifying}: \textit{ "Any organization that designs a system will inevitably produce a design whose structure is a copy of the organization's communication structure."}, emphasizing the impact of the organisation behind software development. It is well known that forerunner companies of the more progressive microservice architecture, have very different organization and communicational structures than traditional enterprises. Spotify is known for their use of an microservice architecture, and have made a small two video series about their engineering culture, emphasizing the need for: Autonomous development teams that are loosely coupled and tightly aligned, internal open source models, small frequent and decoupled releases and trusting employees rather than controlling them  \cite{kniberg2014spotify}. This is a recurring theme in literature and talks about the future of software development \cite[p.~5]{nygard2007release} \cite[p.13]{newman2015microservices} \cite[t.~34:32]{george2016it} \cite{fowler2014microservices} \cite[t.~25:30]{fowler2014microservicesoamonolith}, organisation and process are very important when talking about the architecture of a software system, as the software architecture will match the communication structure of the organisation.
+Engineering culture has earned an increasing focus in modern software development, due to the effects of culture on software development. \textit{Conway's Law} is often mentioned \cite{newman2014demystifying}: \textit{ "Any organization that designs a system will inevitably produce a design whose structure is a copy of the organization's communication structure."}, emphasizing the impact of the organisation behind software development. It is well known that forerunner companies of the more progressive microservice architecture, have very different organization and communicational structures than traditional enterprises. Spotify, a world leading music streaming service, is known for their use of an microservice architecture, and have made a small two video series about their engineering culture, emphasizing the need for autonomous development teams that are loosely coupled and tightly aligned, internal open source models, small frequent and decoupled releases and trusting employees rather than controlling them  \cite{kniberg2014spotify}. This is a recurring theme in literature and talks about the future of software development \cite[p.~5]{nygard2007release} \cite[p.13]{newman2015microservices} \cite[t.~34:32]{george2016it} \cite{fowler2014microservices} \cite[t.~25:30]{fowler2014microservicesoamonolith}, organisation and process are very important when talking about the architecture of a software system, as the software architecture will match the communication structure of the organisation.
 
 
 \section{Domain Driven Design}
@@ -39,7 +41,7 @@ According to Principal Consultant James Lewis and Chief Scientist Martin Fowler 
 
 According to Lewis and Fowler, DDD is usable, generally when designing applications, mentioning how separation between bounded contexts is more explicit when using microservices, highlighting one of the key features of the architecture, reducing the risk of sharing model across bounded contexts because of the explicit boundaries between services. The microservice architecture will be explored in further detail in section \ref{sec:microservices}.
 
-\section{Monolithic}
+\section{Monolithic Architecture}
 The word monolith describes a application that exists as an single unit. By having the entire application as a single entity, the source code can be developed and managed together, giving multiple short term advantages \cite[p.~68]{long2017cloud}. Functionality can easily be added on top of a existing code base, giving the many advantages of low level programming language constructs. Communication can be done internally, between processes, not relying on non-deterministic network communication channels. 
 According to Lewis and Fowler\cite{fowler2014microservices} enterprise web applications are often created as a monolith, consisting of three main parts: a client-side user interfaces, a shared common database management systems and a monolith server-side applications. The server-side application is a large and complex application, packed into a single executable. The application binds interface and database together, executing domain logic based on user input, retrieving and updating data as needed.
 As the application grows in size, immediate advantages fade. The code base reaches a size where small changes in one part of the application might incur unforeseen changes in other parts. Centralizing the application decreases risk of failure, but at the same time forces development teams to coordinate changes, making sure breaking changes are not introduced \cite[p.~68]{long2017cloud}. 
@@ -121,12 +123,9 @@ Keeping logic out of the communication method is important when developing micro
 \subsubsection*{Decentralized Governance}
 By decentralizing governance and organising around business capabilities, each service can be build and optimized to solve a very specific part of the domain \cite{fowler2014microservices}.
 This is often paired with 'end-to-end' responsibility 
-\note{Kunne potentielt tilføje hvordan team skills også kan splittes ud, samt hvordan det gør teams i stand til at sidde forskellige steder og arbejde med det samme}
 
 \subsubsection*{Decentralized Data Management}
 Services often have their own data store, decentralizing data management. Each service has the data that is relevant for that service, and not more. 
-
-\note{Potentielt gør brug af Martin Fowler artikel "PolyglotPersistence", der snakker om brug af NoSQL teknologier}
 
 \subsubsection*{Automation of Deployment}
 Microservices infer a lot of operational complexity, as there are many services to deploy and monitor. The use of infrastructure automation techniques is necessary, improving insight into the quality of newly developed software, and reduce the time it takes to move new features from development to production\cite{newman2015microservices}. This is often achieved with build pipelines know from Continous delivery (CD), a build pipeline is seen on figure \ref{fig:architecture_microservice_build_pipeline}.
@@ -137,10 +136,8 @@ Microservices infer a lot of operational complexity, as there are many services 
   \label{fig:architecture_microservice_build_pipeline}
 \end{figure}
 
-\note {
 \subsubsection*{Independently Deployable Services}
 Each service is independently deployable, making it possible to add and update functionality in each service as needed.
-}
 
 \subsection{Derived qualities}
 Microservices in it self presents a lot of benchmark benefits, giving possibility to control capacity, introduce redundancy and solve single point of failure issues, a microservice architecture improves overall application resilience if utilized correctly. At the same time microservices introduces additional complexity, because services has to communicate with dependent services using non-deterministic communication channels. This in turn has the effect of highlighting otherwise transparent challenges with integration points, causing engineers utilizing microservices to be more resilience aware, expecting failure between services. In a monolith implementation, a library dependency used in process might introduce new possible error states or undefined behaviour, but in this context software engineers tend to be less aware of the possible errors this dependency could incur. When having very clear interfaces with dependencies, engineers tend to take more precautionary measures. These measures are not directly measurable, but help create a more resilient system. 
@@ -151,77 +148,5 @@ A challenge with using services as components is the inherent complexity of comm
 \subsubsection*{Sophisticated Real-Time Monitoring}
 When designing many independent services, it is necessary to have sophisticated monitoring and logging, in order to control that services are running correctly. This enables engineers to know if any action needs to be taken to restore a fully functional system, or if service was automatically restored.
 
-\note{
-\section{Service discorvery}
-C. Richardson, “Service discovery in a microservices architecture.” 
-\url{https://www.nginx.com/blog/service-discovery-in-a-microservices-architecture/}
-
-
-\section{Event-driven architecture}
-\comment{This section is still in note form}
-There are four patterns occurring in many of the systems where the word event-driven architecture.
-
-Systems are often get very coupled because the different system depend on each other.
-
-
-\section{Event notification}
-It is a particular important part of the architecture. Subsystems communicate through events.
-
-Applications subscribe to the events they are interested in, and react when an event comes along. 
-By doing this you reverse dependencies.
-Besides reversing dependencies, we now have a record that can be referred to and passed around, when an event happens. 'Bottling it op'.
-
-What is the difference between events and commands. Events does not expect any specific reaction, but are just informing about change. Commands imply certain reaction to a event.
-
-It allows us to hook up many different system up to events, without incurring change in existing applications. It easily allows to implement new features, without changing other
-
-At the same time it removes easy observable flow. There is no code to look at, you have to debug.
-
-\subsection{Event-carried State Transfer}
-Downstream services duplicate the data they receive from events, removing the need for calls to the emitter. Less traffic is required, because more information is put into the events. Subscribing services can therefore deduct what to do from events, without contacting the emitter for additional data. The event therefore contains all the data that downstream systems want to have.
-
-Downstream services therefore need to store the events they are interested in. 
-
-It reduces the calls to the emitter, reducing traffic. Can improve availability, consumers are not directly tied to the emitter, the consumer has it's own data and can therefore continue operation if the emitter goes down.
-
-This introduces lack of consistency. This is a less common pattern, but it can be a good one to utilize in some cases.
-
-\subsection{Event Sourcing}
-Changes are registered, by putting event on top of a event stack or log, the event is thereafter processed, updating the application state.
-
-The Log can rebuild application state at any time.
-
-In case of changes:
-1. Event object is created - 'Address change' - pop into a seperate storage area
-2. Process event - 'Change address'
-
-Event sourcing works on customer state the way subversion works on code.
-
-It is often a combination of all events and some 'snapshots'. Snapshots are sometimes done, 'closing out the year' ignoring events that has happened earlier, simplify the events, making it easier to reason about future events. Storage is therefore a mixture of events and snapshots. But you always want to be able to reason about the current state.
-
-This pattern have several benefits:
-Audit
-Debugging, realy usefull to be able to go back and forth in state.
-Historic state, if a error has occurred in the past, the difference it would make in current state can be calculated by going back and changing an event and calculating the difference.
-Alternative state, you have a alternative to storing application state, by storing it in live memory. You still have to have an alternative store, so you can recreate state.
-
-Disadvantages:
-Unfamiliar, harder to work with
-External system, gets a bit more complex, cannot ask the system for events again. Therefore a replay mechanism has to be made, to be able to restore application state. Has to save events.
-Event Schema, how are events stored, so they can be replayed while the application that processes them is changed around them.
-Identifiers, Traps when trying to make it possible to replay application state.
-Potential disadvantages:
-Asynchrony, adds complexity as it is introduced to handle emitting and handling events. It does not have to be used though.
-Version, It can be hard to reason about. If application state structure is changed, can the application the still process year old events. Snapshots can be cut down two one day, so this is not a problem.
-
-Pros and cons. Advantages and disadvantages.
-
-\subsection{Command Query Responsibility Segregation}
-Seperate pieces of software components that read and write to the central store.
-
-Command model, write the model. It is only used when making updates.
-
-Query model, 
-
-It is appropriate pattern, but seems to 
-}
+\section{Summary}
+The three major architectural patterns show the progression of how distributed software has been developed and deployed. The microservice architecture can be defined by a few characteristic, which are derived from the more broad term SOA, focusing on the most valuable guidelines when developing distributed software utilizing cloud computing. With the microservice architecture a bigger concern towards resilience has occurred, by moving logic out of the communication channels and creating applications in completely isolated environments the dangers of communicating externally has been highlighted. Resilience or 'Design for Failure' is therefore one of he defining characteristics of microservices, making it an extremely interesting architectural pattern when trying to improve availability of a system.
