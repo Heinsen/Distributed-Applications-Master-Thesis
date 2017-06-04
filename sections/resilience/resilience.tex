@@ -3,58 +3,86 @@
 
 
 \comment{Create introduction after Meta text}
-Nygaard describes how software engineering is taught incompletely, and that focus when developing distributed software should be shifted. Nygaard states that focus should be on what a system should not do, contra today's focus on what a system should do. The first acknowledgement when developing distributed systems is according to Nygaard the realisation that failure will occur, and focus should be on handling them instead of avoiding them altogether. Further stating that a stable system will keep on working as intended, even though persistent stress or component failure is present. Nygaard states the following\cite[p. 27]{nygard2007release}:
+Nygaard describes how software engineering is taught incompletely, and that focus when developing distributed software should be shifted. Nygaard states that focus should be on what a system should not do, contra today's focus on what a system should do. The first acknowledgement when developing distributed systems is according to Nygaard the realisation that failure will occur, and focus should be on handling them instead of avoiding them altogether. Further stating that a stable system will keep on working as intended, even though persistent stress or component failure is present. Nygaard states the following \cite[p. 27]{nygard2007release}:
 
 \tquote{Once you accept that failures will happen, you have the ability to design your system's reaction to specific failures. [..] This sort of self-protection determines the whole system's resilience.}{Nygaard}{2007}
 
-Strigini describes a movement within information and communication technology, stating that newly developed systems are more interconnected and changed without global system intervention by developers. Setting unprecedented requirements to existing practices of dependable design, making current practices inadequate when trying to deliver satisfactory levels of dependability\cite[p. 5]{strigini2012fault}.
+Strigini describes a movement within information and communication technology, stating that newly developed systems are more interconnected and changed without global system intervention by developers. Setting unprecedented requirements to existing practices of dependable design, making current practices inadequate when trying to deliver satisfactory levels of dependability \cite[p. 5]{strigini2012fault}:
 
 \tquote{While existing practices of dependable design deal reasonably well with achieving and predicting dependability in ICT systems that are relatively closed and unchanging, the tendency to making all kinds of ICT systems more interconnected, open, and able to change without new intervention by designers, is making existing techniques inadequate to deliver the same levels of dependability}{Strigini}{2012}
 
 Dealing with resilience in distributed systems is a necessity, when applications are growing in scale and complexity. The following chapter will establish a definition of resilience, which can be used to evaluate application and infrastructure architecture. 
 
 \section{Defining resilience}
-Resilience stems from the Latin word resilíre, meaning "to leap back". Relating it to software engineering it can be defined as a systems ability to "bounce back" and adapt to disruption\cite{omer2013resilience}. Resilience has been used within many disciplines before being applied to software engineering, and has been defined very broadly, potentially incorporating many aspects within cloud computing. The following section will try to pin down what resilience means within cloud computing and what it entails to strive for a system with a high resilience.
+Resilience stems from the Latin word resilíre, meaning "to leap back", the Oxford dictionary defines resilience as the capacity to recover and spring back into shape:
 
+\defi{Resilience (Oxford)}{1. the capacity to recover quickly from difficulties; toughness. \\ 2. the ability of a substance or object to spring back into shape; elasticity.}{\url{https://en.oxforddictionaries.com/definition/resilience}}
 
-Resilience has been defined and characterised by many different parties, within several disciplines.\cite{folke2002resilience, dalziell2004resilience, rose2005modeling, andersson2006urban, fiksel2003designing, bruneau2003framework, reed2009methodology, pavard2006design}
+Relating resilience to software engineering it can be defined as a systems ability to "bounce back" and adapt to disruption \cite{omer2013resilience}. Resilience has been used within many disciplines before being applied to software engineering, and has been defined very broadly, potentially incorporating many aspects within cloud computing. The following section will try to pin down what resilience means within cloud computing and what it entails to strive for a system with a high resilience.
+
+Resilience has been defined and characterised by many different parties, within several disciplines \cite{folke2002resilience, dalziell2004resilience, rose2005modeling, andersson2006urban, fiksel2003designing, bruneau2003framework, reed2009methodology, pavard2006design}.
 These definitions help understand the meaning of resilience, and link it to the understanding of cloud computing. Important keywords from these definitions have been identified, creating an overview of different resilience characteristics. The keywords identify the core concepts that resilience convey when used, all very relevant when defining resilience within cloud computing.
 
 All collections of keywords relate very closely, and help define key concepts within resilience with keywords such as: \textit{stable equilibrium, cope, adapt, proactive measures, reorganize, retain structure, redundancy, robustness}. The context in which there is a necessity for resilience is also included and clear, focusing on the possible disruptive events, described with the following keywords: \textit{undergoing change, face of disruption, face of stress, perturbation, disruptive events}, emphasizing the need for resilient systems in environment characterized by these keywords.
 
-The keywords can be grouped and related to know principles within cloud computing, helping simplify the broader characteristics of resilience, creating a model for a cloud computing related resilience definition. The keywords have been grouped according to their association, under a headline inspired directly by the identified resilience keywords and known cloud computing keywords, seen on figure \ref{fig:resilience_keywords_grouped}. The two overarching words being \textit{dependability} and \textit{adaptivity} each with several sub-concepts, all described in the following section.
+The keywords can be grouped and related to know principles within cloud computing, making it possible to identify resilience characteristics in cloud computing, creating a model for a cloud computing related resilience definition. The keywords was grouped according to their association, and a headline for each group was defined, inspired directly by the identified resilience keywords and known cloud computing keywords. The resilience model is seen on figure \ref{fig:resilience_keywords_grouped}. The two overarching words being \textit{dependability} and \textit{adaptivity} each with several sub-concepts.
 
 \begin{figure}[!htb]
-  \includegraphics[scale=0.15]{resilience_keywords_grouped}  
+\begin{center}
+  \includegraphics[scale=0.16]{resilience_keywords_grouped}  
   \caption{Resilience keywords grouped in a cloud context}
   \label{fig:resilience_keywords_grouped}
+ \end{center}
 \end{figure}
-\newpage
+
+
 \subsection{Dependability}
-Dependability describes the systems ability to deliver the intended level of service, whether the users can rely on the servie level. Having a dependable service means to have a service level that is not impacted by faults and their derived errors. The users of a system perceive the system state as an alternation between service accomplishment and interruption, either a service is precisely as specified or different. The transition between these states are controlled by restoration and failure events, either pushing the service in a direction that aligns or deviates with the intended service level. Dependability is mainly quantified through measures on \textit{availability} and \textit{reliability}\cite{laprie1985dependable}.
+Dependability describes the systems ability to deliver the intended level of service, and therefore whether the service is reliable. Having a dependable service means to have a service level that is not impacted by faults and their derived errors.
+
+A service state fluctuates between service accomplishment and interruption, the overall goal is too keep the service at the expected service level. The transition between these states are controlled by restoration and failure events, either pushing the service in a direction that aligns or deviates with the intended service level illustrated on figure \ref{fig:resilience_definition_dependability}. Dependability is mainly quantified through measures on \textit{availability} and \textit{reliability} \cite{laprie1985dependable}.
+
+\begin{figure}[!htb]
+  \includegraphics[width=\textwidth]{resilience_definition_dependability}  
+  \caption{The service level alternating between service accomplishment and interruption}
+  \label{fig:resilience_definition_dependability}
+\end{figure}
 
 
-\textbf{Availability} describes the accessibility to data, and is generally determined by calculating the time a service was unavailable, over a given period. The availability level can then be determined, by stating how much downtime is allowed, within a given period\cite[p. 477]{beyer2016siteReliabilityEngineering}. Is the data available to users or dependent service boundaries? If data is not available to our users, it does not exist from their perspective\cite[p. 345]{beyer2016siteReliabilityEngineering}.
+\subsubsection{Availability}
+Availability describes the accessibility to a given service, and is generally determined by calculating the time a service was unavailable, over a given period. The availability level can then be determined, by stating how much downtime is allowed, within a given period \cite[p. 477]{beyer2016siteReliabilityEngineering}. A service only exists, from a user perspective, if it is available \cite[p. 345]{beyer2016siteReliabilityEngineering}.
 
-\comment{Kig på 'Measuring Service Risk' side 26 is site reliability engineering}
+Google describes how they measure service risk across their entire infrastructure by evaluating \textit{unplanned downtime}  \cite[p. 26]{beyer2016siteReliabilityEngineering}. According to Beyer et al. there are two ways of measuring service availability, Time-based and Aggregate availability. Time-based focuses on the accepted level of unplanned downtime, usually expressed in the number of 'nines' (eg. 99.999\%), this is often calculated on the proportion of a services uptime. Aggregate availability on the hand focuses on request success rate, due to google's infrastructure always being 'partially' functional. Aggregate availability makes it easier to apply availability measurements to services that only run part-time.
 
-\textbf{Reliability} is the probability that a system will fulfil set requirements in stated conditions for a given period of time\cite{o2012practical}. The resilience of the system therefore determines the reliability, by analysing the amount of external disruption a system can handle. Google states that reliability is the fundamental feature of a system, and autonomous and resilient system behaviour is a good way to achieve reliability\cite[p. 84]{beyer2016siteReliabilityEngineering}.
+\begin{figure}[!htb]
+  \includegraphics[width=\textwidth]{resilience_definition_availability}  
+  \caption{Aggregate and Time-based availability equations}
+  \label{fig:resilience_definition_availability}
+\end{figure}
+
+Google set availability targets for all their services, comparing the performance to the set goals and fixing deviations as they arise.
+
+\subsubsection{Reliability}
+Reliability is the probability that a system will fulfil set requirements in stated conditions for a given period of time \cite{o2012practical}. The resilience of the system therefore determines the reliability, by analysing the amount of external disruption a system can handle. Google states that reliability is the fundamental feature of a system, and autonomous and resilient system behaviour is a good way to achieve reliability \cite[p. 84]{beyer2016siteReliabilityEngineering}.
 
 
-\subsection{Adaptivity} \comment{Should it be adaptive capacity?}
+\subsection{Adaptivity}
 Adaptivity can be defined as the systems ability to adapt to a disruptive situation and reconfigure themselves, without loss in the intended level of service. Including the ability to adjust to changing internal demands\cite{reed2009methodology}. Adaptivity contains, \textit{Robustness}, \textit{Fault tolerance and avoidance}, \textit{Recovery time} and \textit{Capacity and redundancy}.
 
 
-\textit{Robustness} covers how quantifiable the system behaviour is in the face of disruption challenging system behaviour\cite[p. 10]{sterbenz2010resilience}. These disruptions are both internal and external\cite{omer2013resilience}. Robustness includes the systems ability to withstands disruptions rather than adapt to them, a robust system has been designed to withstand known uncertainties, maintain intended level of service and same form of functionality.
+\subsubsection{Robustness} 
+Robustness covers how quantifiable the system behaviour is in the face of disruption challenging system behaviour \cite[p. 10]{sterbenz2010resilience}. These disruptions are both internal and external\cite{omer2013resilience}. Robustness includes the systems ability to withstands disruptions rather than adapt to them, a robust system has been designed to withstand known uncertainties, maintain intended level of service and same form of functionality.
 \comment{Kig på: "Evaluating robustness of cloud-based systems" Godt input til robustness}
 
-\textit{Fault tolerance and avoidance} is used to describe dependability of a system, from internal and external harm. Tolerance is making the system tolerable to the effects of faults. Avoidance meaning guarding a system against potential defects, that could cause system failure\cite{strigini2012fault}.
+\subsubsection{Fault tolerance and avoidance}
+Fault tolerance and avoidance is used to describe dependability of a system, from internal and external harm. Tolerance is making the system tolerable to the effects of faults. Avoidance meaning guarding a system against potential defects, that could cause system failure \cite{strigini2012fault}.
 
 
-\textit{Recovery time} is a measure for how long time period a system needs to resume fulfilling the stated requirements.
+\subsubsection{Recovery time} 
+Recovery time is a measure for how long time period a system needs to resume fulfilling the stated requirements.
 
 
-\textit{Capacity and redundancy} is two different aspects that inherently are very linked. Capacity is the highest throughput a system can deliver, with and acceptable response time for each request\cite[p. 136]{nygard2007release}. Redundancy meaning how much extra capacity a system has, that can be applied in case of failure to uphold stated system requirements.
+\subsubsection{Capacity and redundancy}
+Capacity and redundancy is two different aspects that inherently are very linked. Capacity is the highest throughput a system can deliver, with and acceptable response time for each request \cite[p. 136]{nygard2007release}. Redundancy meaning how much extra capacity a system has, that can be applied in case of failure to uphold stated system requirements.
 
 \note {
 \begin{figure}[!htb]
@@ -71,10 +99,10 @@ Adaptivity can be defined as the systems ability to adapt to a disruptive situat
 
 \section{Stability Antipatterns}
 \label{sec:stability_antipatterns}
-When working with big complex systems, rest assure: Failure is bound to happen. How the failure was triggered, which fractures it created and how much it propagated will differ each time. Stability antipatterns is a concept Nygaard uses when understanding how these failures appear within a distributed system, which characteristics the failures have and how some architectures leads to them.\cite[p. 31]{nygard2007release}.
+When working with big complex systems, rest assure: Failure is bound to happen. How the failure was triggered, which fractures it created and how much it propagated will differ each time. Stability antipatterns is a concept Nygaard uses when understanding how these failures appear within a distributed system, which characteristics the failures have and how some architectures leads to them \cite[p. 31]{nygard2007release}.
 
 \subsection{Integration Points}
-Integration points are connections from a service to other services, necessary for the service to deliver expected functionality. Nyggard denote integration points as the :\textit{"The number-one killer of systems"}\cite[p. 33]{nygard2007release}. Integration points often run over socket connections which are not immediate and incur complexity. Many simultaneous connections can hamper a remote application, forcing the calling application to wait, and possible decrease service level.
+Integration points are connections from a service to other services, necessary for the service to deliver expected functionality. Nyggard denote integration points as the :\textit{"The number-one killer of systems"} \cite[p. 33]{nygard2007release}. Integration points often run over socket connections which are not immediate and incur complexity. Many simultaneous connections can hamper a remote application, forcing the calling application to wait, and possible decrease service level.
 Circuit breakers, decoupling middleware and testing can help solve or identify challenges with integration points.
 
 \subsection{Chain Reactions}
@@ -82,7 +110,7 @@ Chain reactions can form if one of several serving servers fail, and therefore i
 Server bulkheads prevent chain reactions from depleting entire services, circuit breakers protect caller services.
 
 \subsection{Cascading Failures}
-Cascading failures happen when a failure from one layer cause problems in callers. If a failure happens in a serving service and callers are not correctly handling it (eg. implementing a time-out) the failure can cascades into the calling service. Nygaard calls cascading failures "the number on crack accelerator"\cite[p. 49]{nygard2007release}.
+Cascading failures happen when a failure from one layer cause problems in callers. If a failure happens in a serving service and callers are not correctly handling it (eg. implementing a time-out) the failure can cascades into the calling service. Nygaard calls cascading failures "the number on crack accelerator" \cite[p. 49]{nygard2007release}.
 The circuit breaker pattern and timeouts can combat cascading failures.
 
 \subsection{Users}
@@ -120,7 +148,7 @@ Stability patterns are applied to increase stability and reduce damage done when
 \subsection{Timeouts}
 Network connections are slow and error prone, but necessary to incorporate in any distributed application. Applying timeouts at integration points help avoid blocked threads and mitigate slow responses from dependent services. By defining timeouts an upper limit for time waiting is set, the application can then move on and recover from failure.
 
-\comment{Perspektiver til mit fine diagram. :)}
+\comment{Perspektiver and insert diagram}
 
 \subsection{Circuit Breaker}
 The circuit breaker pattern is based on the principles and functions of a fuse in electric circuits. From a software perspective, the idea is to wrap dangerous operations, so that they can be circumvented when not working properly. This allows a system to degrade functionality if errors occur, guarding against integration points, slow responses, unbalanced capacities and cascading failures.
@@ -158,6 +186,8 @@ Nygaard describes how fundamental it is to the system design which form of commu
 \comment{Expand this, I feel like this is very important. Find more sources talking about this}
 
 \comment{Use the notes from the goto conference video:}
+
+
 \note{
 \section{Nygaard Stability Patterns and Antipatterns}
 
@@ -165,7 +195,7 @@ Nygaard describes how fundamental it is to the system design which form of commu
 Worked as devops, identified some recurring problems, 'luckily'
 
 
-\textbf{Definition of availability:}
+\textbf{Definition of availability}
 Probability that system is operating at time t.
 When I do something, is the system successfully going to complete that thing? Complete the mission that it is given.
 Has nothing to do with servers running, hardware being alive.
@@ -225,7 +255,7 @@ If we have crack stoppers in place, dampering the failure, prevent it from propa
 We cannot prevent the system from getting damaged. But we can preserve some feature for some users, and prevent catastrophic failures.
 
 
-Nygaard likes the idea of simmian army, it is hard if not impossible to test the system at the same scale as in production. Forcing yourself to be anti-fragile, by creating problems.
+Nygaard likes the idea of simian army, it is hard if not impossible to test the system at the same scale as in production. Forcing yourself to be anti-fragile, by creating problems.
 
 Monitoring system design. It is good if it can register heartbeats from the application. A lot of systems only register when something goes wrong. Not getting a heartbeat is something going wrong.
 }
