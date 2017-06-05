@@ -1,0 +1,195 @@
+\chapter{Test -- Measuring Availability}
+\label{ch:experiment}
+
+\textit{The previous chapter introduced the definition of resilience and the correlation between availability and capacity and redundancy. By increasing capacity and redundancy we can increase the availability, in turn increasing the resilience. This chapter will test the hypotheses by showcasing the conducted availability test. A test tool was developed and distributed for this sole purpose testing a simple test application and measuring time based and aggregate availability}
+
+
+\note {
+\comment{Han siger det er vigtig: \url{https://testdetective.com/performance-testing-vegeta-attack/},}
+\comment{3 scale, by RED HAT: \url{https://www.3scale.net/2015/04/how-to-load-test-and-tune-performance-on-your-api-part-i/}}
+\comment{Use load testing rather than tradition to establish the resource-to-capacity ratio: a cluster of X machines could handle Y queries per second three months ago, but can it still do so given changes to the system?, p482 site reliability engineering}
+\comment{\url{https://martinfowler.com/articles/microservice-testing/\#conclusion-options}}
+}
+
+
+
+
+"Encourage Proactive Testing
+When it comes to failures, theory and reality are two very different realms. Until your system has actually failed, you don’t truly know how that system, its dependent sys‐ tems, or your users will react. Don’t rely on assumptions or what you can’t or haven’t tested. Would you prefer that a failure happen at 2 a.m. Saturday morning when most of the company is still away on a team-building offsite in the Black Forest—or when you have your best and brightest close at hand, monitoring the test that they painstakingly reviewed in the previous weeks?"
+Site reliability engineering s. page 159
+
+"
+\textbf{Experiments with negative results are conclusive. }They tell us something certain about production, or the design space, or the performance limits of an existing sys‐ tem. They can help others determine whether their own experiments or designs are worthwhile. For example, a given development team might decide against using a particular web server because it can handle only ~800 connections out of the needed 8,000 connections before failing due to lock contention. When a subsequent develop‐ ment team decides to evaluate web servers, instead of starting from scratch, they can use this already well-documented negative result as a starting point to decide quickly whether (a) they need fewer than 800 connections or (b) the lock contention prob‐ lems have been resolved.
+Even when negative results do not apply directly to someone else’s experiment, the supplementary data gathered can help others choose new experiments or avoid pit‐ falls in previous designs. Microbenchmarks, documented antipatterns, and project postmortems all fit this category. You should consider the scope of the negative result when designing an experiment, because a broad or especially robust negative result will help your peers even more.
+
+
+\textbf{Tools and methods can outlive the experiment and inform future work.} As an example, benchmarking tools and load generators can result just as easily from a dis‐ confirming experiment as a supporting one. Many webmasters have benefited from the difficult, detail-oriented work that produced Apache Bench, a web server loadtest, even though its first results were likely disappointing."
+Site reliability engineering s. 114
+
+
+A benchmarking test of a simple application has been completed to show the impact of replication, and how it improves capacity and thereby level of availability. When developing a microservice architecture, it is important to determine the limit for individual service endpoints., determining whether an application has the proper capacity for the expected load, and how much unexpected load it can handle. Replication of services is one of the main advantages of using microservices, giving the ability to scale as demand grows and having a healthy level of redundancy if needed. 
+Kubernetes was utilized to create a cluster on the GCP, creating a suitable environment for carrying out the test. Making it possible to change the replication factor after deployment and survey each active node, making usage of Grafana to survey load on individual notes by monitoring CPU and network usage. The application was made available with three different node replication factors: 1,  5 and 10, to investigate the increase of throughput on a single application programming interface (API) endpoint. 
+The application was load tested with a benchmarking tool running on a separate server. By evaluating the response time and success rate of requests the maximum amount of requests per second for the specific replication factor was determined and evaluated.
+
+
+\section{Test Application}
+The test application was developed as a Java application, due to the simplicity and good documentation of the available Java frameworks, making it possible to develop a test ready application confidently. The test application exposes a single API endpoint supporting GET requests, returning an empty list of simple \textit{Rule} objects. The Spring Boot framework was utilized to create the API endpoint, due to its simplicity and ease of use. The application was tested locally and containerized using Docker, using the Spotify\footnote{Docker maven plugin for creating and pushing containerized applications directly with maven \url{https://github.com/spotify/docker-maven-plugin}} Docker Maven plugin that makes it possible go create and push new Docker images to the Docker Hub\footnote{The image is available on docker hub: \url{https://hub.docker.com/r/ihacheinsen/simple-rest-api/}} using maven. A kubernetes deployment was  used to deploy the application in the cluster, utilizing the Kubernetes functionality to scale the application to the wished amount of replicates for the given test step, delivering good monitoring, making it possible to monitor health and utilization of individual service replicas.
+
+\section{Test Tool}
+A NodeJS application was developed to initiate the chosen benchmarking tool and collect results from the test. The application exposes a single web page, making it possible to specify the host targeted for load test, number of total requests in each test step, a start rate of requests per second (used to calculate rate at each test step), the start step and a total amount of steps for the test. 
+
+The application was hosted through GCP on a separate VM instance, located in \textit{europe-west1-c} (a different zone than the cluster hosting the test application) to ensure some 'distance' between the test tool and test application. GCP makes it possible to access created instances through SSH where the test tool was deployed and monitored using docker.
+
+Load was generated with the benchmarking tool Vegeta\footnote{The Vegeta load testing tool and library can be found on github: \url{https://github.com/tsenart/vegeta}}. Vegeta is an open source library that makes it possible to generate a high amount of requests directed to any given host, making it possible to tune the test by specifying wished timeout, duration among other parameters and providing several neat commands for generating reports of the test results as well. The test tool initiates Vegeta for each test step, steadily increasing the amount of request per second for each increasing step. Vegeta produces results for each step, which are gathered in a simplified JSON structure for display on the test tool web page. Besides response time, Vegeta gives information about success rate and overall duration of a test, giving more indicators of whether the specific host under test managed to satisfied the load. If a host is overloaded, the duration of the test typically exceeds the predefined duration, due to a high amount of timeouts, giving a poor success rate. Success rate and effective duration are therefore a product of response time.
+
+\subsection{Availability Test}
+The application has been load tested in 20 steps, starting with 100.000 request per second steadily increased by multiplying the start rate with the current step, resulting in a maximum of 200.000 requests per second. Each step sends a total of 100000 requests, resulting in different durations of each test step. The equation for calculating the given duration for a step is seen in Figure \ref{fig:implementation_load_duration_equation} below, calculated before initiating each test step.
+
+\begin{figure}[!htb]
+  \includegraphics[width=\textwidth]{implementation_load_duration_equation}  
+  \caption{Equation used to calculate duration of each load test step}
+  \label{fig:implementation_load_duration_equation}
+\end{figure}
+
+This calculation was done to satisfy the parameters of the utilized benchmarking tool, Vegeta, that requires a test duration and an amount of requests per second.
+
+Each test iteration was done 10 times to account for outliers, creating a reasonable sample basis.
+
+
+\subsection{Test Results}
+The test results are evaluated primarily by judging the response time median at each step for the given cluster configuration. Success rate and duration also contribute to the evaluation, providing useful insights into how successfully the application configuration handled the load. The response time results are visualised in Figure \ref{fig:implementation_effect_of_replication_requests}. A response time above 100 ms was deemed unsatisfactory, which was breached for each cluster configuration rather clearly with an enormous spike in response times at a certain load increase. 
+
+\begin{figure}[!htb]
+  \includegraphics[width=\textwidth]{implementation_effect_of_replication_requests}  
+  \caption{Response time for each cluster configuration}
+  \label{fig:implementation_effect_of_replication_requests}
+\end{figure}
+
+Test results are gathered for each configuration, creating an average across all ten tests executed for each cluster configuration. The results clearly show an improvement in maximum throughput for the application, with the lowest attainable throughput at 1 node, and a highest at 10 nodes. The results show how replication factor of the test application is a determining factor for maximum throughput, creating clear boundaries for when an application is able to satisfy a given load. The application was able to satisfy the following loads at different replication factors:
+
+\begin{center}
+\begin{tabular}{ |p{2cm}|p{5cm}|  }
+ \hline
+{\textbf{Nodes}} & {\textbf{Requests per Second}}\\
+ \hline
+ \textbf{1} & 9000 r/s\\
+ \hline
+ \textbf{5} & 11000 r/s\\ 
+ \hline
+ \textbf{10} & 14000 r/s\\ 
+ \hline
+\end{tabular}
+\end{center}
+
+Measurements after reaching a configurations maximum throughput gives very mixed results and should not be regarded. The figure clearly shows how the 5 node cluster configuration delivers bad response times between 10.000 and 14.000 requests per second, while reappearing in the graph after 14.000 requests per second. It would seem that the cluster configuration is able to recover from a constant flow of requests for a short period of time. In the end the, configuration does not manage to uphold the required response time at the high load.
+
+The CPU load for nodes in the different cluster configurations was exported from the default Kubernetes cluster monitoring tool Grafana, visualised below in Figure \ref{fig:implementation_effect_of_replication_cpu}. It is clearly visible on the graph that nodes in the 1 node cluster configuration are drastically more loaded, whereas nodes in 5 and 10 node configurations are less loaded across test runs.
+
+\begin{figure}[!htb]
+  \includegraphics[width=\textwidth]{implementation_effect_of_replication_cpu}  
+  \caption{CPU usage on individual nodes in different cluster configurations}
+  \label{fig:implementation_effect_of_replication_cpu}
+\end{figure}
+
+It has to be noted that several factors are contributing to the discrepancy between the different CPU data sets. The CPU data has a low sampling rate (the default sampling rate for CPU and network monitoring is 1 minute), and data was manually exported, making the collection sub optimal. As mentioned earlier, fail-overs of cluster configurations, due to reaching maximum throughput, extend the overall duration, creating variations in test runs duration. The exported data is therefore fitted, giving the most accurate representation.
+
+
+\subsubsection{Conclusion}
+
+
+
+\subsubsection{Limiting Factors}
+Many factors were found to affect the test results, which are important to consider when doing load testing. The test tool was hosted on a separate machine to minimize external factors and create 'distance' to the application under test: Several provisioning sizes were tried before choosing a VM instance with 8 CPUs, as this was the smallest machine capable of delivering the required maximum load of 20.000 requests per second. Choosing smaller VM instances decreased the reliability of the test tool due to exhaustion of the available processor power.
+
+Several testing tools were tried and tested, Vegeta made it possible to emit the required amount of requests simultaneously, other tools did not deliver in the same way for this test. Reflecting about which tool serves the purpose of the specific test best is advised. The different available open source tools are designed with different purposes in mind, having a tool not meeting expectations is a potent source for error, hiding in the test tool and therefore not the test application.
+
+The test tool makes it easy to initiate new test iterations, and gathers results for further review. Having an impression of the capacity for a given application makes it possible to quantify whether application services live up to the requirements, and not as the systems new bottleneck. Identifying the correct minimum and maximum load, as well as identifying expected performance can be a tedious task, immediate by the test tool, making it easy to try out different configurations. Hosting the test application in a cluster where limiting factors can be determined and changed by configuration makes it possible to evaluate the test application in different setups, identifying the optimal configuration.
+
+
+\note {
+
+\subsection{Distributed databases}
+
+}
+
+\note {
+Notes for:
+"GOTO 2012 • Introduction to NoSQL • Martin Fowler" \url{https://www.youtube.com/watch?v=qI_g07C_Q5I}:
+
+Column family:\\
+You want to store things that are retreived together should be stored together. 
+
+If are gonna distribute data, what you wanna do is you wanna distribute data that tends to be accessed together
+
+Aggregate tells you what data can be accessed together. Different aggregates on different nodes in the cluster. Aggregate orientation naturally fits very nicely with storing data on clusters.
+
+
+Changing aggregate structure is very costly. Usually hash maps is used
+
+Aggregate is an advantage if data is pushed back and forth using the same aggregate. Otherwise it is vary ineffective.
+
+Two types of databases:\\
+Aggregate-oriented:\\
+Document
+Column.family
+Key-value
+
+ACID:\\
+Graph
+\\
+
+Consistency is twofold:
+\textbf{Logical}
+
+
+\textbf{Replication}
+
+
+
+Distributing data, broadly you can talk about it in two ways:
+\textbf{Sharding}: data only lives in one place, spread out on several machines
+\textbf{Replicate data}: Same data in a lot of places. 
+Advantages for performance, several machines can handle same pool of requests.
+Resilience, if one node goes down, others have the same data and can handle requests.
+New class of consistency problems come in:
+
+Choice between consistency and availability.\\
+Consistency - my service is not always available, but always consistent.\\
+Availability- my service is always available, but might introduce inconsistency.\\
+It is always a domain/business choice, what is more important, availability or consistency.
+
+CAP theorem: - As soon as you have a distributed system
+If you get a network partition, do you want to be available, or consistent.
+It is a spectrum, it can vary between transactions.
+
+most of the time you are not trading of availability for consistency, not even network partitioning.\\
+A lot of the time it is consistency vs. response time, nodes needs to communicate, which takes times.\\
+more broadly it is safely and liveness.<- look into this? \\
+
+Have to think about consistency issues differently, essentially because you have a different data model and the possibility of replicated data. In particular you have to think about the availability consistency tradeoff, and the decisions should be based on domain/business.\\
+
+Too drivers towards noSQL:
+\textbf{Large amount of data}
+If you have more data, than fits on one server. Running relational database across clusters, is not good.\\
+There is tons of data coming, large scale data problem is only gonna grow. 
+
+\textbf{Easier development} - Most common reason why people change to noSQL right now (2012)
+Most people are actually not interested in big data.
+Most wants easier development, many works with aggregates of data, the 'impedance mismatch problem' can be reduced. Relational database model does not necessarily fit the domain.
+
+\textbf{Other drivers:}
+Integration issues goes away, because integration database is not a good thing. This gives a lot of freedom to choose new databases.
+
+Data warehouse projects, a lot of stakeholders, a lot of different data from different subsystems. noSQL databases can help in different ways, not all are equally good to solve these problems, but graph especially is very good.
+
+\textbf{Future brings:}
+Polyglot persistence. Many different databases, SQL still play a big role.Different natures of problems, different databases.
+
+A lot of problems. Which database is the best for this problem. 
+
+Tools and knowledge is not good enough for noSQL yet. Consistency issues can still cause a lot of problems.
+
+Rapid time to market, easy development is very important. Data intensity is very high. Is you project really important, strategic important, "Strategic project", it is worth taking on the extra risks the unknowns of dealing with immature technology. Utility project: Not vital to the business, choose a familiar for a few years.
+
+}
+
