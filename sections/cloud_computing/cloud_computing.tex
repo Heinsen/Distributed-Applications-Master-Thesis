@@ -132,7 +132,7 @@ Type 1 VMs have no host operating system below them and are running directly on 
 \begin{figure}[!htb]
 	\centering 
 		 \includegraphics[scale=0.2]{cloud_computing_definition_virtualization}  
-	  \caption{Hypervisor and container based deployment models, model lend from \cite{bernstein2014containers}}
+	  \caption{Hypervisor and container based deployment models \cite{bernstein2014containers}}
   \label{fig:cloud_computing_definition_virtualization}
 \end{figure}
 
@@ -166,7 +166,7 @@ Docker centralizes the application in the deployment phase. Reducing friction wh
 Docker provides the dockerfile abstraction, making it possible to automatically assemble containers. A key feature for enabling many of the cloud infrastructure advantages. The dockerfile is a simple file that contains instructions about which libraries and deployment specific actions that are needed for successfully starting the containerized application.
 
 \textbf{Versioning}\\
-By introducing versioning of containers, docker makes it possible to track changes, introducing the many advantages known from git\comment{Oveveje at specificer det}. Being able to see changes done to the container, control push of changes, introducing traceability all the way from development to production servers.
+By introducing versioning of containers, docker makes it possible to track changes, introducing the many advantages known from git. Being able to see changes done to the container, control push of changes, introducing traceability all the way from development to production servers.
 
 \textbf{Component Re-use}\\
 The docker images support component re-use, a dockerfile can be used as base image in other dockerfiles, providing a base for more specialized components.

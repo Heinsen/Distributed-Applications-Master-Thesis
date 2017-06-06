@@ -6,12 +6,13 @@
 Architecture has very different meanings in respect to software engineering. This chapter, however, will try to capture three of the more prominent architecture patterns distributed systems have been designed after the last 40 years: Monolithic, Service Oriented Architecture (SOA) and the newest addition Microservices. Each new iteration of dominant architecture pattern has been born from the previous, incorporating valuable lessons, trying to avoid pitfalls with earlier architectures. A recurring theme is increasing the granularity with which the system is partitioned, moving from Mono to Micro.
 
 The Oxford dictionary uses \textit{Conceptual Structure} and \textit{Logical Organization} in their definition of architecture in software development, giving a good idea of what architecture can introduce in software development:
- 
+\newpage
+
 \defi{Architecture (Oxford)}{The conceptual structure and logical organization of a computer or computer-based system}{\url{https://en.oxforddictionaries.com/definition/architecture}} 
  
 This gives some hints towards the fundamental aspects of architecture in a software engineering perspective. Architecture is indeed different sets of concepts, revolving around how we structure our software logically. Martin Fowler introduces his book \textit{Patterns of Enterprise Application Architectures} with the following statement about architecture \cite[p.~1]{fowler2002patterns}: "'Architecture' is a term that lots of people try to define, with little agreement. There are two common elements: One is the highest-level breakdown of a system into its parts; the other, decisions that are hard to change". According to Fowler, an architecture should break down a system into several parts, at the same time an architecture should take 'hard to change' decisions into account. 
 
-Michael Nygaard states the following about a specific architectural decision (in this case about decoupling middleware) \cite[p.~116]{nygard2007release}: \textit{"Decoupling Middleware is an architecture decision. It Ripples into every part of the system. This is one of those nearly irreversible decisions that should be made early rather than late"}, supporting the notion that architectural decisions are important due to the hard nature of reversing previous decisions.
+Nygard states the following about a specific architectural decision (in this case about decoupling middleware) \cite[p.~116]{nygard2007release}: \textit{"Decoupling Middleware is an architecture decision. It Ripples into every part of the system. This is one of those nearly irreversible decisions that should be made early rather than late"}, supporting the notion that architectural decisions are important due to the hard nature of reversing previous decisions.
 
 Many factors have influenced software architecture throughout time. Available languages, frameworks and tools have drastically changed they way in which software is developed today. Competition has also had its influence by setting new requirements to the speed of development, having short and agile release cycles has never been more important \cite[t.~06:55]{george2016it}. Containerization has made it possible to create isolated environments, supporting new development flows and possible architectures.
 
@@ -127,11 +128,11 @@ This is often paired with 'end-to-end' responsibility
 Services often have their own data store, decentralizing data management. Each service has the data that is relevant for that service, and no more. 
 
 \subsubsection*{Automation of Deployment}
-Microservices infer a lot of operational complexity, as there are many services to deploy and monitor. The use of infrastructure automation techniques is necessary, improving insight into the quality of newly developed software, and reducing the time it takes to move new features from development to production \cite{newman2015microservices}. This is often achieved with build pipelines known from Continuous Delivery (CD)\comment{Har vi defineret det her?}. A build pipeline is seen in figure \ref{fig:architecture_microservice_build_pipeline}.
+Microservices infer a lot of operational complexity, as there are many services to deploy and monitor. The use of infrastructure automation techniques is necessary, improving insight into the quality of newly developed software, and reducing the time it takes to move new features from development to production \cite{newman2015microservices}. This is often achieved with build pipelines known from CD. A build pipeline is seen in figure \ref{fig:architecture_microservice_build_pipeline}.
 
 \begin{figure}[!htb]
   \includegraphics[width=\textwidth]{architecture_microservice_build_pipeline}  
-  \caption{Build pipeline (lend from Sam Newmann)}
+  \caption{Build pipeline \cite{newman2015microservices}}
   \label{fig:architecture_microservice_build_pipeline}
 \end{figure}
 
