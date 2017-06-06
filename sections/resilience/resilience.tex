@@ -81,10 +81,6 @@ Capacity and redundancy can be used on a service basis, using capacity to denote
 \subsection{Robustness} 
 Robustness covers how quantifiable the system behaviour is in the face of disruption challenging system behaviour \cite[p. 10]{sterbenz2010resilience}. These disruptions are both internal and external \cite{omer2013resilience}. Robustness includes the system's ability to withstand disruptions rather than adapt to them, a robust system has been designed to withstand known uncertainties, maintain intended level of service and same form of functionality.
 
-\note {
-\comment{Kig på: "Evaluating robustness of cloud-based systems" Godt input til robustness}
-}
-
 \subsection{Fault Tolerance and Avoidance}
 Fault tolerance and avoidance is used to describe dependability of a system, from internal and external harm. Tolerance is making the system tolerable to the effects of faults. Avoidance meaning guarding a system against potential defects that could cause system failure \cite{strigini2012fault}.
 
@@ -92,8 +88,8 @@ Fault tolerance and avoidance is used to describe dependability of a system, fro
 \subsection{Recovery Time} 
 Recovery time is a measure for how long time period a system needs to resume fulfilling the stated requirements.
 
-\section{The Availability and Capacity and Redundancy Relationship}
-Dependability and adaptivity are inherent very linked which in turn means that the same is present for Availability and Capacity and Redundancy. If a adaptivity improving design is utilized the dependability of the system will increase. Improving capacity or introducing redundancy will increase the attainable throughput with which a service can deliver a satisfactory availability.
+\section{The Dependability and Adaptivity Relationship}
+Dependability and adaptivity are inherent very linked, this in turn means that the same is present for Availability and Capacity and Redundancy. If adaptivity is improved the dependability of the system will increase. Improving capacity or introducing redundancy will increase the attainable throughput with which a service can deliver a satisfactory availability.
 
 An example is shown in Figure \ref{fig:resilience_aggregate_avalability_example} where the loss of a single node reduces the capacity and therefore gives a suboptimal availability.
 
@@ -103,7 +99,7 @@ An example is shown in Figure \ref{fig:resilience_aggregate_avalability_example}
   \label{fig:resilience_aggregate_avalability_example}
 \end{figure}
 
-The availability in this example is calculated for a expected 300 requests per second, to uphold an availability of 1 a capacity of 300 request per second is required. Without any redundancy in place a single failing node means that the availability will be reduced, in turn reducing the systems resilience. 
+The availability in this example is calculated for a expected 300 requests per second, to uphold an availability of 1 a capacity of 300 request per second is required. Without any redundancy in place a single failing node means that the availability will be reduced, in turn reducing the systems resilience.
 
 There are several known patterns that help increase system resilience, and several antipatterns that are known to reduce a systems resilience. They will be described below to understand how resilience in a distributed system is improved.
 
@@ -191,3 +187,6 @@ A test harness is a supplement to traditional unit tests, acceptance test. The t
 Decoupling Middleware is the communication protocol used to communicate between dependent but decoupled services. Varying from same time, host and process to different time, host and process.
 
 Nygard describes how fundamental it is to the system design which form of communication is chosen, and how big consequences for the implementation changing this has. Choosing communication in a system is on an architecture level fundamentally changing the implementation of individual services within the system.
+
+\section{Summary}
+The relationship between 
